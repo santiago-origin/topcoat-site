@@ -4,127 +4,175 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Topcoat Media — More Jobs for Your Painting Business</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy: #1e3a5f;
-    --navy-dark: #152a45;
-    --navy-light: #2a4f7a;
-    --orange: #f97316;
-    --orange-hover: #fb923c;
-    --orange-dark: #ea580c;
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
     --white: #ffffff;
-    --off-white: #f8f9fa;
-    --gray-50: #f0f2f5;
-    --gray-100: #e5e7eb;
-    --gray-400: #9ca3af;
-    --gray-600: #4b5563;
-    --charcoal: #1a1a2e;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
   }
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Inter', -apple-system, sans-serif; color: var(--charcoal); background: var(--white); }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
   img { max-width: 100%; }
+  a { text-decoration: none; }
 
   /* Nav */
-  nav { background: var(--white); border-bottom: 1px solid var(--gray-100); padding: 16px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
-  .nav-inner { max-width: 1200px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
-  .logo { font-size: 22px; font-weight: 800; color: var(--navy); letter-spacing: -0.5px; }
-  .logo span { color: var(--orange); }
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--graphite); letter-spacing: -0.5px; text-transform: uppercase; }
+  .logo span { color: var(--terra); }
   .nav-links { display: flex; gap: 32px; align-items: center; }
-  .nav-links a { text-decoration: none; color: var(--gray-600); font-size: 14px; font-weight: 500; }
-  .nav-links a:hover { color: var(--navy); }
-  .btn { display: inline-block; padding: 12px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; text-decoration: none; cursor: pointer; border: none; transition: all 0.2s; }
-  .btn-primary { background: var(--orange); color: var(--white); }
-  .btn-primary:hover { background: var(--orange-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(249,115,22,0.3); }
-  .btn-outline { background: transparent; border: 2px solid var(--navy); color: var(--navy); }
-  .btn-outline:hover { background: var(--navy); color: var(--white); }
-  .btn-white { background: var(--white); color: var(--navy); }
-  .btn-white:hover { background: var(--gray-50); }
-  .btn-lg { padding: 16px 36px; font-size: 17px; border-radius: 10px; }
+  .nav-links a { color: var(--text); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terra); }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 14px 32px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+  .btn-outline { background: transparent; border-color: var(--graphite); color: var(--graphite); }
+  .btn-outline:hover { background: var(--graphite); color: var(--white); }
+  .btn-outline-white { background: transparent; border-color: var(--white); color: var(--white); }
+  .btn-outline-white:hover { background: var(--white); color: var(--graphite); }
+  .btn-white { background: var(--white); border-color: var(--white); color: var(--graphite); }
+  .btn-white:hover { background: var(--sand); border-color: var(--sand); }
 
   /* Hero */
-  .hero { background: linear-gradient(135deg, var(--navy) 0%, var(--navy-dark) 100%); padding: 160px 24px 100px; text-align: center; position: relative; overflow: hidden; }
-  .hero::before { content: ''; position: absolute; top: -50%; right: -20%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%); }
-  .hero::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 400px; height: 400px; background: radial-gradient(circle, rgba(249,115,22,0.05) 0%, transparent 70%); }
-  .hero-content { max-width: 800px; margin: 0 auto; position: relative; z-index: 1; }
-  .hero-badge { display: inline-block; background: rgba(249,115,22,0.15); color: var(--orange); padding: 6px 16px; border-radius: 20px; font-size: 13px; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.5px; }
-  .hero h1 { font-size: 52px; font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
-  .hero h1 span { color: var(--orange); }
-  .hero p { font-size: 20px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 36px; max-width: 600px; margin-left: auto; margin-right: auto; }
-  .hero-cta { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
-  .hero-stats { display: flex; gap: 48px; justify-content: center; margin-top: 64px; }
-  .hero-stat { text-align: center; }
-  .hero-stat-value { font-size: 36px; font-weight: 800; color: var(--orange); }
-  .hero-stat-label { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 4px; }
+  .hero { background: var(--graphite); padding: 160px 24px 100px; position: relative; }
+  .hero-inner { max-width: 1170px; margin: 0 auto; display: flex; align-items: center; gap: 80px; }
+  .hero-text { flex: 1; }
+  .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 900; color: var(--white); line-height: 1.05; margin-bottom: 24px; letter-spacing: -1px; }
+  .hero p { font-size: 18px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 40px; max-width: 520px; }
+  .hero-cta { display: flex; gap: 16px; flex-wrap: wrap; }
+  .hero-stats { flex: 0 0 320px; display: flex; flex-direction: column; gap: 0; }
+  .hero-stat { border: 2px solid rgba(255,255,255,0.15); padding: 28px 32px; }
+  .hero-stat:first-child { border-bottom: none; }
+  .hero-stat:last-child { border-top: none; }
+  .hero-stat-value { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: var(--terra); }
+  .hero-stat-label { font-size: 14px; color: rgba(255,255,255,0.45); margin-top: 4px; letter-spacing: 0.5px; }
+
+  /* Divider */
+  .divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 24px; }
+  .divider-center { margin-left: auto; margin-right: auto; }
 
   /* Section */
   section { padding: 96px 24px; }
-  .container { max-width: 1200px; margin: 0 auto; }
-  .section-label { font-size: 13px; font-weight: 700; color: var(--orange); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px; }
-  .section-title { font-size: 40px; font-weight: 800; color: var(--navy); line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.5px; }
-  .section-sub { font-size: 18px; color: var(--gray-600); max-width: 600px; line-height: 1.6; }
+  .container { max-width: 1170px; margin: 0 auto; }
+  .section-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 38px; font-weight: 800; color: var(--graphite); line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .section-sub { font-size: 17px; color: var(--text-light); max-width: 560px; line-height: 1.7; }
   .text-center { text-align: center; }
   .text-center .section-sub { margin: 0 auto; }
+  .text-center .divider { margin-left: auto; margin-right: auto; }
 
   /* Problem */
-  .problem { background: var(--gray-50); }
-  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-  .problem-card { background: var(--white); border: 1px solid var(--gray-100); border-radius: 12px; padding: 32px; }
-  .problem-icon { width: 48px; height: 48px; background: rgba(249,115,22,0.1); border-radius: 10px; display: flex; align-items: center; justify-content: center; margin-bottom: 16px; font-size: 24px; }
-  .problem-card h3 { font-size: 18px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-  .problem-card p { font-size: 15px; color: var(--gray-600); line-height: 1.6; }
+  .problem { background: var(--sand-light); }
+  .problem-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 48px; margin-bottom: 56px; }
+  .problem-header-text { max-width: 560px; }
+  .problem-header-cta { padding-top: 32px; flex-shrink: 0; }
+  .problem-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; }
+  .problem-card { border: 2px solid var(--border); padding: 40px 32px; border-right: none; }
+  .problem-card:last-child { border-right: 2px solid var(--border); }
+  .problem-num { font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 900; color: var(--sand); -webkit-text-stroke: 1.5px var(--border); margin-bottom: 20px; line-height: 1; }
+  .problem-card h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: var(--graphite); margin-bottom: 12px; }
+  .problem-card p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
 
   /* How it works */
-  .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 48px; }
-  .step { text-align: center; padding: 32px; }
-  .step-num { width: 56px; height: 56px; background: var(--navy); color: var(--white); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 800; margin: 0 auto 20px; }
-  .step h3 { font-size: 20px; font-weight: 700; color: var(--navy); margin-bottom: 8px; }
-  .step p { font-size: 15px; color: var(--gray-600); line-height: 1.6; }
-  .step-arrow { display: flex; align-items: center; justify-content: center; font-size: 24px; color: var(--gray-400); }
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 48px; margin-top: 56px; }
+  .step { position: relative; }
+  .step-num { font-family: 'Montserrat', sans-serif; font-size: 64px; font-weight: 900; color: var(--sand); line-height: 1; margin-bottom: 20px; }
+  .step-line { width: 40px; height: 3px; background: var(--terra); margin-bottom: 20px; }
+  .step h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: var(--graphite); margin-bottom: 12px; }
+  .step p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
 
   /* Services */
-  .services { background: var(--navy); color: var(--white); }
+  .services { background: var(--graphite); color: var(--white); }
   .services .section-title { color: var(--white); }
-  .services .section-sub { color: rgba(255,255,255,0.6); }
-  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 48px; }
-  .service-card { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 32px; transition: all 0.2s; }
-  .service-card:hover { background: rgba(255,255,255,0.08); border-color: var(--orange); }
-  .service-card h3 { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
-  .service-card h3 span { color: var(--orange); }
-  .service-card p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.6; }
-  .service-card ul { list-style: none; margin-top: 12px; }
-  .service-card li { font-size: 14px; color: rgba(255,255,255,0.7); padding: 4px 0; }
-  .service-card li::before { content: '✓'; color: var(--orange); margin-right: 8px; font-weight: 700; }
+  .services .section-sub { color: rgba(255,255,255,0.5); }
+  .services .divider { background: var(--terra); }
+  .service-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin-top: 56px; }
+  .service-card { border: 1px solid rgba(255,255,255,0.12); padding: 40px 36px; }
+  .service-num { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--terra); letter-spacing: 2px; margin-bottom: 16px; }
+  .service-card h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--white); }
+  .service-card p { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 20px; }
+  .service-list { list-style: none; }
+  .service-list li { font-size: 14px; color: rgba(255,255,255,0.6); padding: 6px 0; padding-left: 20px; position: relative; }
+  .service-list li::before { content: ''; position: absolute; left: 0; top: 13px; width: 8px; height: 2px; background: var(--terra); }
+
+  /* Comparison */
+  .comparison { background: var(--sand-light); }
+  .comparison-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 56px; max-width: 900px; margin-left: auto; margin-right: auto; }
+  .comparison-col { padding: 40px; }
+  .comparison-col:first-child { background: var(--white); border: 2px solid var(--border); }
+  .comparison-col:last-child { background: var(--graphite); border: 2px solid var(--graphite); }
+  .comparison-heading { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 28px; padding-bottom: 16px; border-bottom: 3px solid var(--terra); display: inline-block; }
+  .comparison-col:first-child .comparison-heading { color: var(--text-light); }
+  .comparison-col:last-child .comparison-heading { color: var(--white); }
+  .comparison-item { font-size: 15px; padding: 10px 0; padding-left: 28px; position: relative; line-height: 1.5; }
+  .comparison-col:first-child .comparison-item { color: var(--text-light); }
+  .comparison-col:last-child .comparison-item { color: rgba(255,255,255,0.7); }
+  .comparison-item::before { position: absolute; left: 0; top: 10px; font-weight: 700; font-size: 14px; }
+  .comparison-col:first-child .comparison-item::before { content: '\2715'; color: var(--terra); }
+  .comparison-col:last-child .comparison-item::before { content: '\2713'; color: var(--terra); }
+
+  /* Results */
+  .results-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 56px; }
+  .result-card { border: 2px solid var(--border); border-right: none; padding: 40px 24px; text-align: center; }
+  .result-card:last-child { border-right: 2px solid var(--border); }
+  .result-value { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 900; color: var(--terra); line-height: 1; }
+  .result-label { font-size: 14px; color: var(--text-light); margin-top: 8px; line-height: 1.4; }
 
   /* Testimonials */
-  .testimonials { background: var(--gray-50); }
-  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
-  .testimonial { background: var(--white); border: 1px solid var(--gray-100); border-radius: 12px; padding: 32px; }
-  .testimonial-stars { color: #eab308; font-size: 18px; margin-bottom: 12px; }
-  .testimonial p { font-size: 15px; color: var(--gray-600); line-height: 1.6; font-style: italic; margin-bottom: 16px; }
-  .testimonial-author { font-size: 14px; font-weight: 600; color: var(--navy); }
-  .testimonial-role { font-size: 13px; color: var(--gray-400); }
+  .testimonials { background: var(--sand-light); }
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 56px; }
+  .testimonial { border: 2px solid var(--border); border-right: none; padding: 40px 32px; background: var(--white); }
+  .testimonial:last-child { border-right: 2px solid var(--border); }
+  .testimonial-quote { font-size: 15px; color: var(--text); line-height: 1.7; font-style: italic; margin-bottom: 24px; }
+  .testimonial-line { width: 32px; height: 3px; background: var(--terra); margin-bottom: 16px; }
+  .testimonial-author { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--graphite); }
+  .testimonial-role { font-size: 13px; color: var(--text-light); margin-top: 2px; }
 
   /* CTA */
-  .cta { background: linear-gradient(135deg, var(--orange) 0%, var(--orange-dark) 100%); text-align: center; padding: 80px 24px; }
-  .cta h2 { font-size: 40px; font-weight: 800; color: var(--white); margin-bottom: 16px; letter-spacing: -0.5px; }
-  .cta p { font-size: 18px; color: rgba(255,255,255,0.85); margin-bottom: 32px; max-width: 500px; margin-left: auto; margin-right: auto; }
+  .cta { background: var(--graphite); text-align: center; padding: 96px 24px; }
+  .cta h2 { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 900; color: var(--white); margin-bottom: 16px; letter-spacing: -0.5px; }
+  .cta p { font-size: 17px; color: rgba(255,255,255,0.5); margin-bottom: 40px; max-width: 480px; margin-left: auto; margin-right: auto; line-height: 1.7; }
+  .cta-buttons { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
 
   /* Footer */
-  footer { background: var(--navy-dark); padding: 48px 24px; text-align: center; }
-  footer .logo { color: var(--white); margin-bottom: 12px; display: inline-block; }
-  footer p { font-size: 13px; color: rgba(255,255,255,0.35); }
+  footer { background: var(--warm-black); padding: 48px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-left .logo { color: var(--white); margin-bottom: 0; display: inline-block; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
 
   /* Responsive */
   @media (max-width: 768px) {
+    .hero { padding: 140px 24px 80px; }
+    .hero-inner { flex-direction: column; gap: 48px; }
     .hero h1 { font-size: 32px; }
-    .hero p { font-size: 17px; }
-    .hero-stats { gap: 24px; flex-wrap: wrap; }
-    .problem-grid, .steps, .service-grid, .testimonial-grid { grid-template-columns: 1fr; }
+    .hero-stats { flex: auto; width: 100%; }
+    .problem-header { flex-direction: column; gap: 24px; }
+    .problem-grid, .steps-grid, .service-grid, .testimonial-grid { grid-template-columns: 1fr; }
+    .problem-card, .result-card, .testimonial { border-right: 2px solid var(--border); border-bottom: none; }
+    .problem-card:last-child, .result-card:last-child, .testimonial:last-child { border-bottom: 2px solid var(--border); }
+    .comparison-grid { grid-template-columns: 1fr; }
+    .results-grid { grid-template-columns: repeat(2, 1fr); }
+    .results-grid .result-card:nth-child(2) { border-right: 2px solid var(--border); }
+    .results-grid .result-card:nth-child(1), .results-grid .result-card:nth-child(2) { border-bottom: none; }
     .section-title { font-size: 28px; }
     .nav-links a:not(.btn) { display: none; }
-    .step-arrow { display: none; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+    .cta h2 { font-size: 28px; }
   }
 </style>
 </head>
@@ -133,34 +181,36 @@
 <!-- Nav -->
 <nav>
   <div class="nav-inner">
-    <div class="logo">topcoat<span>media</span></div>
+    <div class="logo">Topcoat <span>Media</span></div>
     <div class="nav-links">
       <a href="#how">How It Works</a>
       <a href="#services">Services</a>
       <a href="#results">Results</a>
-      <a href="#cta" class="btn btn-primary">Get More Jobs</a>
+      <a href="#cta" class="btn btn-primary">Get Started</a>
     </div>
   </div>
 </nav>
 
 <!-- Hero -->
 <section class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">FOR RESIDENTIAL PAINTING COMPANIES</div>
-    <h1>Stop Waiting for Referrals. <span>Start Filling Your Calendar.</span></h1>
-    <p>We bring painting contractors 15-30 qualified leads per month through targeted ads and proven follow-up systems — so you can focus on painting, not chasing work.</p>
-    <div class="hero-cta">
-      <a href="#cta" class="btn btn-primary btn-lg">Book a Free Strategy Call</a>
-      <a href="#how" class="btn btn-white btn-lg">See How It Works</a>
+  <div class="hero-inner">
+    <div class="hero-text">
+      <div class="hero-label">Marketing for Painting Companies</div>
+      <h1>Stop Waiting for Referrals. Start Filling Your Calendar.</h1>
+      <p>We bring painting contractors 15-30 qualified leads per month through targeted ads and proven follow-up systems. You focus on painting. We fill your pipeline.</p>
+      <div class="hero-cta">
+        <a href="#cta" class="btn btn-primary">Book a Strategy Call</a>
+        <a href="#how" class="btn btn-outline-white">See How It Works</a>
+      </div>
     </div>
     <div class="hero-stats">
       <div class="hero-stat">
         <div class="hero-stat-value">15-30</div>
-        <div class="hero-stat-label">Leads per month</div>
+        <div class="hero-stat-label">Qualified leads per month</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-value">$3K-8K</div>
-        <div class="hero-stat-label">Avg job value</div>
+        <div class="hero-stat-label">Average job value</div>
       </div>
       <div class="hero-stat">
         <div class="hero-stat-value">5-10x</div>
@@ -172,25 +222,33 @@
 
 <!-- Problem -->
 <section class="problem">
-  <div class="container text-center">
-    <div class="section-label">The Problem</div>
-    <h2 class="section-title">Great Painters Shouldn't Have Slow Months</h2>
-    <p class="section-sub">You're great at what you do. But if your phone isn't ringing, none of that matters.</p>
+  <div class="container">
+    <div class="problem-header">
+      <div class="problem-header-text">
+        <div class="divider"></div>
+        <div class="section-label">The Problem</div>
+        <h2 class="section-title">Great Painters Shouldn't Have Slow Months</h2>
+        <p class="section-sub">You do quality work. But if your phone isn't ringing, none of that matters.</p>
+      </div>
+      <div class="problem-header-cta">
+        <a href="#cta" class="btn btn-outline">Let's Fix That</a>
+      </div>
+    </div>
     <div class="problem-grid">
       <div class="problem-card">
-        <div class="problem-icon">📞</div>
-        <h3>Waiting on Referrals</h3>
-        <p>Word of mouth is great — until it dries up. One slow month can throw off your whole quarter. You need a consistent flow of leads you can count on.</p>
+        <div class="problem-num">01</div>
+        <h3>Inconsistent Referrals</h3>
+        <p>Word of mouth is unpredictable. One slow month throws off your whole quarter. You need a pipeline you can count on, not hope.</p>
       </div>
       <div class="problem-card">
-        <div class="problem-icon">💸</div>
+        <div class="problem-num">02</div>
         <h3>Wasted Ad Spend</h3>
-        <p>You tried boosting a Facebook post or running Google Ads yourself. Got clicks, maybe some likes — but no actual jobs booked. Sound familiar?</p>
+        <p>You boosted a Facebook post or tried Google Ads. Got clicks and likes but zero jobs booked. The money disappeared with nothing to show for it.</p>
       </div>
       <div class="problem-card">
-        <div class="problem-icon">⏰</div>
-        <h3>No Time to Follow Up</h3>
-        <p>Leads come in but you're on a job site. By the time you call back, they already hired someone else. Speed matters — and you don't have a system for it.</p>
+        <div class="problem-num">03</div>
+        <h3>Leads Going Cold</h3>
+        <p>Leads come in but you're on a job site. By the time you call back, they hired someone else. Speed kills in this business and you don't have a system.</p>
       </div>
     </div>
   </div>
@@ -198,25 +256,57 @@
 
 <!-- How It Works -->
 <section id="how">
-  <div class="container text-center">
+  <div class="container">
+    <div class="divider"></div>
     <div class="section-label">How It Works</div>
     <h2 class="section-title">Three Steps to a Full Schedule</h2>
-    <p class="section-sub">We handle everything — from the ads to the follow-up. You just show up and give estimates.</p>
-    <div class="steps">
+    <p class="section-sub">We handle the marketing and follow-up. You show up and close.</p>
+    <div class="steps-grid">
       <div class="step">
-        <div class="step-num">1</div>
-        <h3>We Run Targeted Ads</h3>
-        <p>Facebook and Instagram ads targeting homeowners in your service area who need painting work done. No generic ads — hyper-local, proven creatives.</p>
+        <div class="step-num">01</div>
+        <div class="step-line"></div>
+        <h3>Targeted Ads</h3>
+        <p>Facebook and Instagram campaigns targeting homeowners in your service area who need painting work. Hyper-local, tested creatives that convert.</p>
       </div>
       <div class="step">
-        <div class="step-num">2</div>
-        <h3>Leads Go Into Your Pipeline</h3>
-        <p>Every lead fills out a form with their name, phone, address, and project details. They land in your CRM instantly — no spreadsheets, no chaos.</p>
+        <div class="step-num">02</div>
+        <div class="step-line"></div>
+        <h3>Instant Follow-Up</h3>
+        <p>Every lead gets a text and call within 60 seconds. Automated sequences handle follow-up so no lead sits untouched. They land in your CRM instantly.</p>
       </div>
       <div class="step">
-        <div class="step-num">3</div>
-        <h3>We Follow Up For You</h3>
-        <p>Automated texts and calls go out within 60 seconds. Our team books the estimate on your calendar. You just show up, quote, and close.</p>
+        <div class="step-num">03</div>
+        <div class="step-line"></div>
+        <h3>Booked Estimates</h3>
+        <p>Our system books the appointment directly on your calendar. You show up, give the estimate, and close the deal. That's it.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Comparison -->
+<section class="comparison">
+  <div class="container text-center">
+    <div class="divider divider-center"></div>
+    <div class="section-label">Why Us</div>
+    <h2 class="section-title">Marketing That Actually Works</h2>
+    <p class="section-sub">What you've been doing vs. what we do differently.</p>
+    <div class="comparison-grid">
+      <div class="comparison-col">
+        <div class="comparison-heading">Without Topcoat</div>
+        <div class="comparison-item">Relying on word of mouth and hoping the phone rings</div>
+        <div class="comparison-item">Wasting money on ads that don't generate real leads</div>
+        <div class="comparison-item">Losing leads because you can't call back fast enough</div>
+        <div class="comparison-item">No system to track where your jobs come from</div>
+        <div class="comparison-item">Feast or famine every month</div>
+      </div>
+      <div class="comparison-col">
+        <div class="comparison-heading">With Topcoat</div>
+        <div class="comparison-item">15-30 qualified leads delivered to your phone monthly</div>
+        <div class="comparison-item">Every dollar tracked with clear ROI reporting</div>
+        <div class="comparison-item">Leads contacted within 60 seconds automatically</div>
+        <div class="comparison-item">Full CRM with pipeline, statuses, and revenue tracking</div>
+        <div class="comparison-item">Predictable growth you can plan around</div>
       </div>
     </div>
   </div>
@@ -224,46 +314,51 @@
 
 <!-- Services -->
 <section class="services" id="services">
-  <div class="container text-center">
+  <div class="container">
+    <div class="divider"></div>
     <div class="section-label">What You Get</div>
     <h2 class="section-title">Everything to Keep Your Crews Busy</h2>
     <p class="section-sub">No contracts. No fluff. Just leads and booked estimates.</p>
     <div class="service-grid">
       <div class="service-card">
-        <h3><span>01.</span> Facebook & Instagram Ads</h3>
-        <p>Targeted ad campaigns that reach homeowners actively looking for painters in your area.</p>
-        <ul>
-          <li>Custom ad creatives (before/after, video, carousel)</li>
+        <div class="service-num">01</div>
+        <h3>Facebook & Instagram Ads</h3>
+        <p>Campaigns built for painting contractors. We target homeowners, not browsers.</p>
+        <ul class="service-list">
+          <li>Custom ad creatives — before/after, video, carousel</li>
           <li>Geo-targeted to your service radius</li>
           <li>A/B tested for maximum lead volume</li>
           <li>Monthly reporting on every dollar spent</li>
         </ul>
       </div>
       <div class="service-card">
-        <h3><span>02.</span> Lead Follow-Up System</h3>
-        <p>Leads go cold in minutes. Our system reaches out before they can call your competitor.</p>
-        <ul>
-          <li>Instant text + call within 60 seconds</li>
-          <li>Automated follow-up sequences (5-7 touches)</li>
-          <li>Appointment booking directly on your calendar</li>
+        <div class="service-num">02</div>
+        <h3>Lead Follow-Up System</h3>
+        <p>Leads go cold in minutes. Our system reaches out before they call your competitor.</p>
+        <ul class="service-list">
+          <li>Instant text and call within 60 seconds</li>
+          <li>Automated follow-up sequences — 5 to 7 touches</li>
+          <li>Appointment booking on your calendar</li>
           <li>Missed-lead recovery campaigns</li>
         </ul>
       </div>
       <div class="service-card">
-        <h3><span>03.</span> High-Converting Funnel</h3>
-        <p>A landing page built to turn clicks into booked estimates — not just "contact us" forms.</p>
-        <ul>
-          <li>Mobile-first design (80% of leads come from phones)</li>
-          <li>Social proof: reviews, before/after gallery</li>
+        <div class="service-num">03</div>
+        <h3>High-Converting Funnel</h3>
+        <p>A landing page built to turn ad clicks into booked estimates, not "contact us" forms.</p>
+        <ul class="service-list">
+          <li>Mobile-first — 80% of leads come from phones</li>
+          <li>Social proof with reviews and project gallery</li>
           <li>Click-to-call and instant form submission</li>
           <li>Conversion rate optimized monthly</li>
         </ul>
       </div>
       <div class="service-card">
-        <h3><span>04.</span> CRM & Pipeline Management</h3>
-        <p>See every lead, every status, every dollar — all in one place. No more sticky notes.</p>
-        <ul>
-          <li>Lead status tracking (new, contacted, quoted, won/lost)</li>
+        <div class="service-num">04</div>
+        <h3>CRM & Pipeline</h3>
+        <p>Every lead, every status, every dollar — all in one place. No more sticky notes.</p>
+        <ul class="service-list">
+          <li>Lead tracking — new, contacted, quoted, won, lost</li>
           <li>Automated reminders for follow-ups</li>
           <li>Revenue tracking per campaign</li>
           <li>Mobile app — manage from the job site</li>
@@ -273,28 +368,56 @@
   </div>
 </section>
 
-<!-- Testimonials -->
-<section class="testimonials" id="results">
+<!-- Results -->
+<section id="results">
   <div class="container text-center">
+    <div class="divider divider-center"></div>
     <div class="section-label">Results</div>
+    <h2 class="section-title">Numbers That Matter</h2>
+    <p class="section-sub">What our clients see in their first 90 days.</p>
+    <div class="results-grid">
+      <div class="result-card">
+        <div class="result-value">15-30</div>
+        <div class="result-label">Leads per month</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">40%</div>
+        <div class="result-label">Average close rate</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">60s</div>
+        <div class="result-label">Lead response time</div>
+      </div>
+      <div class="result-card">
+        <div class="result-value">5-10x</div>
+        <div class="result-label">Return on ad spend</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials -->
+<section class="testimonials">
+  <div class="container text-center">
+    <div class="divider divider-center"></div>
+    <div class="section-label">From Our Clients</div>
     <h2 class="section-title">Painters Who Stopped Guessing</h2>
-    <p class="section-sub">Real results from real painting businesses.</p>
     <div class="testimonial-grid">
       <div class="testimonial">
-        <div class="testimonial-stars">★★★★★</div>
-        <p>"We went from 3-4 jobs a month to 12+. I had to hire two more guys just to keep up. Best money I've ever spent on marketing."</p>
+        <p class="testimonial-quote">"We went from 3-4 jobs a month to 12+. I had to hire two more guys just to keep up. Best money I've ever spent on marketing."</p>
+        <div class="testimonial-line"></div>
         <div class="testimonial-author">Carlos M.</div>
         <div class="testimonial-role">CM Painting — Houston, TX</div>
       </div>
       <div class="testimonial">
-        <div class="testimonial-stars">★★★★★</div>
-        <p>"I used to spend hours on Thumbtack and Angi fighting for jobs. Now leads come straight to my phone. I close 40% of them."</p>
+        <p class="testimonial-quote">"I used to spend hours on Thumbtack fighting for jobs. Now leads come straight to my phone and I close 40% of them."</p>
+        <div class="testimonial-line"></div>
         <div class="testimonial-author">David R.</div>
         <div class="testimonial-role">Precision Painting — Phoenix, AZ</div>
       </div>
       <div class="testimonial">
-        <div class="testimonial-stars">★★★★★</div>
-        <p>"The follow-up system is a game changer. I was losing leads because I couldn't call back fast enough. Now it's automatic."</p>
+        <p class="testimonial-quote">"The follow-up system changed everything. I was losing leads because I couldn't call back fast enough. Now it's automatic."</p>
+        <div class="testimonial-line"></div>
         <div class="testimonial-author">Miguel S.</div>
         <div class="testimonial-role">Fresh Start Painters — Miami, FL</div>
       </div>
@@ -305,17 +428,27 @@
 <!-- CTA -->
 <section class="cta" id="cta">
   <div class="container">
+    <div class="divider divider-center"></div>
     <h2>Ready to Fill Your Calendar?</h2>
-    <p>Book a free 15-minute strategy call. We'll show you exactly how we'd get you 15-30 leads in your first month.</p>
-    <a href="#" class="btn btn-white btn-lg">Book Your Free Call</a>
+    <p>Book a free 15-minute strategy call. We'll show you exactly how we'd generate 15-30 leads in your first month.</p>
+    <div class="cta-buttons">
+      <a href="#" class="btn btn-primary">Book Your Free Call</a>
+      <a href="#results" class="btn btn-outline-white">See Results First</a>
+    </div>
   </div>
 </section>
 
 <!-- Footer -->
 <footer>
-  <div class="logo">topcoat<span>media</span></div>
-  <p style="margin-top: 12px;">&copy; 2026 Topcoat Media. All rights reserved.</p>
-  <p style="margin-top: 8px;">A division of The Origin Agency LLC</p>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <div class="logo">Topcoat <span>Media</span></div>
+    </div>
+    <div class="footer-right">
+      <p>&copy; 2026 Topcoat Media. All rights reserved.</p>
+      <p style="margin-top: 4px;">A division of The Origin Agency LLC</p>
+    </div>
+  </div>
 </footer>
 
 </body>
