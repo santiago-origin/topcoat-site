@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book Your Free Strategy Call — Topcoat Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { color: var(--text); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terra); }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 14px 32px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 160px 24px 80px; text-align: center; }
+  .hero-inner { max-width: 720px; margin: 0 auto; }
+  .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 24px; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 44px; font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 20px; letter-spacing: -1px; }
+  .hero p { font-size: 18px; color: rgba(255,255,255,0.55); line-height: 1.7; max-width: 540px; margin: 0 auto; }
+
+  /* Divider */
+  .divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 24px; }
+  .divider-center { margin-left: auto; margin-right: auto; }
+
+  /* Form Section */
+  .form-section { padding: 80px 24px 96px; background: var(--sand-light); }
+  .form-container { max-width: 640px; margin: 0 auto; }
+  .form-header { margin-bottom: 48px; }
+  .section-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 800; color: var(--graphite); line-height: 1.1; margin-bottom: 12px; letter-spacing: -0.5px; }
+  .section-sub { font-size: 16px; color: var(--text-light); line-height: 1.7; }
+
+  /* Form */
+  .contact-form { background: var(--white); border: 2px solid var(--border); padding: 48px 40px; }
+  .form-group { margin-bottom: 24px; }
+  .form-group label { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--graphite); margin-bottom: 8px; }
+  .form-group label .required { color: var(--terra); margin-left: 2px; }
+  .form-group input,
+  .form-group textarea { width: 100%; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 15px; color: var(--text); background: var(--sand-light); border: 2px solid var(--border); outline: none; transition: border-color 0.2s; }
+  .form-group input:focus,
+  .form-group textarea:focus { border-color: var(--terra); }
+  .form-group input::placeholder,
+  .form-group textarea::placeholder { color: var(--stone); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+
+  /* Checkbox */
+  .consent-group { margin-bottom: 20px; }
+  .consent-label { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; }
+  .consent-label input[type="checkbox"] { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--terra); cursor: pointer; }
+  .consent-text { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .consent-links { font-size: 12px; color: var(--text-light); margin-top: 8px; padding-left: 32px; }
+  .consent-links a { color: var(--terra); text-decoration: underline; }
+  .consent-links a:hover { color: var(--terra-dark); }
+
+  /* Submit */
+  .form-submit { margin-top: 32px; }
+  .form-submit .btn { width: 100%; text-align: center; border: none; padding: 16px 32px; font-size: 14px; }
+
+  /* Thank You */
+  .thank-you { display: none; background: var(--white); border: 2px solid var(--border); padding: 64px 40px; text-align: center; }
+  .thank-you-icon { width: 56px; height: 56px; border: 3px solid var(--terra); display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; }
+  .thank-you-icon svg { width: 28px; height: 28px; stroke: var(--terra); stroke-width: 3; fill: none; }
+  .thank-you h3 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--graphite); margin-bottom: 12px; }
+  .thank-you p { font-size: 16px; color: var(--text-light); line-height: 1.7; max-width: 400px; margin: 0 auto; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 48px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-links { margin-top: 8px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+  .footer-links a:hover { color: rgba(255,255,255,0.7); }
+  .footer-links span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 140px 24px 64px; }
+    .hero h1 { font-size: 30px; }
+    .form-section { padding: 56px 24px 72px; }
+    .contact-form { padding: 32px 24px; }
+    .thank-you { padding: 48px 24px; }
+    .form-row { grid-template-columns: 1fr; gap: 24px; }
+    .section-title { font-size: 26px; }
+    .nav-links a:not(.btn) { display: none; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html"><img src="logo-light.png" alt="Topcoat Media" style="height: 30px;"></a>
+    <div class="nav-links">
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#results">Results</a>
+      <a href="#form" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Let's Talk</div>
+    <h1>Book Your Free Strategy Call</h1>
+    <p>Find out exactly how we generate 15-30 qualified painting leads per month for contractors like you. No commitment, no pressure.</p>
+  </div>
+</section>
+
+<!-- Form -->
+<section class="form-section" id="form">
+  <div class="form-container">
+    <div class="form-header">
+      <div class="divider"></div>
+      <div class="section-label">Contact Us</div>
+      <h2 class="section-title">Tell Us About Your Business</h2>
+      <p class="section-sub">Fill out the form below and we'll reach out within 24 hours to schedule your free strategy call.</p>
+    </div>
+
+    <form id="contactForm" class="contact-form" action="#" method="POST" novalidate>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="fullName">Full Name <span class="required">*</span></label>
+          <input type="text" id="fullName" name="full_name" placeholder="John Smith" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email <span class="required">*</span></label>
+          <input type="email" id="email" name="email" placeholder="john@company.com" required>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="phone">Phone Number <span class="required">*</span></label>
+          <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" required>
+        </div>
+        <div class="form-group">
+          <label for="company">Company Name</label>
+          <input type="text" id="company" name="company" placeholder="Your Painting Co.">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell us about your business, your goals, or any questions you have."></textarea>
+      </div>
+
+      <div class="consent-group">
+        <label class="consent-label">
+          <input type="checkbox" id="smsConsent" name="sms_consent" required>
+          <span class="consent-text">By checking this box and providing your phone number, you consent to receive text messages from Top Coat Media regarding our marketing services, appointment reminders, and follow-ups. Message frequency varies. Msg &amp; Data rates may apply. Reply STOP to unsubscribe, HELP for help.</span>
+        </label>
+        <div class="consent-links">
+          <a href="/privacy-policy">Privacy Policy</a>
+          <span>|</span>
+          <a href="/tos">Terms of Service</a>
+        </div>
+      </div>
+
+      <div class="form-submit">
+        <button type="submit" class="btn btn-primary">Submit &mdash; Book My Free Call</button>
+      </div>
+    </form>
+
+    <div class="thank-you" id="thankYou">
+      <div class="thank-you-icon">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <h3>Thank You</h3>
+      <p>We'll be in touch within 24 hours to schedule your free strategy call.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p>&copy; 2026 Topcoat Media. All rights reserved.</p>
+      <p style="margin-top: 4px;">A division of The Origin Agency LLC</p>
+      <div class="footer-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <span>|</span>
+        <a href="/tos">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  document.getElementById('contactForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    var form = this;
+    var name = document.getElementById('fullName');
+    var email = document.getElementById('email');
+    var phone = document.getElementById('phone');
+    var consent = document.getElementById('smsConsent');
+
+    // Validate required fields
+    if (!name.value.trim()) {
+      alert('Please enter your full name.');
+      name.focus();
+      return;
+    }
+
+    if (!email.value.trim() || !email.validity.valid) {
+      alert('Please enter a valid email address.');
+      email.focus();
+      return;
+    }
+
+    if (!phone.value.trim()) {
+      alert('Please enter your phone number.');
+      phone.focus();
+      return;
+    }
+
+    if (!consent.checked) {
+      alert('Please check the SMS consent box to continue. We need your permission to contact you via text message.');
+      consent.focus();
+      return;
+    }
+
+    // Hide form and show thank you message
+    form.style.display = 'none';
+    document.getElementById('thankYou').style.display = 'block';
+
+    // Scroll to thank you message
+    document.getElementById('thankYou').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+</script>
+
+</body>
+</html>

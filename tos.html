@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service — Top Coat Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { color: var(--text); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terra); }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 14px 32px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 160px 24px 80px; text-align: center; }
+  .hero-inner { max-width: 800px; margin: 0 auto; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero p { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* Content */
+  .tos-content { padding: 80px 24px; }
+  .tos-inner { max-width: 800px; margin: 0 auto; }
+  .tos-section { margin-bottom: 48px; }
+  .tos-section:last-child { margin-bottom: 0; }
+  .tos-section h2 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 700; color: var(--graphite); margin-bottom: 16px; letter-spacing: -0.3px; }
+  .tos-section p { font-size: 16px; color: var(--text); line-height: 1.8; margin-bottom: 12px; }
+  .tos-section p:last-child { margin-bottom: 0; }
+  .tos-section ul { list-style: none; margin: 12px 0; padding: 0; }
+  .tos-section ul li { font-size: 16px; color: var(--text); line-height: 1.8; padding: 4px 0 4px 24px; position: relative; }
+  .tos-section ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 10px; height: 2px; background: var(--terra); }
+  .tos-section a { color: var(--terra); font-weight: 700; transition: color 0.2s; }
+  .tos-section a:hover { color: var(--terra-dark); }
+  .tos-divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 48px; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 48px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { display: flex; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-links { margin-top: 8px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--terra); }
+  .footer-links span { color: rgba(255,255,255,0.2); margin: 0 8px; }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 140px 24px 60px; }
+    .hero h1 { font-size: 30px; }
+    .tos-content { padding: 56px 24px; }
+    .tos-section h2 { font-size: 19px; }
+    .nav-links a:not(.btn) { display: none; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html"><img src="logo-light.png" alt="Topcoat Media" style="height: 30px;"></a>
+    <div class="nav-links">
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#results">Results</a>
+      <a href="/contact-form" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Terms of Service</h1>
+    <p>Last updated: March 11, 2026</p>
+  </div>
+</section>
+
+<!-- Terms Content -->
+<section class="tos-content">
+  <div class="tos-inner">
+    <div class="tos-divider"></div>
+
+    <div class="tos-section">
+      <h2>Acceptance of Terms</h2>
+      <p>By accessing topcoatmedia.com or using our services, you agree to these Terms of Service.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>Services</h2>
+      <p>Top Coat Media, a division of The Origin Agency LLC, provides digital marketing services for painting contractors, including lead generation, advertising management, CRM setup, and related services.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>SMS/Text Messaging Terms</h2>
+      <ul>
+        <li>By opting in via our contact form, you consent to receive text messages from Top Coat Media</li>
+        <li>Message types include: appointment confirmations, service reminders, marketing follow-ups, and promotional offers related to our services</li>
+        <li>Message frequency varies depending on your interaction with our services</li>
+        <li>Message and data rates may apply depending on your mobile carrier and plan</li>
+        <li>You can opt out at any time by replying STOP to any message</li>
+        <li>For help, reply HELP to any message or contact <a href="mailto:support@topcoatmedia.com">support@topcoatmedia.com</a></li>
+        <li>Consent to receive text messages is NOT a condition of purchasing any services</li>
+        <li>Compatible carriers include but are not limited to: AT&T, T-Mobile, Verizon, Sprint, and other major carriers</li>
+        <li>Carriers are not liable for delayed or undelivered messages</li>
+      </ul>
+    </div>
+
+    <div class="tos-section">
+      <h2>Privacy</h2>
+      <p>Your use of our services is also governed by our Privacy Policy, available at <a href="/privacy-policy">Privacy Policy</a>.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>Intellectual Property</h2>
+      <p>All content on this website is the property of Top Coat Media / The Origin Agency LLC.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>Limitation of Liability</h2>
+      <p>Top Coat Media provides services "as is" without warranties. We are not liable for indirect, incidental, or consequential damages.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>Changes to Terms</h2>
+      <p>We reserve the right to update these terms at any time. Continued use constitutes acceptance of changes.</p>
+    </div>
+
+    <div class="tos-section">
+      <h2>Contact Information</h2>
+      <p>Top Coat Media (a division of The Origin Agency LLC)</p>
+      <p>Email: <a href="mailto:support@topcoatmedia.com">support@topcoatmedia.com</a></p>
+      <p>Website: <a href="https://topcoatmedia.com">topcoatmedia.com</a></p>
+    </div>
+
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p>&copy; 2026 Topcoat Media. All rights reserved.</p>
+      <p style="margin-top: 4px;">A division of The Origin Agency LLC</p>
+      <div class="footer-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <span>|</span>
+        <a href="/tos">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy — Topcoat Media</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; }
+  .nav-links { display: flex; gap: 32px; align-items: center; }
+  .nav-links a { color: var(--text); font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terra); }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 14px 32px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 160px 24px 80px; text-align: center; }
+  .hero-inner { max-width: 1170px; margin: 0 auto; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 48px; font-weight: 900; color: var(--white); line-height: 1.05; margin-bottom: 16px; letter-spacing: -1px; }
+  .hero p { font-size: 17px; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+  /* Content */
+  .policy-content { padding: 80px 24px; background: var(--white); }
+  .policy-inner { max-width: 800px; margin: 0 auto; }
+
+  .policy-inner h2 { font-family: 'Montserrat', sans-serif; font-size: 24px; font-weight: 800; color: var(--graphite); margin-top: 48px; margin-bottom: 16px; letter-spacing: -0.3px; }
+  .policy-inner h2:first-child { margin-top: 0; }
+
+  .policy-inner h3 { font-family: 'Montserrat', sans-serif; font-size: 18px; font-weight: 700; color: var(--graphite); margin-top: 32px; margin-bottom: 12px; }
+
+  .policy-inner p { font-size: 16px; color: var(--text); line-height: 1.8; margin-bottom: 16px; }
+
+  .policy-inner ul { list-style: none; margin-bottom: 16px; padding-left: 0; }
+  .policy-inner ul li { font-size: 16px; color: var(--text); line-height: 1.8; padding: 4px 0 4px 24px; position: relative; }
+  .policy-inner ul li::before { content: ''; position: absolute; left: 0; top: 14px; width: 10px; height: 2px; background: var(--terra); }
+
+  .policy-inner a { color: var(--terra); font-weight: 700; transition: color 0.2s; }
+  .policy-inner a:hover { color: var(--terra-dark); }
+
+  .policy-divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 32px; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 48px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-left { display: flex; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+  .footer-links { display: flex; gap: 24px; margin-top: 8px; }
+  .footer-links a { font-size: 13px; color: rgba(255,255,255,0.4); transition: color 0.2s; }
+  .footer-links a:hover { color: var(--terra); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 140px 24px 60px; }
+    .hero h1 { font-size: 32px; }
+    .policy-content { padding: 56px 24px; }
+    .policy-inner h2 { font-size: 20px; margin-top: 40px; }
+    .policy-inner h3 { font-size: 16px; }
+    .nav-links a:not(.btn) { display: none; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="index.html"><img src="logo-light.png" alt="Topcoat Media" style="height: 30px;"></a>
+    <div class="nav-links">
+      <a href="index.html#how">How It Works</a>
+      <a href="index.html#services">Services</a>
+      <a href="index.html#results">Results</a>
+      <a href="/contact-form" class="btn btn-primary">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <h1>Privacy Policy</h1>
+    <p>Last updated: March 11, 2026</p>
+  </div>
+</section>
+
+<!-- Policy Content -->
+<section class="policy-content">
+  <div class="policy-inner">
+    <div class="policy-divider"></div>
+
+    <h2>Information We Collect</h2>
+    <p>We collect the following personal information when you fill out our contact form or book a strategy call:</p>
+    <ul>
+      <li>Name</li>
+      <li>Phone number</li>
+      <li>Email address</li>
+      <li>Company name</li>
+    </ul>
+
+    <h2>How We Use Your Information</h2>
+    <p>We use the information we collect for the following purposes:</p>
+    <ul>
+      <li>To contact you about our marketing services</li>
+      <li>To send SMS messages including appointment reminders, service updates, and follow-ups (only with your explicit consent)</li>
+      <li>To respond to your inquiries</li>
+      <li>To improve our services</li>
+    </ul>
+
+    <h2>SMS/Text Messaging</h2>
+    <p>We take your communication preferences seriously. Here is how we handle text messaging:</p>
+    <ul>
+      <li>We send text messages only to individuals who have provided explicit opt-in consent via our contact form</li>
+      <li>Message types include: appointment reminders, service updates, and marketing follow-ups</li>
+      <li>Message frequency varies based on your engagement with our services</li>
+      <li>Message and data rates may apply</li>
+      <li>Reply STOP to any message to opt out of future texts</li>
+      <li>Reply HELP for assistance</li>
+      <li>Carriers are not liable for delayed or undelivered messages</li>
+    </ul>
+
+    <h2>Data Sharing</h2>
+    <p>We do NOT sell, trade, or share your personal information with third parties. Your data is used solely by Top Coat Media (a division of The Origin Agency LLC) to provide our services.</p>
+
+    <h2>Data Security</h2>
+    <p>We implement reasonable security measures to protect your personal information from unauthorized access, alteration, disclosure, or destruction.</p>
+
+    <h2>Your Rights</h2>
+    <p>You may request to access, update, or delete your personal data at any time by contacting us using the information below.</p>
+
+    <h2>Contact Information</h2>
+    <p>If you have any questions about this Privacy Policy or wish to exercise your data rights, please contact us:</p>
+    <ul>
+      <li>Top Coat Media (a division of The Origin Agency LLC)</li>
+      <li>Email: <a href="mailto:support@topcoatmedia.com">support@topcoatmedia.com</a></li>
+      <li>Website: <a href="https://topcoatmedia.com">topcoatmedia.com</a></li>
+    </ul>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p>&copy; 2026 Topcoat Media. All rights reserved.</p>
+      <p style="margin-top: 4px;">A division of The Origin Agency LLC</p>
+      <div class="footer-links">
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/tos">Terms of Service</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
