@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agenda Tu Llamada — Garantía de 45 Citas | Topcoat Media</title>
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+    --alert: #C0392B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: center; align-items: center; }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 16px 36px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+  .btn-lg { padding: 20px 48px; font-size: 16px; }
+
+  /* Alert bar */
+  .alert-bar { background: var(--alert); color: var(--white); text-align: center; padding: 13px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 73px; line-height: 1.4; }
+  .alert-bar .pulse { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--white); margin-right: 8px; vertical-align: middle; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 60px 24px 68px; text-align: center; }
+  .hero-inner { max-width: 800px; margin: 0 auto; }
+  .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 46px; font-weight: 900; color: var(--white); line-height: 1.06; margin-bottom: 22px; letter-spacing: -1px; }
+  .hero h1 span { color: var(--terra); }
+  .hero p { font-size: 20px; color: rgba(255,255,255,0.72); line-height: 1.65; max-width: 640px; margin: 0 auto 36px; }
+  .hero p strong { color: var(--white); }
+
+  /* Guarantee badge */
+  .guarantee { display: inline-flex; align-items: center; gap: 14px; border: 2px solid var(--terra); padding: 16px 26px; margin-bottom: 36px; }
+  .guarantee-num { font-family: 'Montserrat', sans-serif; font-size: 34px; font-weight: 900; color: var(--terra); line-height: 1; }
+  .guarantee-text { text-align: left; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; line-height: 1.4; }
+
+  /* Section */
+  section { padding: 80px 24px; }
+  .container { max-width: 1170px; margin: 0 auto; }
+  .section-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: var(--graphite); line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .section-sub { font-size: 17px; color: var(--text-light); line-height: 1.7; }
+  .text-center { text-align: center; }
+  .text-center .section-sub { max-width: 620px; margin: 0 auto; }
+  .divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 24px; }
+  .divider-center { margin-left: auto; margin-right: auto; }
+
+  /* Reassurance points */
+  .points { background: var(--sand-light); }
+  .points-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 56px; }
+  .point { border: 2px solid var(--border); border-right: none; padding: 40px 32px; }
+  .point:last-child { border-right: 2px solid var(--border); }
+  .point-num { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--terra); letter-spacing: 2px; margin-bottom: 16px; }
+  .point h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; color: var(--graphite); margin-bottom: 12px; }
+  .point p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
+
+  /* Calendar */
+  .calendar-section { background: var(--white); }
+  .calendar-wrap { margin-top: 48px; border: 2px solid var(--border); padding: 8px; background: var(--white); max-width: 980px; margin-left: auto; margin-right: auto; }
+  iframe.cal { width: 100%; min-height: 720px; border: none; overflow: hidden; display: block; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 40px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 44px 24px 52px; }
+    .hero h1 { font-size: 30px; }
+    .hero p { font-size: 17px; }
+    .guarantee-num { font-size: 28px; }
+    .points-grid { grid-template-columns: 1fr; }
+    .point { border-right: 2px solid var(--border); border-bottom: none; }
+    .point:last-child { border-bottom: 2px solid var(--border); }
+    .section-title { font-size: 27px; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <img src="logo-light.png" alt="Topcoat Media" style="height: 30px;">
+  </div>
+</nav>
+
+<!-- Alert bar -->
+<div class="alert-bar">
+  <span class="pulse"></span> Atención: tu garantía aún NO está asegurada — agenda tu llamada para reservarla
+</div>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Solo Para Empresas de Pintura</div>
+    <h1>Te Garantizamos <span>45 Citas Exclusivas</span> — o No Pagas Nada</h1>
+    <div class="guarantee">
+      <div class="guarantee-num">45</div>
+      <div class="guarantee-text">Citas exclusivas<br>garantizadas</div>
+    </div>
+    <p>Agenda aquí abajo una breve llamada de <strong>15 minutos por teléfono</strong> para que nuestro equipo vea si calificas para nuestra garantía de <strong>45 citas exclusivas — o no pagas nada</strong>.</p>
+    <div>
+      <a href="#agenda" class="btn btn-primary btn-lg">Agendar Mi Llamada Ahora</a>
+    </div>
+  </div>
+</section>
+
+<!-- Reassurance points -->
+<section class="points">
+  <div class="container text-center">
+    <div class="divider divider-center"></div>
+    <div class="section-label">Qué Es Esta Llamada</div>
+    <h2 class="section-title">Una Llamada Corta Para Ver Si Calificas</h2>
+    <p class="section-sub">No es una llamada de ventas. Es para ver si somos el equipo correcto para tu negocio de pintura.</p>
+    <div class="points-grid" style="text-align: left;">
+      <div class="point">
+        <div class="point-num">01</div>
+        <h3>15 Minutos Por Teléfono</h3>
+        <p>Rápido y al grano. Conocemos tu negocio y vemos si nuestra garantía aplica para tu zona.</p>
+      </div>
+      <div class="point">
+        <div class="point-num">02</div>
+        <h3>Citas Exclusivas</h3>
+        <p>Nunca compartidas con otros pintores. Cada cita es solo para ti — dueños de casa listos para contratar.</p>
+      </div>
+      <div class="point">
+        <div class="point-num">03</div>
+        <h3>Garantía o No Pagas</h3>
+        <p>Si calificas, te respaldamos con nuestra garantía de 45 citas. Si no las entregamos, no pagas.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Calendar -->
+<section class="calendar-section" id="agenda">
+  <div class="container text-center">
+    <div class="divider divider-center"></div>
+    <div class="section-label">Agenda Tu Llamada</div>
+    <h2 class="section-title">Elige el Horario Que Mejor Te Funcione</h2>
+    <p class="section-sub">Elige un horario abajo. La llamada es de 15 minutos y es para ver si calificas para la garantía.</p>
+    <div class="calendar-wrap">
+      <!-- GHL Booking Widget — Calendario: Entrevista de Crecimiento -->
+      <iframe class="cal"
+              src="https://api.leadconnectorhq.com/widget/booking/sfofAnNl1zlRgeIqxd2a"
+              scrolling="no"
+              id="sfofAnNl1zlRgeIqxd2a_agenda"
+              title="Agendar Entrevista de Crecimiento"></iframe>
+    </div>
+  </div>
+</section>
+<script src="https://link.msgsndr.com/js/form_embed.js" type="text/javascript"></script>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p><a href="/privacy-policy" style="color: rgba(255,255,255,0.5); text-decoration: none; margin-right: 16px;">Política de Privacidad</a><a href="/tos" style="color: rgba(255,255,255,0.5); text-decoration: none;">Términos de Servicio</a></p>
+      <p style="margin-top: 4px;">&copy; 2026 Topcoat Media. Todos los derechos reservados.</p>
+      <p style="margin-top: 4px;">Una división de The Origin Agency LLC</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
