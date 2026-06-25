@@ -4,6 +4,8 @@ COPY index.html /usr/share/nginx/html/index.html
 COPY contact-form.html /usr/share/nginx/html/contact-form.html
 COPY agenda.html /usr/share/nginx/html/agenda.html
 COPY thank-you.html /usr/share/nginx/html/thank-you.html
+COPY video-confirmacion.mp4 /usr/share/nginx/html/video-confirmacion.mp4
+COPY video-confirmacion-poster.jpg /usr/share/nginx/html/video-confirmacion-poster.jpg
 COPY privacy-policy.html /usr/share/nginx/html/privacy-policy.html
 COPY tos.html /usr/share/nginx/html/tos.html
 COPY logo-light.png /usr/share/nginx/html/logo-light.png
