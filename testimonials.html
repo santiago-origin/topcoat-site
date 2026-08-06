@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casos de Éxito — Testimonios Reales | Topcoat Media</title>
+<meta name="description" content="Pintores y compañías de pintura que decidieron dar el paso con Topcoat Media. Mira sus testimonios en video.">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+    --green: #2E7D32;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 16px 36px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+  .btn-sm { padding: 12px 26px; font-size: 12px; }
+  .btn-lg { padding: 20px 48px; font-size: 16px; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 16px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+  .nav-inner img { height: 30px; }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 132px 24px 76px; text-align: center; }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero-tag { display: inline-flex; align-items: center; gap: 9px; border: 1px solid rgba(255,255,255,0.25); padding: 8px 18px; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 26px; }
+  .hero-tag .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 44px; font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 22px; letter-spacing: -1px; }
+  .hero h1 span { color: var(--terra); }
+  .hero p { font-size: 19px; color: rgba(255,255,255,0.72); line-height: 1.7; max-width: 680px; margin: 0 auto; }
+  .hero p strong { color: var(--white); }
+
+  /* Sections */
+  section { padding: 88px 24px; }
+  .container { max-width: 1170px; margin: 0 auto; }
+  .section-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: var(--graphite); line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 24px; }
+  .divider-center { margin-left: auto; margin-right: auto; }
+  .text-center { text-align: center; }
+
+  /* ── Testimonial rows ───────────────────────────────────────────── */
+  .testimonials { padding-top: 80px; padding-bottom: 80px; }
+  .testimonial { display: grid; grid-template-columns: 1.15fr 1fr; gap: 56px; align-items: center; padding: 56px 0; border-bottom: 1px solid var(--border); }
+  .testimonial:last-child { border-bottom: none; }
+
+  /* Video (left) — self-hosted mp4, plays right on the page */
+  .t-video { position: relative; background: var(--warm-black); border: 2px solid var(--terra); box-shadow: 0 20px 50px rgba(0,0,0,0.18); overflow: hidden; }
+  .t-video video { display: block; width: 100%; height: auto; background: var(--warm-black); }
+  /* Add class "vertical" to .testimonial for phone-recorded (9:16) videos */
+  .testimonial.vertical { grid-template-columns: 0.75fr 1fr; }
+
+  /* Info (right) */
+  .t-info .t-company { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--graphite); line-height: 1.15; margin-bottom: 8px; letter-spacing: -0.5px; }
+  .t-info .t-person { font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+  .t-info .t-line { width: 48px; height: 3px; background: var(--terra); margin-bottom: 22px; }
+  .t-info .t-desc { font-size: 17px; color: var(--text-light); line-height: 1.8; }
+  .t-info .t-desc + .t-desc { margin-top: 14px; }
+  .t-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .t-chip { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--graphite); background: var(--sand); border: 1px solid var(--border); padding: 8px 14px; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Empty / placeholder state */
+  .t-empty { text-align: center; padding: 64px 24px; background: var(--sand-light); border: 1px dashed var(--border); }
+  .t-empty p { font-size: 17px; color: var(--text-light); line-height: 1.7; }
+
+  /* Final CTA */
+  .cta { background: var(--graphite); text-align: center; padding: 96px 24px; }
+  .cta h2 { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 900; color: var(--white); margin-bottom: 16px; letter-spacing: -0.5px; line-height: 1.1; }
+  .cta p { font-size: 17px; color: rgba(255,255,255,0.55); margin: 0 auto 40px; max-width: 520px; line-height: 1.7; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 40px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    .testimonial, .testimonial.vertical { grid-template-columns: 1fr; gap: 32px; padding: 44px 0; }
+    .t-video { max-width: 560px; margin: 0 auto; width: 100%; }
+    .testimonial.vertical .t-video { max-width: 360px; }
+  }
+  @media (max-width: 768px) {
+    .hero { padding: 120px 24px 56px; }
+    .hero h1 { font-size: 30px; }
+    .hero p { font-size: 17px; }
+    .nav-inner img { height: 26px; }
+    .section-title, .cta h2 { font-size: 27px; }
+    .t-info .t-company { font-size: 23px; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <a href="/"><img src="logo-light.png" alt="Topcoat Media"></a>
+    <a href="/agenda" class="btn btn-primary btn-sm">Agendar Mi Llamada</a>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-tag"><span class="dot"></span> Casos de Éxito Reales</div>
+    <h1>Aquí Están Nuestros Casos de Éxito: <span>Topcoat Media</span></h1>
+    <p>Pintores y compañías de pintura <strong>como la tuya</strong> que decidieron dar ese paso. Ellos lo cuentan en sus propias palabras.</p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════════
+     TESTIMONIOS
+     Para agregar uno nuevo: copia el bloque <article class="testimonial">
+     de abajo, pégalo dentro de .container, y cambia:
+       1. src del <video>      → /testimonio-2.mp4 (sube el .mp4 a la raíz)
+       2. poster del <video>   → /testimonio-2-poster.jpg (opcional)
+       3. .t-company           → nombre de la compañía
+       4. .t-person            → nombre de la persona + ciudad
+       5. .t-desc              → descripción corta del resultado
+       6. .t-chip              → resultados clave (opcional, se pueden borrar)
+     Si el video es vertical (grabado con celular), agrega la clase
+     "vertical" así: <article class="testimonial vertical">
+     ═══════════════════════════════════════════════════════════════════ -->
+<section class="testimonials">
+  <div class="container">
+
+    <!-- ▼▼▼ TESTIMONIO 01 — reemplazar con el primero real ▼▼▼ -->
+    <article class="testimonial">
+      <div class="t-video">
+        <video controls preload="metadata" playsinline poster="/testimonio-1-poster.jpg">
+          <source src="/testimonio-1.mp4" type="video/mp4">
+          Tu navegador no puede reproducir el video.
+        </video>
+      </div>
+      <div class="t-info">
+        <div class="t-company">Nombre de la Compañía</div>
+        <div class="t-person">Nombre de la Persona — Ciudad, Estado</div>
+        <div class="t-line"></div>
+        <p class="t-desc">Aquí va la descripción corta: qué problema tenían antes, qué hicimos, y el resultado que consiguieron trabajando con Topcoat Media.</p>
+        <div class="t-meta">
+          <span class="t-chip">Resultado clave</span>
+          <span class="t-chip">Tiempo</span>
+        </div>
+      </div>
+    </article>
+    <!-- ▲▲▲ FIN TESTIMONIO 01 ▲▲▲ -->
+
+  </div>
+</section>
+
+<!-- Final CTA -->
+<section class="cta">
+  <h2>¿Listo Para Ser el Siguiente Caso de Éxito?</h2>
+  <p>Agenda una llamada y te mostramos exactamente cómo llenamos el calendario de estas compañías de pintura.</p>
+  <a href="/agenda" class="btn btn-primary btn-lg">Agendar Mi Llamada Ahora</a>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p><a href="/privacy-policy" style="color: rgba(255,255,255,0.5); text-decoration: none; margin-right: 16px;">Política de Privacidad</a><a href="/tos" style="color: rgba(255,255,255,0.5); text-decoration: none;">Términos de Servicio</a></p>
+      <p style="margin-top: 4px;">&copy; 2026 Topcoat Media. Todos los derechos reservados.</p>
+      <p style="margin-top: 4px;">Una división de The Origin Agency LLC</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
