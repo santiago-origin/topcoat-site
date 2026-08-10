@@ -1,0 +1,192 @@
+{
+  "name": "Topcoat VSL — Qualification",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "topcoat-vsl-qualify",
+        "responseMode": "responseNode",
+        "options": {
+          "allowedOrigins": "https://topcoatmedia.com,https://www.topcoatmedia.com"
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000001",
+      "name": "Webhook VSL",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "webhookId": "a1000000-0000-4000-8000-000000000001"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normaliza la aplicación del VSL y arma la nota para GHL.\nconst b = $input.first().json.body || {};\n\nconst REVENUE_LABEL = {\n  '5-10k': '$5,000 - $10,000 / mes',\n  '10-20k': '$10,000 - $20,000 / mes',\n  '20-40k': '$20,000 - $40,000 / mes',\n  '50k+': '$50,000+ / mes'\n};\n\nconst parts = String(b.full_name || '').trim().split(/\\s+/);\nconst firstName = parts.shift() || '';\nconst lastName = parts.join(' ');\n\nconst qualified = b.qualified === true || b.qualified === 'true';\n\nconst note = [\n  `APLICACION VSL — ${qualified ? 'CALIFICA' : 'NO CALIFICA'}`,\n  '',\n  `1. Dueno de compania de pintura en EE.UU.: ${b.owner_us_painting_company === 'si' ? 'Si' : 'No'}`,\n  `2. Facturacion mensual: ${REVENUE_LABEL[b.monthly_revenue] || b.monthly_revenue || '-'}`,\n  `3. Licencia y seguro en regla: ${b.licensed_insured === 'si' ? 'Si' : 'No'}`,\n  `4. Area de servicio: ${b.service_area || '-'}`,\n  '',\n  `Compania: ${b.company || '-'}`,\n  qualified ? null : `Motivo de descalificacion: ${b.disqualified_reason || '-'}`,\n  `Enviado: ${b.submitted_at || new Date().toISOString()}`,\n  `Pagina: ${b.page || '-'}`\n].filter(x => x !== null).join('\\n');\n\nreturn [{\n  json: {\n    firstName,\n    lastName,\n    email: String(b.email || '').trim().toLowerCase(),\n    phone: String(b.phone || '').trim(),\n    companyName: b.company || '',\n    qualified,\n    tags: ['top-coat-media', 'vsl', qualified ? 'vsl-calificado' : 'vsl-no-calificado'],\n    note\n  }\n}];"
+      },
+      "id": "a1000000-0000-4000-8000-000000000002",
+      "name": "Normalizar",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://services.leadconnectorhq.com/contacts/upsert",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ locationId: 'boCeAxfhV55DwxJyJZbw', firstName: $json.firstName, lastName: $json.lastName, name: ($json.firstName + ' ' + $json.lastName).trim(), email: $json.email, phone: $json.phone, companyName: $json.companyName, source: 'VSL topcoatmedia.com/vsl', tags: $json.tags }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000003",
+      "name": "GHL Upsert Contacto",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "notes": "Requiere credencial Header Auth: Authorization = Bearer <PIT de la subcuenta Topcoat>",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Vfe0yURlCh6pLTwt",
+          "name": "GHL Topcoat PIT"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://services.leadconnectorhq.com/contacts/{{ $json.contact.id }}/notes",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Version",
+              "value": "2021-07-28"
+            },
+            {
+              "name": "Content-Type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ body: $('Normalizar').item.json.note }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      },
+      "id": "a1000000-0000-4000-8000-000000000004",
+      "name": "GHL Nota de Calificacion",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "Vfe0yURlCh6pLTwt",
+          "name": "GHL Topcoat PIT"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true, qualified: $('Normalizar').item.json.qualified }) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000005",
+      "name": "Responder",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        880,
+        0
+      ]
+    }
+  ],
+  "connections": {
+    "Webhook VSL": {
+      "main": [
+        [
+          {
+            "node": "Normalizar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalizar": {
+      "main": [
+        [
+          {
+            "node": "GHL Upsert Contacto",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GHL Upsert Contacto": {
+      "main": [
+        [
+          {
+            "node": "GHL Nota de Calificacion",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "GHL Nota de Calificacion": {
+      "main": [
+        [
+          {
+            "node": "Responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  }
+}

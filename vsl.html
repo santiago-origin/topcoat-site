@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>50 Estimados Calificados en 90 Días o No Pagas | Topcoat Media</title>
+<meta name="description" content="Para contratistas de pintura en Estados Unidos: te damos 50 estimados calificados en 90 días o no pagas.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+    --alert: #C0392B;
+    --green: #2E7D32;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: center; align-items: center; }
+
+  /* Buttons */
+  .btn { display: inline-block; padding: 16px 36px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+  .btn-lg { padding: 20px 48px; font-size: 16px; }
+  .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+
+  /* Alert bar */
+  .alert-bar { background: var(--alert); color: var(--white); text-align: center; padding: 13px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 73px; line-height: 1.4; }
+  .alert-bar .pulse { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--white); margin-right: 8px; vertical-align: middle; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 56px 24px 72px; text-align: center; }
+  .hero-inner { max-width: 900px; margin: 0 auto; }
+  .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 22px; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 54px; font-weight: 900; color: var(--white); line-height: 1.04; margin-bottom: 24px; letter-spacing: -1.5px; }
+  .hero h1 span { color: var(--terra); }
+  .hero p { font-size: 20px; color: rgba(255,255,255,0.72); line-height: 1.65; max-width: 660px; margin: 0 auto 34px; }
+  .hero p strong { color: var(--white); }
+
+  /* Guarantee badge */
+  .guarantee { display: inline-flex; align-items: center; gap: 16px; border: 2px solid var(--terra); padding: 16px 28px; margin-bottom: 40px; }
+  .guarantee-num { font-family: 'Montserrat', sans-serif; font-size: 40px; font-weight: 900; color: var(--terra); line-height: 1; }
+  .guarantee-text { text-align: left; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; line-height: 1.4; }
+
+  /* Video */
+  .video-wrap { max-width: 820px; margin: 0 auto; }
+  .video-box { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--warm-black); border: 2px solid var(--terra); overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+  .video-box iframe, .video-box video { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+  .video-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
+  .video-ph-text { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 2px; text-align: center; padding: 0 24px; }
+
+  /* Urgency gate over the video */
+  .video-gate { position: absolute; inset: 0; z-index: 5; background: var(--warm-black); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px; text-align: center; cursor: pointer; transition: opacity 0.25s; }
+  .gate-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 2.5px; }
+  .gate-play { width: 84px; height: 84px; border-radius: 50%; background: var(--terra); display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.2s; animation: throb 2s ease-in-out infinite; }
+  .gate-play::after { content: ''; border-style: solid; border-width: 15px 0 15px 26px; border-color: transparent transparent transparent var(--white); margin-left: 7px; }
+  .video-gate:hover .gate-play { background: var(--terra-dark); transform: scale(1.06); }
+  @keyframes throb { 0%, 100% { box-shadow: 0 0 0 0 rgba(168,81,46,0.55); } 50% { box-shadow: 0 0 0 22px rgba(168,81,46,0); } }
+  .gate-cta { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.3; }
+  .gate-sub { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 420px; line-height: 1.6; }
+
+  /* Countdown */
+  .countdown { display: inline-flex; gap: 12px; margin: 30px 0 10px; }
+  .count-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); padding: 13px 20px; min-width: 76px; }
+  .count-num { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: var(--white); line-height: 1; }
+  .count-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 8px; }
+  .countdown-note { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; }
+  .countdown-note strong { color: var(--terra); }
+
+  /* Section */
+  section { padding: 80px 24px; }
+  .container { max-width: 1170px; margin: 0 auto; }
+  .section-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: var(--graphite); line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .section-sub { font-size: 17px; color: var(--text-light); line-height: 1.7; }
+  .text-center { text-align: center; }
+  .text-center .section-sub { max-width: 620px; margin: 0 auto; }
+  .divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 24px; }
+  .divider-center { margin-left: auto; margin-right: auto; }
+
+  /* Qualification form */
+  .qualify { background: var(--sand-light); }
+  .form-shell { position: relative; max-width: 760px; margin: 48px auto 0; }
+  .form-card { background: var(--white); border: 2px solid var(--border); padding: 48px 44px; }
+  .form-shell.locked .form-card { filter: blur(3px); pointer-events: none; user-select: none; }
+  .form-lock { display: none; position: absolute; inset: 0; z-index: 4; background: rgba(250,246,241,0.82); flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 32px; }
+  .form-shell.locked .form-lock { display: flex; }
+  .lock-icon { width: 52px; height: 52px; border: 3px solid var(--terra); display: flex; align-items: center; justify-content: center; }
+  .lock-icon svg { width: 26px; height: 26px; stroke: var(--terra); stroke-width: 2.2; fill: none; }
+  .lock-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--graphite); text-transform: uppercase; letter-spacing: 1px; }
+  .lock-sub { font-size: 15px; color: var(--text-light); max-width: 380px; line-height: 1.6; }
+
+  .q-block { margin-bottom: 38px; }
+  .q-block:last-of-type { margin-bottom: 30px; }
+  .q-label { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--graphite); line-height: 1.45; margin-bottom: 6px; }
+  .q-num { color: var(--terra); margin-right: 8px; }
+  .q-hint { font-size: 14px; color: var(--text-light); margin-bottom: 16px; line-height: 1.6; }
+
+  .opts { display: grid; gap: 10px; }
+  .opts.two { grid-template-columns: 1fr 1fr; }
+  .opt { position: relative; display: block; }
+  .opt input { position: absolute; opacity: 0; width: 0; height: 0; }
+  .opt span { display: block; padding: 16px 20px; border: 2px solid var(--border); background: var(--sand-light); font-size: 15px; font-weight: 700; color: var(--text); cursor: pointer; transition: all 0.15s; }
+  .opt span:hover { border-color: var(--stone); }
+  .opt input:checked + span { border-color: var(--terra); background: var(--white); color: var(--terra-dark); box-shadow: inset 0 0 0 1px var(--terra); }
+  .opt input:focus-visible + span { outline: 2px solid var(--graphite); outline-offset: 2px; }
+
+  .field { margin-bottom: 22px; }
+  .field label { display: block; font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: var(--graphite); margin-bottom: 8px; }
+  .field label .req { color: var(--terra); margin-left: 2px; }
+  .field input { width: 100%; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 15px; color: var(--text); background: var(--sand-light); border: 2px solid var(--border); outline: none; transition: border-color 0.2s; }
+  .field input:focus { border-color: var(--terra); }
+  .field input::placeholder { color: var(--stone); }
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+
+  .contact-heading { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; padding-top: 34px; border-top: 2px solid var(--border); }
+
+  .consent { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-top: 4px; }
+  .consent input[type="checkbox"] { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--terra); cursor: pointer; }
+  .consent-text { font-size: 13px; color: var(--text-light); line-height: 1.6; }
+  .consent-links { font-size: 12px; color: var(--text-light); margin-top: 8px; padding-left: 32px; }
+  .consent-links a { color: var(--terra); text-decoration: underline; }
+
+  .form-error { display: none; margin-top: 20px; padding: 14px 18px; border: 2px solid var(--alert); background: #fdf3f2; color: var(--alert); font-size: 14px; font-weight: 700; line-height: 1.5; }
+  .form-submit { margin-top: 30px; }
+  .form-submit .btn { width: 100%; text-align: center; border: none; padding: 19px 32px; font-size: 15px; }
+
+  /* Result: qualified (calendar) */
+  #result { display: none; }
+  .calendar-section { background: var(--white); }
+  .qualified-tag { display: inline-flex; align-items: center; gap: 10px; border: 2px solid var(--green); padding: 10px 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--green); text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 20px; }
+  .qualified-tag .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--green); }
+  .calendar-wrap { margin-top: 44px; border: 2px solid var(--border); padding: 8px; background: var(--white); max-width: 980px; margin-left: auto; margin-right: auto; }
+  iframe.cal { width: 100%; min-height: 720px; border: none; overflow: hidden; display: block; }
+
+  /* Result: not qualified */
+  #not-qualified { display: none; background: var(--sand-light); }
+  .nq-card { max-width: 720px; margin: 0 auto; background: var(--white); border: 2px solid var(--border); border-top: 4px solid var(--graphite); padding: 56px 48px; text-align: left; }
+  .nq-card h2 { font-family: 'Montserrat', sans-serif; font-size: 30px; font-weight: 800; color: var(--graphite); line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px; }
+  .nq-card p { font-size: 17px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px; }
+  .nq-card p strong { color: var(--graphite); }
+  .nq-card p:last-child { margin-bottom: 0; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 40px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px 54px; }
+    .hero h1 { font-size: 32px; letter-spacing: -0.8px; }
+    .hero p { font-size: 17px; }
+    .guarantee { gap: 12px; padding: 14px 20px; }
+    .guarantee-num { font-size: 32px; }
+    .guarantee-text { font-size: 11px; }
+    .gate-play { width: 66px; height: 66px; }
+    .gate-play::after { border-width: 12px 0 12px 20px; }
+    .gate-cta { font-size: 15px; }
+    .gate-sub { font-size: 13px; }
+    .countdown { gap: 8px; }
+    .count-box { min-width: 64px; padding: 11px 14px; }
+    .count-num { font-size: 26px; }
+    .section-title { font-size: 27px; }
+    .form-card { padding: 32px 22px; }
+    .opts.two { grid-template-columns: 1fr; }
+    .field-row { grid-template-columns: 1fr; gap: 22px; }
+    .nq-card { padding: 36px 24px; }
+    .nq-card h2 { font-size: 24px; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <img src="logo-light.png" alt="Topcoat Media" style="height: 30px;">
+  </div>
+</nav>
+
+<!-- Alert bar -->
+<div class="alert-bar">
+  <span class="pulse"></span> Solo aceptamos 5 compañías de pintura al mes — mira el video para ver si aún hay cupo
+</div>
+
+<!-- Hero + VSL -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Solo Para Contratistas de Pintura en EE.UU.</div>
+    <h1>Te Damos <span>50 Estimados Calificados en 90 Días</span> — o No Pagas</h1>
+    <p>Sin comprar leads compartidos. Sin perseguir gente que solo busca el precio más barato. <strong>Estimados exclusivos, agendados en tu calendario</strong> — o no nos pagas nada.</p>
+
+    <div class="guarantee">
+      <div class="guarantee-num">50</div>
+      <div class="guarantee-text">Estimados calificados<br>en 90 días o no pagas</div>
+    </div>
+
+    <div class="video-wrap">
+      <div class="video-box" id="video-box">
+        <!-- ═══════════════════════════════════════════════════════════════
+             VIDEO DEL VSL — cuando esté grabado, pega el ID de YouTube en
+             la constante YOUTUBE_ID dentro del <script> al final del archivo.
+             Ejemplo: var YOUTUBE_ID = 'dQw4w9WgXcQ';
+             Mientras esté vacía se muestra el placeholder de abajo.
+             ═══════════════════════════════════════════════════════════════ -->
+        <div class="video-ph" id="video-ph">
+          <div class="video-ph-text">Espacio del video &mdash; pega aquí el ID de YouTube</div>
+        </div>
+
+        <!-- Urgency gate: el visitante debe dar clic para ver el video -->
+        <div class="video-gate" id="video-gate" role="button" tabindex="0" aria-label="Reproducir el video">
+          <div class="gate-kicker">Mira Esto Antes de Aplicar</div>
+          <div class="gate-play"></div>
+          <div class="gate-cta">Dale Clic Para Ver Cómo Funciona la Garantía</div>
+          <div class="gate-sub">El formulario para aplicar se desbloquea cuando inicies el video. Toma menos de 5 minutos.</div>
+        </div>
+      </div>
+
+      <div class="countdown" id="countdown">
+        <div class="count-box"><div class="count-num" id="cd-min">05</div><div class="count-label">Min</div></div>
+        <div class="count-box"><div class="count-num" id="cd-sec">00</div><div class="count-label">Seg</div></div>
+      </div>
+      <div class="countdown-note" id="cd-note">Tu lugar se libera en <strong>5 minutos</strong> si no aplicas</div>
+    </div>
+  </div>
+</section>
+
+<!-- Qualification form -->
+<section class="qualify" id="aplicar">
+  <div class="container text-center">
+    <div class="divider divider-center"></div>
+    <div class="section-label">Paso 2 &middot; Aplicación</div>
+    <h2 class="section-title">Veamos Si Calificas Para la Garantía</h2>
+    <p class="section-sub">No trabajamos con todos. Contesta estas 4 preguntas y te decimos de inmediato si eres candidato para las 50 citas garantizadas.</p>
+
+    <div class="form-shell locked" id="form-shell">
+      <div class="form-lock" id="form-lock">
+        <div class="lock-icon">
+          <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="1"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
+        </div>
+        <div class="lock-title">Formulario Bloqueado</div>
+        <div class="lock-sub">Inicia el video de arriba para desbloquear la aplicación. Necesitamos que entiendas cómo funciona la garantía antes de hablar.</div>
+        <a href="#video-box" class="btn btn-primary" id="lock-cta">Ver el Video Ahora</a>
+      </div>
+
+      <form class="form-card" id="qualify-form" novalidate style="text-align: left;">
+
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">01</span>¿Eres dueño de una compañía de pintura en Estados Unidos?</div>
+          <div class="opts two">
+            <label class="opt"><input type="radio" name="owner" value="si"><span>Sí, soy el dueño</span></label>
+            <label class="opt"><input type="radio" name="owner" value="no"><span>No</span></label>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">02</span>¿Cuál es tu facturación mensual?</div>
+          <div class="opts">
+            <label class="opt"><input type="radio" name="revenue" value="5-10k"><span>$5,000 &ndash; $10,000 al mes</span></label>
+            <label class="opt"><input type="radio" name="revenue" value="10-20k"><span>$10,000 &ndash; $20,000 al mes</span></label>
+            <label class="opt"><input type="radio" name="revenue" value="20-40k"><span>$20,000 &ndash; $40,000 al mes</span></label>
+            <label class="opt"><input type="radio" name="revenue" value="50k+"><span>$50,000 al mes o más</span></label>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">03</span>¿Cuentas con licencia, seguro y todo en regla?</div>
+          <div class="opts two">
+            <label class="opt"><input type="radio" name="licensed" value="si"><span>Sí, todo en regla</span></label>
+            <label class="opt"><input type="radio" name="licensed" value="no"><span>Todavía no</span></label>
+          </div>
+        </div>
+
+        <div class="q-block">
+          <div class="q-label"><span class="q-num">04</span>¿Cuál es tu área de servicio?</div>
+          <div class="q-hint">Escribe tu ciudad principal y hasta qué distancia viajas para dar estimados.</div>
+          <div class="field" style="margin-bottom: 0;">
+            <input type="text" id="service_area" name="service_area" placeholder="Eg: Los Angeles - 35 mi radius">
+          </div>
+        </div>
+
+        <div class="contact-heading">¿A dónde te enviamos el resultado?</div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="full_name">Nombre completo <span class="req">*</span></label>
+            <input type="text" id="full_name" name="full_name" placeholder="Juan Pérez" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="company">Nombre de tu compañía</label>
+            <input type="text" id="company" name="company" placeholder="Pérez Painting LLC" autocomplete="organization">
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field">
+            <label for="email">Correo electrónico <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="juan@perezpainting.com" autocomplete="email">
+          </div>
+          <div class="field">
+            <label for="phone">Teléfono <span class="req">*</span></label>
+            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
+          </div>
+        </div>
+
+        <label class="consent">
+          <input type="checkbox" id="sms_consent" name="sms_consent">
+          <span class="consent-text">Al marcar esta casilla y proporcionar mi número, doy mi consentimiento para recibir mensajes de texto de Topcoat Media sobre sus servicios de marketing, recordatorios de citas y seguimientos. La frecuencia de mensajes varía. Pueden aplicar tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda.</span>
+        </label>
+        <div class="consent-links">
+          <a href="/privacy-policy">Política de Privacidad</a>
+          &nbsp;|&nbsp;
+          <a href="/tos">Términos de Servicio</a>
+        </div>
+
+        <div class="form-error" id="form-error"></div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary" id="submit-btn">Ver Si Califico Para la Garantía</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Result: QUALIFIED -> calendar -->
+<section class="calendar-section" id="result">
+  <div class="container text-center">
+    <div class="qualified-tag"><span class="dot"></span> Calificas</div>
+    <h2 class="section-title">Agenda Tu Llamada Introductoria</h2>
+    <p class="section-sub">Son 15 minutos. Te explicamos exactamente cómo entregamos los 50 estimados en 90 días y confirmamos si hay cupo en tu zona. Elige tu horario abajo.</p>
+    <div class="calendar-wrap">
+      <!-- GHL Booking Widget — Llamada Introductoria (white-label api.topcoatmedia.com) -->
+      <iframe class="cal"
+              src="https://api.topcoatmedia.com/widget/booking/iYIf52Ls0YD8nYoGuBSw"
+              scrolling="no"
+              id="iYIf52Ls0YD8nYoGuBSw_vsl"
+              title="Agendar Llamada Introductoria"></iframe>
+    </div>
+  </div>
+</section>
+<script src="https://api.topcoatmedia.com/js/form_embed.js" type="text/javascript"></script>
+
+<!-- Result: NOT QUALIFIED -->
+<section id="not-qualified">
+  <div class="container">
+    <div class="nq-card">
+      <div class="divider"></div>
+      <h2>Gracias por tu honestidad — pero hoy no somos el socio correcto para ti</h2>
+      <p>Nuestra garantía de 50 estimados en 90 días solo funciona con compañías de pintura que <strong>ya están operando en Estados Unidos y facturando arriba de $10,000 al mes</strong>. Es el punto donde el volumen de citas que generamos realmente se convierte en trabajos cerrados, y no en tiempo perdido para ti.</p>
+      <p>Si te aceptáramos hoy, te llenaríamos el calendario de estimados que no podrías atender bien — y los dos perderíamos. Preferimos decírtelo de frente en vez de venderte algo que no te va a servir.</p>
+      <p>Guardamos tus datos. <strong>Cuando tu operación crezca, escríbenos y retomamos la conversación</strong> — la garantía sigue en pie para cuando estés listo.</p>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p><a href="/privacy-policy" style="color: rgba(255,255,255,0.5); text-decoration: none; margin-right: 16px;">Política de Privacidad</a><a href="/tos" style="color: rgba(255,255,255,0.5); text-decoration: none;">Términos de Servicio</a></p>
+      <p style="margin-top: 4px;">&copy; 2026 Topcoat Media. Todos los derechos reservados.</p>
+      <p style="margin-top: 4px;">Una división de The Origin Agency LLC</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ═══════════════ CONFIGURACIÓN ═══════════════════════════════════════
+     YOUTUBE_ID         ID del video no listado de YouTube. Vacío = placeholder.
+     UNLOCK_DELAY_SECS  Segundos de video antes de desbloquear el formulario.
+                        0 = se desbloquea apenas dan clic en el video.
+     WEBHOOK_URL        Webhook de n8n que recibe la aplicación.
+     ═══════════════════════════════════════════════════════════════════ */
+  var YOUTUBE_ID = '';
+  var UNLOCK_DELAY_SECS = 0;
+  var WEBHOOK_URL = 'https://auto.theoriginagency.net/webhook/topcoat-vsl-qualify';
+
+  var CALENDAR_BASE = 'https://api.topcoatmedia.com/widget/booking/iYIf52Ls0YD8nYoGuBSw';
+
+  /* ═══════════════ COUNTDOWN DE URGENCIA ═══════════════════════════════
+     Se reinicia en 5:00 en cada carga y se detiene en cero. */
+  (function countdown() {
+    var total = 5 * 60;
+    var minEl = document.getElementById('cd-min');
+    var secEl = document.getElementById('cd-sec');
+    var noteEl = document.getElementById('cd-note');
+    function tick() {
+      minEl.textContent = String(Math.floor(total / 60)).padStart(2, '0');
+      secEl.textContent = String(total % 60).padStart(2, '0');
+      if (total > 0) {
+        total--;
+        setTimeout(tick, 1000);
+      } else {
+        noteEl.innerHTML = 'Tu lugar ya se liberó &mdash; <strong>aplica ahora antes de que lo tome alguien más</strong>';
+      }
+    }
+    tick();
+  })();
+
+  /* ═══════════════ VIDEO GATE + DESBLOQUEO DEL FORMULARIO ═══════════ */
+  var gate = document.getElementById('video-gate');
+  var shell = document.getElementById('form-shell');
+  var started = false;
+
+  function unlockForm() {
+    shell.classList.remove('locked');
+  }
+
+  function startVideo() {
+    if (started) return;
+    started = true;
+
+    if (YOUTUBE_ID) {
+      var ph = document.getElementById('video-ph');
+      if (ph) ph.remove();
+      var frame = document.createElement('iframe');
+      frame.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID +
+                  '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+      frame.title = 'Video Topcoat Media';
+      frame.allow = 'autoplay; encrypted-media; fullscreen';
+      frame.setAttribute('allowfullscreen', '');
+      document.getElementById('video-box').appendChild(frame);
+    }
+
+    gate.style.opacity = '0';
+    setTimeout(function () { gate.remove(); }, 250);
+
+    if (UNLOCK_DELAY_SECS > 0) {
+      setTimeout(unlockForm, UNLOCK_DELAY_SECS * 1000);
+    } else {
+      unlockForm();
+    }
+  }
+
+  gate.addEventListener('click', startVideo);
+  gate.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startVideo(); }
+  });
+
+  // El CTA del candado también inicia el video, además de hacer scroll
+  document.getElementById('lock-cta').addEventListener('click', function () {
+    setTimeout(startVideo, 400);
+  });
+
+  /* ═══════════════ FORMULARIO DE CALIFICACIÓN ═════════════════════════
+     REGLAS DE DESCALIFICACIÓN:
+       - No es dueño de una compañía de pintura en EE.UU.  -> NO CALIFICA
+       - Facturación de $5k-$10k al mes                    -> NO CALIFICA
+     La licencia/seguro NO descalifica: se guarda como parámetro. */
+  var form = document.getElementById('qualify-form');
+  var errorEl = document.getElementById('form-error');
+  var submitBtn = document.getElementById('submit-btn');
+
+  function checked(name) {
+    var el = form.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : '';
+  }
+
+  function fail(msg, focusEl) {
+    errorEl.textContent = msg;
+    errorEl.style.display = 'block';
+    if (focusEl) focusEl.focus();
+    errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    errorEl.style.display = 'none';
+
+    var name = document.getElementById('full_name');
+    var email = document.getElementById('email');
+    var phone = document.getElementById('phone');
+    var area = document.getElementById('service_area');
+    var consent = document.getElementById('sms_consent');
+
+    if (!checked('owner')) return fail('Contesta la pregunta 1: ¿eres dueño de una compañía de pintura en Estados Unidos?');
+    if (!checked('revenue')) return fail('Contesta la pregunta 2: ¿cuál es tu facturación mensual?');
+    if (!checked('licensed')) return fail('Contesta la pregunta 3: ¿cuentas con licencia y seguro?');
+    if (!area.value.trim()) return fail('Contesta la pregunta 4: escribe tu área de servicio.', area);
+    if (!name.value.trim()) return fail('Escribe tu nombre completo.', name);
+    if (!email.value.trim() || !email.validity.valid) return fail('Escribe un correo electrónico válido.', email);
+    if (!phone.value.trim()) return fail('Escribe tu número de teléfono.', phone);
+    if (!consent.checked) return fail('Marca la casilla de consentimiento para que podamos contactarte por mensaje de texto.', consent);
+
+    var owner = checked('owner');
+    var revenue = checked('revenue');
+    var qualified = owner === 'si' && revenue !== '5-10k';
+
+    var payload = {
+      source: 'vsl',
+      page: window.location.href,
+      submitted_at: new Date().toISOString(),
+      qualified: qualified,
+      disqualified_reason: qualified ? '' : (owner !== 'si' ? 'no_es_dueno_us' : 'facturacion_bajo_10k'),
+      owner_us_painting_company: owner,
+      monthly_revenue: revenue,
+      licensed_insured: checked('licensed'),
+      service_area: area.value.trim(),
+      full_name: name.value.trim(),
+      company: document.getElementById('company').value.trim(),
+      email: email.value.trim(),
+      phone: phone.value.trim(),
+      sms_consent: true
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    function showResult() {
+      document.getElementById('aplicar').style.display = 'none';
+
+      if (qualified) {
+        // Prellena el calendario de GHL con los datos ya capturados
+        var parts = payload.full_name.split(' ');
+        var params = new URLSearchParams({
+          first_name: parts.shift() || '',
+          last_name: parts.join(' '),
+          email: payload.email,
+          phone: payload.phone
+        });
+        document.getElementById('iYIf52Ls0YD8nYoGuBSw_vsl').src = CALENDAR_BASE + '?' + params.toString();
+
+        var result = document.getElementById('result');
+        result.style.display = 'block';
+        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        var nq = document.getElementById('not-qualified');
+        nq.style.display = 'block';
+        nq.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    fetch(WEBHOOK_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    })
+      .catch(function () { /* el lead no debe quedarse atorado si el webhook falla */ })
+      .then(showResult);
+  });
+})();
+</script>
+
+</body>
+</html>
