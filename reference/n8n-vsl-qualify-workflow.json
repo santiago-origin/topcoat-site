@@ -22,7 +22,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Normaliza la aplicación del VSL y arma la nota para GHL.\nconst b = $input.first().json.body || {};\n\nconst REVENUE_LABEL = {\n  '5-10k': '$5,000 - $10,000 / mes',\n  '10-20k': '$10,000 - $20,000 / mes',\n  '20-40k': '$20,000 - $40,000 / mes',\n  '50k+': '$50,000+ / mes'\n};\n\nconst parts = String(b.full_name || '').trim().split(/\\s+/);\nconst firstName = parts.shift() || '';\nconst lastName = parts.join(' ');\n\nconst qualified = b.qualified === true || b.qualified === 'true';\n\nconst note = [\n  `APLICACION VSL — ${qualified ? 'CALIFICA' : 'NO CALIFICA'}`,\n  '',\n  `1. Dueno de compania de pintura en EE.UU.: ${b.owner_us_painting_company === 'si' ? 'Si' : 'No'}`,\n  `2. Facturacion mensual: ${REVENUE_LABEL[b.monthly_revenue] || b.monthly_revenue || '-'}`,\n  `3. Licencia y seguro en regla: ${b.licensed_insured === 'si' ? 'Si' : 'No'}`,\n  `4. Area de servicio: ${b.service_area || '-'}`,\n  '',\n  `Compania: ${b.company || '-'}`,\n  qualified ? null : `Motivo de descalificacion: ${b.disqualified_reason || '-'}`,\n  `Enviado: ${b.submitted_at || new Date().toISOString()}`,\n  `Pagina: ${b.page || '-'}`\n].filter(x => x !== null).join('\\n');\n\nreturn [{\n  json: {\n    firstName,\n    lastName,\n    email: String(b.email || '').trim().toLowerCase(),\n    phone: String(b.phone || '').trim(),\n    companyName: b.company || '',\n    qualified,\n    tags: ['top-coat-media', 'vsl', qualified ? 'vsl-calificado' : 'vsl-no-calificado'],\n    note\n  }\n}];"
+        "jsCode": "// Normaliza la aplicacion del VSL, arma la nota para GHL y el aviso de Discord.\nconst b = $input.first().json.body || {};\n\nconst REVENUE_LABEL = {\n  '5-10k': '$5,000 - $10,000 / mes',\n  '10-20k': '$10,000 - $20,000 / mes',\n  '20-40k': '$20,000 - $40,000 / mes',\n  '50k+': '$50,000+ / mes'\n};\n\nconst dash = (v) => (v === undefined || v === null || String(v).trim() === '') ? '-' : String(v).trim();\nconst yesNo = (v) => v === 'si' ? 'Si' : (v === 'no' ? 'No' : '-');\n\nconst parts = String(b.full_name || '').trim().split(/\\s+/);\nconst firstName = parts.shift() || '';\nconst lastName = parts.join(' ');\n\nconst qualified = b.qualified === true || b.qualified === 'true';\nconst revenue = REVENUE_LABEL[b.monthly_revenue] || dash(b.monthly_revenue);\nconst email = String(b.email || '').trim().toLowerCase();\nconst phone = String(b.phone || '').trim();\n\nconst note = [\n  `APLICACION VSL - ${qualified ? 'CALIFICA' : 'NO CALIFICA'}`,\n  '',\n  `1. Dueno de compania de pintura en EE.UU.: ${yesNo(b.owner_us_painting_company)}`,\n  `2. Facturacion mensual: ${revenue}`,\n  `3. Licencia y seguro en regla: ${yesNo(b.licensed_insured)}`,\n  `4. Area de servicio: ${dash(b.service_area)}`,\n  '',\n  `Compania: ${dash(b.company)}`,\n  `Consentimiento SMS: ${b.sms_consent ? 'Si' : 'No'}`,\n  qualified ? null : `Motivo de descalificacion: ${dash(b.disqualified_reason)}`,\n  `Enviado: ${b.submitted_at || new Date().toISOString()}`,\n  `Pagina: ${dash(b.page)}`\n].filter(x => x !== null).join('\\n');\n\n// Aviso a Discord con TODOS los datos del formulario, para que ninguna\n// aplicacion se pierda aunque GHL falle.\nconst fields = [\n  { name: 'Nombre', value: dash(b.full_name), inline: true },\n  { name: 'Compania', value: dash(b.company), inline: true },\n  { name: 'Email', value: dash(email), inline: false },\n  { name: 'Telefono', value: dash(phone), inline: true },\n  { name: 'Consentimiento SMS', value: b.sms_consent ? 'Si' : 'No', inline: true },\n  { name: 'Area de servicio', value: dash(b.service_area), inline: false },\n  { name: '1. Dueno en EE.UU.', value: yesNo(b.owner_us_painting_company), inline: true },\n  { name: '2. Facturacion mensual', value: revenue, inline: true },\n  { name: '3. Licencia y seguro', value: yesNo(b.licensed_insured), inline: true }\n];\n\nif (!qualified) {\n  fields.push({ name: 'Motivo de descalificacion', value: dash(b.disqualified_reason), inline: false });\n}\n\nconst discord = {\n  username: 'Topcoat VSL',\n  embeds: [{\n    title: qualified ? 'Nueva aplicacion VSL - CALIFICA' : 'Nueva aplicacion VSL - NO CALIFICA',\n    color: qualified ? 3066993 : 15158332,\n    fields,\n    footer: { text: dash(b.page) },\n    timestamp: b.submitted_at || new Date().toISOString()\n  }]\n};\n\nreturn [{\n  json: {\n    firstName,\n    lastName,\n    email,\n    phone,\n    companyName: b.company || '',\n    qualified,\n    tags: ['top-coat-media', 'vsl', qualified ? 'vsl-calificado' : 'vsl-no-calificado'],\n    note,\n    discord\n  }\n}];"
       },
       "id": "a1000000-0000-4000-8000-000000000002",
       "name": "Normalizar",
@@ -32,6 +32,26 @@
         220,
         0
       ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "PEGA_AQUI_EL_WEBHOOK_DE_DISCORD",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.discord) }}",
+        "options": {}
+      },
+      "id": "a1000000-0000-4000-8000-000000000006",
+      "name": "Discord — Aviso de Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        0
+      ],
+      "notes": "Va ANTES de GHL a proposito: si GHL falla, el lead ya llego a Discord con todos sus datos.",
+      "onError": "continueRegularOutput"
     },
     {
       "parameters": {
@@ -54,24 +74,18 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify({ locationId: 'boCeAxfhV55DwxJyJZbw', firstName: $json.firstName, lastName: $json.lastName, name: ($json.firstName + ' ' + $json.lastName).trim(), email: $json.email, phone: $json.phone, companyName: $json.companyName, source: 'VSL topcoatmedia.com/vsl', tags: $json.tags }) }}",
-        "options": {
-          "response": {
-            "response": {
-              "neverError": true
-            }
-          }
-        }
+        "jsonBody": "={{ JSON.stringify({ locationId: 'boCeAxfhV55DwxJyJZbw', firstName: $('Normalizar').item.json.firstName, lastName: $('Normalizar').item.json.lastName, name: ($('Normalizar').item.json.firstName + ' ' + $('Normalizar').item.json.lastName).trim(), email: $('Normalizar').item.json.email, phone: $('Normalizar').item.json.phone, companyName: $('Normalizar').item.json.companyName, source: 'VSL topcoatmedia.com/vsl', tags: $('Normalizar').item.json.tags }) }}",
+        "options": {}
       },
       "id": "a1000000-0000-4000-8000-000000000003",
       "name": "GHL Upsert Contacto",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        440,
+        660,
         0
       ],
-      "notes": "Requiere credencial Header Auth: Authorization = Bearer <PIT de la subcuenta Topcoat>",
+      "notes": "Requiere credencial Header Auth: Authorization = Bearer <PIT de la subcuenta Topcoat>. SIN neverError: si GHL falla queremos verlo en Executions, no que pase de largo.",
       "credentials": {
         "httpHeaderAuth": {
           "id": "Vfe0yURlCh6pLTwt",
@@ -101,20 +115,14 @@
         "sendBody": true,
         "specifyBody": "json",
         "jsonBody": "={{ JSON.stringify({ body: $('Normalizar').item.json.note }) }}",
-        "options": {
-          "response": {
-            "response": {
-              "neverError": true
-            }
-          }
-        }
+        "options": {}
       },
       "id": "a1000000-0000-4000-8000-000000000004",
       "name": "GHL Nota de Calificacion",
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        660,
+        880,
         0
       ],
       "credentials": {
@@ -135,7 +143,7 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        880,
+        1100,
         0
       ]
     }
@@ -153,6 +161,17 @@
       ]
     },
     "Normalizar": {
+      "main": [
+        [
+          {
+            "node": "Discord — Aviso de Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord — Aviso de Lead": {
       "main": [
         [
           {
