@@ -42,6 +42,8 @@
   .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
   .btn-lg { padding: 20px 48px; font-size: 16px; }
   .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+  /* .btn declara display:inline-block y le gana al [hidden] del navegador */
+  .btn[hidden] { display: none; }
 
   /* Alert bar */
   .alert-bar { background: var(--alert); color: var(--white); text-align: center; padding: 13px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 73px; line-height: 1.4; }
@@ -110,11 +112,31 @@
   .lock-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--graphite); text-transform: uppercase; letter-spacing: 1px; }
   .lock-sub { font-size: 15px; color: var(--text-light); max-width: 380px; line-height: 1.6; }
 
-  .q-block { margin-bottom: 38px; }
-  .q-block:last-of-type { margin-bottom: 30px; }
-  .q-label { font-family: 'Montserrat', sans-serif; font-size: 16px; font-weight: 700; color: var(--graphite); line-height: 1.45; margin-bottom: 6px; }
-  .q-num { color: var(--terra); margin-right: 8px; }
-  .q-hint { font-size: 14px; color: var(--text-light); margin-bottom: 16px; line-height: 1.6; }
+  /* ── Wizard: una pregunta por paso ─────────────────────────────── */
+  .form-card { display: flex; flex-direction: column; }
+  .form-progress { height: 6px; background: var(--sand); overflow: hidden; margin-bottom: 14px; }
+  .form-progress-bar { height: 100%; width: 12.5%; background: var(--terra); transition: width 0.35s ease; }
+  .step-counter { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; color: var(--stone); margin-bottom: 30px; }
+  .steps-area { flex: 1; min-height: 300px; }
+  .step { display: none; }
+  .step.active { display: block; animation: stepIn 0.28s ease both; }
+  @keyframes stepIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: none; } }
+  @media (prefers-reduced-motion: reduce) {
+    .step.active { animation: none; }
+    .form-progress-bar { transition: none; }
+  }
+
+  .q-label { font-family: 'Montserrat', sans-serif; font-size: 23px; font-weight: 800; color: var(--graphite); line-height: 1.3; margin-bottom: 8px; letter-spacing: -0.3px; }
+  .q-num { display: block; font-size: 13px; font-weight: 700; color: var(--terra); letter-spacing: 2px; margin-bottom: 10px; }
+  .q-hint { font-size: 15px; color: var(--text-light); margin-bottom: 20px; line-height: 1.6; }
+  .step .opts { margin-top: 24px; }
+
+  /* Navegación entre pasos */
+  .step-nav { display: flex; gap: 12px; align-items: stretch; margin-top: 32px; }
+  .btn-back { flex-shrink: 0; background: transparent; border: 2px solid var(--border); color: var(--text-light); padding: 16px 22px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: all 0.15s; }
+  .btn-back:hover { border-color: var(--stone); color: var(--graphite); }
+  .btn-back[hidden] { display: none; }
+  .step-nav .btn { flex: 1; text-align: center; border: none; padding: 17px 28px; font-size: 15px; cursor: pointer; }
 
   .opts { display: grid; gap: 10px; }
   .opts.two { grid-template-columns: 1fr 1fr; }
@@ -131,19 +153,14 @@
   .field input { width: 100%; padding: 14px 16px; font-family: 'Lato', sans-serif; font-size: 15px; color: var(--text); background: var(--sand-light); border: 2px solid var(--border); outline: none; transition: border-color 0.2s; }
   .field input:focus { border-color: var(--terra); }
   .field input::placeholder { color: var(--stone); }
-  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
 
-  .contact-heading { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; padding-top: 34px; border-top: 2px solid var(--border); }
-
-  .consent { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-top: 4px; }
+  .consent { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-top: 26px; }
   .consent input[type="checkbox"] { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--terra); cursor: pointer; }
   .consent-text { font-size: 13px; color: var(--text-light); line-height: 1.6; }
   .consent-links { font-size: 12px; color: var(--text-light); margin-top: 8px; padding-left: 32px; }
   .consent-links a { color: var(--terra); text-decoration: underline; }
 
-  .form-error { display: none; margin-top: 20px; padding: 14px 18px; border: 2px solid var(--alert); background: #fdf3f2; color: var(--alert); font-size: 14px; font-weight: 700; line-height: 1.5; }
-  .form-submit { margin-top: 30px; }
-  .form-submit .btn { width: 100%; text-align: center; border: none; padding: 19px 32px; font-size: 15px; }
+  .form-error { display: none; margin-top: 22px; padding: 14px 18px; border: 2px solid var(--alert); background: #fdf3f2; color: var(--alert); font-size: 14px; font-weight: 700; line-height: 1.5; }
 
   /* Result: qualified (calendar) */
   #result { display: none; }
@@ -185,7 +202,6 @@
     .section-title { font-size: 27px; }
     .form-card { padding: 32px 22px; }
     .opts.two { grid-template-columns: 1fr; }
-    .field-row { grid-template-columns: 1fr; gap: 22px; }
     .nq-card { padding: 36px 24px; }
     .nq-card h2 { font-size: 24px; }
     .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
@@ -255,7 +271,7 @@
     <div class="divider divider-center"></div>
     <div class="section-label">Paso 2 &middot; Aplicación</div>
     <h2 class="section-title">Veamos Si Calificas Para la Garantía</h2>
-    <p class="section-sub">No trabajamos con todos. Contesta estas 4 preguntas y te decimos de inmediato si eres candidato para las 50 citas garantizadas.</p>
+    <p class="section-sub">No trabajamos con todos. Contesta estas 8 preguntas rápidas &mdash; una por una, toma menos de un minuto &mdash; y te decimos de inmediato si eres candidato para las 50 citas garantizadas.</p>
 
     <div class="form-shell locked" id="form-shell">
       <div class="form-lock" id="form-lock">
@@ -267,79 +283,107 @@
         <a href="#video-box" class="btn btn-primary" id="lock-cta">Ver el Video Ahora</a>
       </div>
 
+      <!-- ═══ Wizard: cada pregunta es un paso ═══════════════════════════
+           Para agregar/quitar un paso basta con agregar o borrar un
+           <div class="step">. El contador, la barra de progreso y la
+           validación se ajustan solos según cuántos haya.
+           Atributos que entiende el JS:
+             data-radio="nombre"   → paso de opciones; avanza solo al elegir
+             data-input="id"       → paso de texto; obligatorio
+             data-optional         → el paso se puede dejar vacío
+             data-error="..."      → mensaje si lo dejan incompleto
+           ══════════════════════════════════════════════════════════════ -->
       <form class="form-card" id="qualify-form" novalidate style="text-align: left;">
 
-        <div class="q-block">
-          <div class="q-label"><span class="q-num">01</span>¿Eres dueño de una compañía de pintura en Estados Unidos?</div>
-          <div class="opts two">
-            <label class="opt"><input type="radio" name="owner" value="si"><span>Sí, soy el dueño</span></label>
-            <label class="opt"><input type="radio" name="owner" value="no"><span>No</span></label>
-          </div>
-        </div>
+        <div class="form-progress"><div class="form-progress-bar" id="progress-bar"></div></div>
+        <div class="step-counter" id="step-counter">Paso 1 de 8</div>
 
-        <div class="q-block">
-          <div class="q-label"><span class="q-num">02</span>¿Cuál es tu facturación mensual?</div>
-          <div class="opts">
-            <label class="opt"><input type="radio" name="revenue" value="5-10k"><span>$5,000 &ndash; $10,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="10-20k"><span>$10,000 &ndash; $20,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="20-40k"><span>$20,000 &ndash; $40,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="50k+"><span>$50,000 al mes o más</span></label>
-          </div>
-        </div>
+        <div class="steps-area">
 
-        <div class="q-block">
-          <div class="q-label"><span class="q-num">03</span>¿Cuentas con licencia, seguro y todo en regla?</div>
-          <div class="opts two">
-            <label class="opt"><input type="radio" name="licensed" value="si"><span>Sí, todo en regla</span></label>
-            <label class="opt"><input type="radio" name="licensed" value="no"><span>Todavía no</span></label>
+          <div class="step active" data-radio="owner" data-error="Selecciona una opción para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 01</span>¿Eres dueño de una compañía de pintura en Estados Unidos?</div>
+            <div class="opts two">
+              <label class="opt"><input type="radio" name="owner" value="si"><span>Sí, soy el dueño</span></label>
+              <label class="opt"><input type="radio" name="owner" value="no"><span>No</span></label>
+            </div>
           </div>
-        </div>
 
-        <div class="q-block">
-          <div class="q-label"><span class="q-num">04</span>¿Cuál es tu área de servicio?</div>
-          <div class="q-hint">Escribe tu ciudad principal y hasta qué distancia viajas para dar estimados.</div>
-          <div class="field" style="margin-bottom: 0;">
-            <input type="text" id="service_area" name="service_area" placeholder="Eg: Los Angeles - 35 mi radius">
+          <div class="step" data-radio="revenue" data-error="Selecciona tu rango de facturación para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 02</span>¿Cuál es tu facturación mensual?</div>
+            <div class="opts">
+              <label class="opt"><input type="radio" name="revenue" value="5-10k"><span>$5,000 &ndash; $10,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="10-20k"><span>$10,000 &ndash; $20,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="20-40k"><span>$20,000 &ndash; $40,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="50k+"><span>$50,000 al mes o más</span></label>
+            </div>
           </div>
-        </div>
 
-        <div class="contact-heading">¿A dónde te enviamos el resultado?</div>
+          <div class="step" data-radio="licensed" data-error="Selecciona una opción para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 03</span>¿Cuentas con licencia, seguro y todo en regla?</div>
+            <div class="opts two">
+              <label class="opt"><input type="radio" name="licensed" value="si"><span>Sí, todo en regla</span></label>
+              <label class="opt"><input type="radio" name="licensed" value="no"><span>Todavía no</span></label>
+            </div>
+          </div>
 
-        <div class="field-row">
-          <div class="field">
-            <label for="full_name">Nombre completo <span class="req">*</span></label>
-            <input type="text" id="full_name" name="full_name" placeholder="Juan Pérez" autocomplete="name">
+          <div class="step" data-input="service_area" data-error="Escribe tu área de servicio para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 04</span>¿Cuál es tu área de servicio?</div>
+            <div class="q-hint">Escribe tu ciudad principal y hasta qué distancia viajas para dar estimados.</div>
+            <div class="field" style="margin-bottom: 0;">
+              <input type="text" id="service_area" name="service_area" placeholder="Eg: Louisville, KY - 35 millas a la redonda">
+            </div>
           </div>
-          <div class="field">
-            <label for="company">Nombre de tu compañía</label>
-            <input type="text" id="company" name="company" placeholder="Pérez Painting LLC" autocomplete="organization">
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field">
-            <label for="email">Correo electrónico <span class="req">*</span></label>
-            <input type="email" id="email" name="email" placeholder="juan@perezpainting.com" autocomplete="email">
-          </div>
-          <div class="field">
-            <label for="phone">Teléfono <span class="req">*</span></label>
-            <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
-          </div>
-        </div>
 
-        <label class="consent">
-          <input type="checkbox" id="sms_consent" name="sms_consent">
-          <span class="consent-text">Al marcar esta casilla y proporcionar mi número, doy mi consentimiento para recibir mensajes de texto de Topcoat Media sobre sus servicios de marketing, recordatorios de citas y seguimientos. La frecuencia de mensajes varía. Pueden aplicar tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda.</span>
-        </label>
-        <div class="consent-links">
-          <a href="/privacy-policy">Política de Privacidad</a>
-          &nbsp;|&nbsp;
-          <a href="/tos">Términos de Servicio</a>
+          <div class="step" data-input="full_name" data-error="Escribe tu nombre completo para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 05</span>¿Cómo te llamas?</div>
+            <div class="q-hint">Así sabemos con quién estamos hablando en la llamada.</div>
+            <div class="field" style="margin-bottom: 0;">
+              <input type="text" id="full_name" name="full_name" placeholder="Juan Pérez" autocomplete="name">
+            </div>
+          </div>
+
+          <div class="step" data-input="company" data-optional data-error="">
+            <div class="q-label"><span class="q-num">Pregunta 06</span>¿Cómo se llama tu compañía?</div>
+            <div class="q-hint">Opcional. Si aún no tienes nombre registrado, puedes saltarte esta pregunta.</div>
+            <div class="field" style="margin-bottom: 0;">
+              <input type="text" id="company" name="company" placeholder="Pérez Painting LLC" autocomplete="organization">
+            </div>
+          </div>
+
+          <div class="step" data-input="email" data-error="Escribe un correo electrónico válido para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 07</span>¿A qué correo te enviamos el resultado?</div>
+            <div class="q-hint">Ahí te llega la confirmación de tu llamada y los detalles de la garantía.</div>
+            <div class="field" style="margin-bottom: 0;">
+              <input type="email" id="email" name="email" placeholder="juan@perezpainting.com" autocomplete="email">
+            </div>
+          </div>
+
+          <div class="step" data-input="phone" data-error="Escribe tu número de teléfono para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 08</span>¿A qué número te podemos llamar?</div>
+            <div class="q-hint">Es el número al que llamamos para la sesión de 15 minutos.</div>
+            <div class="field" style="margin-bottom: 0;">
+              <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
+            </div>
+
+            <label class="consent">
+              <input type="checkbox" id="sms_consent" name="sms_consent">
+              <span class="consent-text">Al marcar esta casilla y proporcionar mi número, doy mi consentimiento para recibir mensajes de texto de Topcoat Media sobre sus servicios de marketing, recordatorios de citas y seguimientos. La frecuencia de mensajes varía. Pueden aplicar tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda.</span>
+            </label>
+            <div class="consent-links">
+              <a href="/privacy-policy">Política de Privacidad</a>
+              &nbsp;|&nbsp;
+              <a href="/tos">Términos de Servicio</a>
+            </div>
+          </div>
+
         </div>
 
         <div class="form-error" id="form-error"></div>
 
-        <div class="form-submit">
-          <button type="submit" class="btn btn-primary" id="submit-btn">Ver Si Califico Para la Garantía</button>
+        <div class="step-nav">
+          <button type="button" class="btn-back" id="back-btn" hidden>&larr; Atrás</button>
+          <button type="button" class="btn btn-primary" id="next-btn">Continuar</button>
+          <button type="submit" class="btn btn-primary" id="submit-btn" hidden>Ver Si Califico Para la Garantía</button>
         </div>
       </form>
     </div>
@@ -486,12 +530,120 @@
     return el ? el.value : '';
   }
 
+  /* ═══════════════ WIZARD: UN PASO POR PREGUNTA ═══════════════════════ */
+  var steps = Array.prototype.slice.call(form.querySelectorAll('.step'));
+  var progressBar = document.getElementById('progress-bar');
+  var counterEl = document.getElementById('step-counter');
+  var backBtn = document.getElementById('back-btn');
+  var nextBtn = document.getElementById('next-btn');
+  var consentEl = document.getElementById('sms_consent');
+  var current = 0;
+
+  function clearError() {
+    errorEl.style.display = 'none';
+  }
+
+  function renderStep(focus) {
+    steps.forEach(function (s, i) { s.classList.toggle('active', i === current); });
+
+    var last = current === steps.length - 1;
+    progressBar.style.width = ((current + 1) / steps.length * 100) + '%';
+    counterEl.textContent = 'Paso ' + (current + 1) + ' de ' + steps.length;
+    backBtn.hidden = current === 0;
+    nextBtn.hidden = last;
+    submitBtn.hidden = !last;
+
+    var step = steps[current];
+    if (step.hasAttribute('data-optional')) {
+      nextBtn.textContent = 'Saltar y continuar';
+    } else {
+      nextBtn.textContent = 'Continuar';
+    }
+
+    // Enfoca el campo de texto para que puedan escribir de inmediato
+    if (focus) {
+      var input = step.querySelector('input[type="text"], input[type="email"], input[type="tel"]');
+      if (input) input.focus({ preventScroll: true });
+    }
+  }
+
+  /* Devuelve '' si el paso está completo, o el mensaje de error. */
+  function validateStep(i) {
+    var step = steps[i];
+    var msg = step.getAttribute('data-error') || 'Completa este paso para continuar.';
+
+    var radioName = step.getAttribute('data-radio');
+    if (radioName) return checked(radioName) ? '' : msg;
+
+    var inputId = step.getAttribute('data-input');
+    if (inputId) {
+      var el = document.getElementById(inputId);
+      if (step.hasAttribute('data-optional')) return '';
+      if (!el.value.trim()) return msg;
+      if (el.type === 'email' && !el.validity.valid) return msg;
+    }
+
+    // El consentimiento SMS vive en el último paso, junto al teléfono
+    if (step.contains(consentEl) && !consentEl.checked) {
+      return 'Marca la casilla de consentimiento para que podamos contactarte por mensaje de texto.';
+    }
+    return '';
+  }
+
+  function goTo(i, focus) {
+    current = Math.max(0, Math.min(i, steps.length - 1));
+    clearError();
+    renderStep(focus);
+  }
+
+  function next() {
+    var msg = validateStep(current);
+    if (msg) return fail(msg);
+    if (current < steps.length - 1) {
+      goTo(current + 1, true);
+      form.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+  }
+
+  nextBtn.addEventListener('click', next);
+  backBtn.addEventListener('click', function () { goTo(current - 1, true); });
+
+  // Elegir una opción avanza solo — menos fricción en móvil
+  steps.forEach(function (step) {
+    if (!step.getAttribute('data-radio')) return;
+    step.addEventListener('change', function () {
+      clearError();
+      setTimeout(function () { if (steps[current] === step) next(); }, 280);
+    });
+  });
+
+  // Enter avanza en los pasos de texto en vez de enviar el formulario
+  form.addEventListener('keydown', function (e) {
+    if (e.key !== 'Enter') return;
+    var tag = e.target.tagName;
+    if (tag === 'INPUT' && e.target.type !== 'checkbox' && current < steps.length - 1) {
+      e.preventDefault();
+      next();
+    }
+  });
+
   function fail(msg, focusEl) {
+    // Si el campo con problema quedó en otro paso, muestra ese paso
+    if (focusEl) {
+      var owner = focusEl.closest('.step');
+      var idx = steps.indexOf(owner);
+      if (idx > -1 && idx !== current) {
+        current = idx;
+        renderStep(false);
+      }
+    }
     errorEl.textContent = msg;
     errorEl.style.display = 'block';
-    if (focusEl) focusEl.focus();
+    if (focusEl) focusEl.focus({ preventScroll: true });
     errorEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
+
+  renderStep(false);
 
   form.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -501,16 +653,16 @@
     var email = document.getElementById('email');
     var phone = document.getElementById('phone');
     var area = document.getElementById('service_area');
-    var consent = document.getElementById('sms_consent');
 
-    if (!checked('owner')) return fail('Contesta la pregunta 1: ¿eres dueño de una compañía de pintura en Estados Unidos?');
-    if (!checked('revenue')) return fail('Contesta la pregunta 2: ¿cuál es tu facturación mensual?');
-    if (!checked('licensed')) return fail('Contesta la pregunta 3: ¿cuentas con licencia y seguro?');
-    if (!area.value.trim()) return fail('Contesta la pregunta 4: escribe tu área de servicio.', area);
-    if (!name.value.trim()) return fail('Escribe tu nombre completo.', name);
-    if (!email.value.trim() || !email.validity.valid) return fail('Escribe un correo electrónico válido.', email);
-    if (!phone.value.trim()) return fail('Escribe tu número de teléfono.', phone);
-    if (!consent.checked) return fail('Marca la casilla de consentimiento para que podamos contactarte por mensaje de texto.', consent);
+    // Red de seguridad: revisa todos los pasos y regresa al primero incompleto
+    for (var i = 0; i < steps.length; i++) {
+      var msg = validateStep(i);
+      if (msg) {
+        var target = steps[i].querySelector('input:not([type="radio"])') ||
+                     steps[i].querySelector('input');
+        return fail(msg, target);
+      }
+    }
 
     var owner = checked('owner');
     var revenue = checked('revenue');
