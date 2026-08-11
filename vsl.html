@@ -71,15 +71,22 @@
   .video-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
   .video-ph-text { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 2px; text-align: center; padding: 0 24px; }
 
-  /* Urgency gate over the video */
-  .video-gate { position: absolute; inset: 0; z-index: 5; background: var(--warm-black); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px; text-align: center; cursor: pointer; transition: opacity 0.25s; }
-  .gate-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 2.5px; }
+  /* Vista previa borrosa del video detrás del gate.
+     scale(1.1) evita que el blur deje los bordes transparentes. */
+  .video-poster { position: absolute; inset: 0; z-index: 1; background-size: cover; background-position: center; filter: blur(11px) saturate(1.2); transform: scale(1.1); opacity: 0; transition: opacity 0.5s ease; }
+  .video-poster.ready { opacity: 1; }
+
+  /* Urgency gate over the video — translúcido para que se vea el video atrás */
+  .video-gate { position: absolute; inset: 0; z-index: 5; background: linear-gradient(180deg, rgba(26,26,46,0.42) 0%, rgba(26,26,46,0.68) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px; text-align: center; cursor: pointer; transition: opacity 0.25s; }
+  /* Sin thumbnail (YOUTUBE_ID vacío) el gate queda sólido como antes */
+  .video-box:not(.has-poster) .video-gate { background: var(--warm-black); }
+  .gate-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: #E8834F; text-transform: uppercase; letter-spacing: 2.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.85); }
   .gate-play { width: 84px; height: 84px; border-radius: 50%; background: var(--terra); display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.2s; animation: throb 2s ease-in-out infinite; }
   .gate-play::after { content: ''; border-style: solid; border-width: 15px 0 15px 26px; border-color: transparent transparent transparent var(--white); margin-left: 7px; }
   .video-gate:hover .gate-play { background: var(--terra-dark); transform: scale(1.06); }
   @keyframes throb { 0%, 100% { box-shadow: 0 0 0 0 rgba(168,81,46,0.55); } 50% { box-shadow: 0 0 0 22px rgba(168,81,46,0); } }
-  .gate-cta { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.3; }
-  .gate-sub { font-size: 14px; color: rgba(255,255,255,0.6); max-width: 420px; line-height: 1.6; }
+  .gate-cta { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.3; text-shadow: 0 2px 14px rgba(0,0,0,0.9); }
+  .gate-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 420px; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
 
   /* Countdown */
   .countdown { display: inline-flex; gap: 12px; margin: 30px 0 10px; }
@@ -243,6 +250,10 @@
              Ejemplo: var YOUTUBE_ID = 'dQw4w9WgXcQ';
              Mientras esté vacía se muestra el placeholder de abajo.
              ═══════════════════════════════════════════════════════════════ -->
+        <!-- Vista previa borrosa: se llena con el thumbnail real del video
+             para que se note que ahí hay un video, sin revelarlo todavía. -->
+        <div class="video-poster" id="video-poster"></div>
+
         <div class="video-ph" id="video-ph">
           <div class="video-ph-text">Espacio del video &mdash; pega aquí el ID de YouTube</div>
         </div>
@@ -476,6 +487,34 @@
   var shell = document.getElementById('form-shell');
   var started = false;
 
+  /* Vista previa borrosa: carga el thumbnail de YouTube detrás del gate.
+     maxresdefault no existe en todos los videos, así que si falla se cae
+     a hqdefault, que YouTube genera siempre. */
+  (function loadPoster() {
+    if (!YOUTUBE_ID) return;
+    var posterEl = document.getElementById('video-poster');
+    var box = document.getElementById('video-box');
+    var ph = document.getElementById('video-ph');
+
+    function apply(url) {
+      posterEl.style.backgroundImage = 'url("' + url + '")';
+      posterEl.classList.add('ready');
+      box.classList.add('has-poster');
+      if (ph) ph.remove();
+    }
+
+    var hi = new Image();
+    hi.onload = function () {
+      // YouTube devuelve un placeholder gris de 120x90 cuando no hay maxres
+      if (hi.naturalWidth > 320) apply(hi.src);
+      else apply('https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg');
+    };
+    hi.onerror = function () {
+      apply('https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg');
+    };
+    hi.src = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/maxresdefault.jpg';
+  })();
+
   function unlockForm() {
     shell.classList.remove('locked');
   }
@@ -487,6 +526,9 @@
     if (YOUTUBE_ID) {
       var ph = document.getElementById('video-ph');
       if (ph) ph.remove();
+      // El poster tiene z-index 1: hay que quitarlo o taparía al iframe
+      var posterEl = document.getElementById('video-poster');
+      if (posterEl) posterEl.remove();
       var frame = document.createElement('iframe');
       frame.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID +
                   '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
