@@ -50,7 +50,7 @@
         440,
         0
       ],
-      "notes": "Va ANTES de GHL a proposito: si GHL falla, el lead ya llego a Discord con todos sus datos.",
+      "notes": "Va ANTES de GHL a proposito: si GHL falla, el lead ya llego a Discord con todos sus datos. La URL real del webhook esta puesta SOLO en n8n (workflow kuIDcaRoVvLiAf8W) y no se commitea: este repo es publico y cualquiera podria publicar en el canal.",
       "onError": "continueRegularOutput"
     },
     {
