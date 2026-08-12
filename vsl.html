@@ -213,6 +213,7 @@
     .footer-right { text-align: center; }
   }
 </style>
+<script src="/pixel.js"></script>
 </head>
 <body>
 
@@ -538,6 +539,14 @@
     gate.style.opacity = '0';
     setTimeout(function () { gate.remove(); }, 250);
 
+    // Meta Pixel: dieron play al VSL
+    if (window.tcmTrack) {
+      window.tcmTrack('ViewContent', {
+        content_name: 'VSL Topcoat',
+        content_category: 'vsl_video'
+      });
+    }
+
     if (UNLOCK_DELAY_SECS > 0) {
       setTimeout(unlockForm, UNLOCK_DELAY_SECS * 1000);
     } else {
@@ -717,6 +726,14 @@
       phone: phone.value.trim(),
       sms_consent: true
     };
+
+    /* Meta Pixel: evento Lead. El event_id y el fbclid viajan a n8n para
+       poder reenviar el mismo evento por Conversions API sin duplicarlo. */
+    payload.fb_event_id = window.tcmTrack ? window.tcmTrack('Lead', {
+      content_name: 'Aplicacion VSL',
+      content_category: qualified ? 'calificado' : 'no_calificado'
+    }) : '';
+    payload.fbclid = window.tcmGetFbclid ? window.tcmGetFbclid() : '';
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';

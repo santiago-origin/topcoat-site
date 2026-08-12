@@ -92,6 +92,7 @@
     .footer-right { text-align: center; }
   }
 </style>
+<script src="/pixel.js"></script>
 </head>
 <body>
 
@@ -165,6 +166,19 @@
     </div>
   </div>
 </footer>
+
+<script>
+/* Meta Pixel: a esta página solo se llega después de agendar (el calendario
+   de GHL redirige aquí), así que la carga misma ES la conversión. */
+(function () {
+  if (window.tcmTrack) {
+    window.tcmTrack('Schedule', {
+      content_name: 'Llamada Introductoria',
+      content_category: 'booking'
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
