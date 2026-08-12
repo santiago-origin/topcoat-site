@@ -161,10 +161,8 @@
   .field input:focus { border-color: var(--terra); }
   .field input::placeholder { color: var(--stone); }
 
-  .consent { display: flex; align-items: flex-start; gap: 12px; cursor: pointer; margin-top: 26px; }
-  .consent input[type="checkbox"] { flex-shrink: 0; width: 20px; height: 20px; margin-top: 2px; accent-color: var(--terra); cursor: pointer; }
-  .consent-text { font-size: 13px; color: var(--text-light); line-height: 1.6; }
-  .consent-links { font-size: 12px; color: var(--text-light); margin-top: 8px; padding-left: 32px; }
+  .consent-text { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-top: 26px; padding-top: 20px; border-top: 1px solid var(--border); }
+  .consent-links { font-size: 12px; color: var(--text-light); margin-top: 8px; }
   .consent-links a { color: var(--terra); text-decoration: underline; }
 
   .form-error { display: none; margin-top: 22px; padding: 14px 18px; border: 2px solid var(--alert); background: #fdf3f2; color: var(--alert); font-size: 14px; font-weight: 700; line-height: 1.5; }
@@ -376,10 +374,9 @@
               <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
             </div>
 
-            <label class="consent">
-              <input type="checkbox" id="sms_consent" name="sms_consent">
-              <span class="consent-text">Al marcar esta casilla y proporcionar mi número, doy mi consentimiento para recibir mensajes de texto de Topcoat Media sobre sus servicios de marketing, recordatorios de citas y seguimientos. La frecuencia de mensajes varía. Pueden aplicar tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda.</span>
-            </label>
+            <!-- Sin casilla: el consentimiento queda implícito al enviar.
+                 El aviso debe seguir visible junto al botón para cumplir TCPA. -->
+            <div class="consent-text">Al enviar tu aplicación y proporcionar tu número, aceptas recibir mensajes de texto de Topcoat Media sobre sus servicios de marketing, recordatorios de citas y seguimientos. La frecuencia de mensajes varía. Pueden aplicar tarifas de mensajes y datos. Responde STOP para cancelar, HELP para ayuda.</div>
             <div class="consent-links">
               <a href="/privacy-policy">Política de Privacidad</a>
               &nbsp;|&nbsp;
@@ -578,7 +575,6 @@
   var counterEl = document.getElementById('step-counter');
   var backBtn = document.getElementById('back-btn');
   var nextBtn = document.getElementById('next-btn');
-  var consentEl = document.getElementById('sms_consent');
   var current = 0;
 
   function clearError() {
@@ -623,11 +619,6 @@
       if (step.hasAttribute('data-optional')) return '';
       if (!el.value.trim()) return msg;
       if (el.type === 'email' && !el.validity.valid) return msg;
-    }
-
-    // El consentimiento SMS vive en el último paso, junto al teléfono
-    if (step.contains(consentEl) && !consentEl.checked) {
-      return 'Marca la casilla de consentimiento para que podamos contactarte por mensaje de texto.';
     }
     return '';
   }
