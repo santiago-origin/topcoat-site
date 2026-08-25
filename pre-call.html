@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" style="scroll-behavior: smooth;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mira Este Video Antes de Tu Llamada | Topcoat Media</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/favicon.png">
+<link rel="apple-touch-icon" href="/favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Lato:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --graphite: #2C3333;
+    --stone: #5A6868;
+    --terra: #A8512E;
+    --terra-dark: #8B3F22;
+    --sand: #F5EDE3;
+    --sand-light: #FAF6F1;
+    --warm-black: #1A1A2E;
+    --white: #ffffff;
+    --border: #D4C9BC;
+    --text: #2D2D2D;
+    --text-light: #6B6B6B;
+    --alert: #C0392B;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Lato', sans-serif; color: var(--text); background: var(--white); }
+  img { max-width: 100%; }
+  a { text-decoration: none; }
+
+  /* Nav */
+  nav { background: var(--white); border-bottom: 2px solid var(--graphite); padding: 18px 0; position: fixed; top: 0; left: 0; right: 0; z-index: 100; }
+  .nav-inner { max-width: 1170px; margin: 0 auto; padding: 0 24px; display: flex; justify-content: center; align-items: center; }
+
+  /* Alert bar */
+  .alert-bar { background: var(--alert); color: var(--white); text-align: center; padding: 13px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 73px; line-height: 1.4; }
+  .alert-bar .pulse { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--white); margin-right: 8px; vertical-align: middle; animation: pulse 1.2s infinite; }
+  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+
+  /* Hero */
+  .hero { background: var(--graphite); padding: 56px 24px 72px; text-align: center; }
+  .hero-inner { max-width: 820px; margin: 0 auto; }
+  .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
+  .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--white); line-height: 1.08; margin-bottom: 20px; letter-spacing: -1px; }
+  .hero h1 span { color: var(--terra); }
+  .hero p { font-size: 19px; color: rgba(255,255,255,0.72); line-height: 1.65; max-width: 640px; margin: 0 auto 40px; }
+  .hero p strong { color: var(--white); }
+
+  /* Video */
+  .video-wrap { max-width: 820px; margin: 0 auto; }
+  .video-box { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--warm-black); border: 2px solid var(--terra); overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
+  .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
+
+  /* Section */
+  section { padding: 80px 24px; }
+  .container { max-width: 1170px; margin: 0 auto; }
+  .section-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 16px; }
+  .section-title { font-family: 'Montserrat', sans-serif; font-size: 36px; font-weight: 800; color: var(--graphite); line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.5px; }
+  .section-sub { font-size: 17px; color: var(--text-light); line-height: 1.7; }
+  .text-center { text-align: center; }
+  .text-center .section-sub { max-width: 620px; margin: 0 auto; }
+  .divider { width: 60px; height: 3px; background: var(--terra); margin-bottom: 24px; }
+  .divider-center { margin-left: auto; margin-right: auto; }
+
+  /* Reasons grid */
+  .reasons { background: var(--sand-light); }
+  .reasons-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 56px; }
+  .reason { border: 2px solid var(--border); border-right: none; padding: 40px 32px; }
+  .reason:last-child { border-right: 2px solid var(--border); }
+  .reason-num { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: var(--terra); letter-spacing: 2px; margin-bottom: 16px; }
+  .reason h3 { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 700; color: var(--graphite); margin-bottom: 12px; }
+  .reason p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
+
+  /* Footer */
+  footer { background: var(--warm-black); padding: 40px 24px; }
+  .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+  .footer-right { text-align: right; }
+  footer p { font-size: 13px; color: rgba(255,255,255,0.3); }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .hero { padding: 40px 24px 54px; }
+    .hero h1 { font-size: 28px; letter-spacing: -0.6px; }
+    .hero p { font-size: 16px; }
+    .section-title { font-size: 27px; }
+    .reasons-grid { grid-template-columns: 1fr; }
+    .reason { border-right: 2px solid var(--border); border-bottom: none; }
+    .reason:last-child { border-bottom: 2px solid var(--border); }
+    .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
+    .footer-right { text-align: center; }
+  }
+</style>
+<script src="/pixel.js"></script>
+</head>
+<body>
+
+<!-- Nav -->
+<nav>
+  <div class="nav-inner">
+    <img src="logo-light.png" alt="Topcoat Media" style="height: 30px;">
+  </div>
+</nav>
+
+<!-- Alert bar -->
+<div class="alert-bar">
+  <span class="pulse"></span> Muy importante: mira este video completo antes de nuestra llamada
+</div>
+
+<!-- Hero + video -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Antes de Nuestra Llamada</div>
+    <h1>Mira Este Video <span>Antes de Que Hablemos</span></h1>
+    <p>Toma unos minutos y te ahorra tiempo a ti y a nosotros en la llamada. <strong>Explica exactamente cómo funciona el proceso y qué necesitamos de ti</strong> — si llegas a la llamada sin haberlo visto, vamos a tener que repetir esta parte y se acorta el tiempo para resolver tus preguntas.</p>
+
+    <div class="video-wrap">
+      <div class="video-box">
+        <iframe src="https://www.youtube-nocookie.com/embed/tiRP7Cj6rmI?rel=0&modestbranding=1&playsinline=1"
+                title="Video previo a tu llamada — Topcoat Media"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowfullscreen></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why it matters -->
+<section class="reasons">
+  <div class="container text-center">
+    <div class="divider divider-center"></div>
+    <div class="section-label">Por Qué Importa</div>
+    <h2 class="section-title">Esto No Es Opcional</h2>
+    <div class="reasons-grid" style="text-align: left;">
+      <div class="reason">
+        <div class="reason-num">01</div>
+        <h3>Llegas Preparado</h3>
+        <p>Vas a entender cómo funciona la garantía y el proceso completo antes de que hablemos — así la llamada se enfoca en tu negocio, no en explicaciones básicas.</p>
+      </div>
+      <div class="reason">
+        <div class="reason-num">02</div>
+        <h3>Aprovechas Mejor el Tiempo</h3>
+        <p>La llamada es corta. Cada minuto que no se va en repetir lo que dice el video es un minuto para resolver tus dudas específicas.</p>
+      </div>
+      <div class="reason">
+        <div class="reason-num">03</div>
+        <h3>Confirmas Que Es Para Ti</h3>
+        <p>Si algo del proceso no encaja con tu operación, es mejor saberlo antes de la llamada que durante.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <img src="logo-dark.png" alt="Topcoat Media" style="height: 24px;">
+    </div>
+    <div class="footer-right">
+      <p><a href="/privacy-policy" style="color: rgba(255,255,255,0.5); text-decoration: none; margin-right: 16px;">Política de Privacidad</a><a href="/tos" style="color: rgba(255,255,255,0.5); text-decoration: none;">Términos de Servicio</a></p>
+      <p style="margin-top: 4px;">&copy; 2026 Topcoat Media. Todos los derechos reservados.</p>
+      <p style="margin-top: 4px;">Una división de The Origin Agency LLC</p>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>

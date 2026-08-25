@@ -734,6 +734,9 @@
       content_category: qualified ? 'calificado' : 'no_calificado'
     }) : '';
     payload.fbclid = window.tcmGetFbclid ? window.tcmGetFbclid() : '';
+    payload.fbc = window.tcmGetFbc ? window.tcmGetFbc() : '';
+    payload.fbp = window.tcmGetFbp ? window.tcmGetFbp() : '';
+    payload.user_agent = navigator.userAgent;
 
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';

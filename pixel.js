@@ -14,7 +14,7 @@
      Lead         /vsl — cuando envían la aplicación (parámetro: calificado)
      Schedule     /thank-you — cuando ya agendaron la llamada
    ═══════════════════════════════════════════════════════════════════════ */
-var TCM_PIXEL_ID = '';
+var TCM_PIXEL_ID = '1603584924469190';
 
 (function (w, d) {
   'use strict';
@@ -25,13 +25,36 @@ var TCM_PIXEL_ID = '';
   try {
     var fbclid = new URLSearchParams(w.location.search).get('fbclid');
     if (fbclid) {
-      d.cookie = '_tcm_fbclid=' + encodeURIComponent(fbclid) +
-                 ';max-age=' + (90 * 24 * 60 * 60) + ';path=/;SameSite=Lax';
+      var maxAge = ';max-age=' + (90 * 24 * 60 * 60) + ';path=/;SameSite=Lax';
+      d.cookie = '_tcm_fbclid=' + encodeURIComponent(fbclid) + maxAge;
+      // Se guarda el momento del clic solo si no había uno ya, para no
+      // reiniciar la ventana de atribución en cada carga de página.
+      if (!/(?:^|;\s*)_tcm_fbclid_ts=/.test(d.cookie)) {
+        d.cookie = '_tcm_fbclid_ts=' + Date.now() + maxAge;
+      }
     }
   } catch (e) { /* URLSearchParams no soportado: seguimos sin fbclid */ }
 
   w.tcmGetFbclid = function () {
     var m = d.cookie.match(/(?:^|;\s*)_tcm_fbclid=([^;]*)/);
+    return m ? decodeURIComponent(m[1]) : '';
+  };
+
+  /* Arma el parámetro fbc en el formato que espera Conversions API:
+     fb.1.<momento del clic en ms>.<fbclid>. */
+  w.tcmGetFbc = function () {
+    var fbclid = w.tcmGetFbclid();
+    if (!fbclid) return '';
+    var m = d.cookie.match(/(?:^|;\s*)_tcm_fbclid_ts=([^;]*)/);
+    var ts = m ? m[1] : Date.now();
+    return 'fb.1.' + ts + '.' + fbclid;
+  };
+
+  /* Lee la cookie _fbp que pone el propio pixel de Meta al cargar. Junto con
+     el fbc, es lo que Conversions API usa para machear el evento del
+     servidor con la sesión del navegador. */
+  w.tcmGetFbp = function () {
+    var m = d.cookie.match(/(?:^|;\s*)_fbp=([^;]*)/);
     return m ? decodeURIComponent(m[1]) : '';
   };
 
