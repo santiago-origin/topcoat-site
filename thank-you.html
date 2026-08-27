@@ -69,6 +69,17 @@
   .step h3 { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 700; color: var(--graphite); margin-bottom: 12px; }
   .step p { font-size: 15px; color: var(--text-light); line-height: 1.7; }
 
+  /* Botones */
+  .btn { display: inline-block; padding: 17px 40px; font-family: 'Montserrat', sans-serif; font-size: 14px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; }
+  .btn-primary { background: var(--terra); color: var(--white); border-color: var(--terra); }
+  .btn-primary:hover { background: var(--terra-dark); border-color: var(--terra-dark); }
+
+  /* Casos de éxito */
+  .proof { background: var(--white); }
+  .proof-card { max-width: 760px; margin: 0 auto; padding: 48px 40px; background: var(--sand-light); border: 2px solid var(--border); border-top: 4px solid var(--terra); text-align: center; }
+  .proof-card h2 { font-family: 'Montserrat', sans-serif; font-size: 28px; font-weight: 800; color: var(--graphite); line-height: 1.2; margin-bottom: 14px; letter-spacing: -0.5px; }
+  .proof-card p { font-size: 17px; color: var(--text-light); line-height: 1.7; margin: 0 auto 28px; max-width: 520px; }
+
   /* Footer */
   footer { background: var(--warm-black); padding: 40px 24px; }
   .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -81,6 +92,8 @@
     .hero h1 { font-size: 29px; }
     .hero p { font-size: 17px; }
     .steps-grid { grid-template-columns: 1fr; gap: 40px; }
+    .proof-card { padding: 36px 24px; }
+    .proof-card h2 { font-size: 23px; }
     .section-title { font-size: 27px; }
     .footer-inner { flex-direction: column; text-align: center; gap: 16px; }
     .footer-right { text-align: center; }
@@ -136,6 +149,17 @@
         <h3>Contesta a la Hora</h3>
         <p>Te llamamos al número que registraste. Asegúrate de estar disponible para no perder tu lugar.</p>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Casos de éxito -->
+<section class="proof">
+  <div class="container">
+    <div class="proof-card">
+      <h2>Mientras esperas tu llamada, mira a quiénes ya les funcionó</h2>
+      <p>Pintores y compañías de pintura como la tuya que dieron el paso. Sus números, en sus propias palabras.</p>
+      <a href="/testimonials" class="btn btn-primary">Ver Casos de Éxito</a>
     </div>
   </div>
 </section>

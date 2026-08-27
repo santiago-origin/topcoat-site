@@ -82,6 +82,9 @@
   .t-meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
   .t-chip { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--graphite); background: var(--sand); border: 1px solid var(--border); padding: 8px 14px; text-transform: uppercase; letter-spacing: 1px; }
 
+  /* Placeholder mientras no llega el video */
+  .t-video-soon { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 2px; }
+
   /* Empty / placeholder state */
   .t-empty { text-align: center; padding: 64px 24px; background: var(--sand-light); border: 1px dashed var(--border); }
   .t-empty p { font-size: 17px; color: var(--text-light); line-height: 1.7; }
@@ -168,15 +171,41 @@
         <div class="t-person">Juan — Louisville, Kentucky</div>
         <div class="t-line"></div>
         <p class="t-desc">Antes de empezar, Juan trabajaba solo <strong>dos o tres días por semana</strong>. En sus primeros <strong>9 días</strong> con el sistema cerró <strong>$7,300 USD</strong> en trabajos y ya lleva <strong>11 citas agendadas</strong>.</p>
-        <p class="t-desc">Hoy está todo el tiempo saliendo a dar estimados y tiene a sus muchachos ocupados siempre.</p>
+        <p class="t-desc">Terminó ese mes cerrando <strong>más de $17,000 USD</strong>. Hoy está todo el tiempo saliendo a dar estimados y tiene a sus muchachos ocupados siempre.</p>
         <div class="t-meta">
           <span class="t-chip">$7,300 en 9 días</span>
+          <span class="t-chip">+$17,000 en el mes</span>
           <span class="t-chip">11 citas agendadas</span>
           <span class="t-chip">De 2-3 días a semana completa</span>
         </div>
       </div>
     </article>
     <!-- ▲▲▲ FIN TESTIMONIO 01 ▲▲▲ -->
+
+    <!-- ▼▼▼ TESTIMONIO 02 — Morenos Painting ▼▼▼ -->
+    <article class="testimonial">
+      <div class="t-video">
+        <!-- PENDIENTE: reemplazar este div por el iframe cuando llegue el link.
+             https://youtu.be/XXXXXXXX  ->  el ID es XXXXXXXX
+             <iframe src="https://www.youtube-nocookie.com/embed/XXXXXXXX?rel=0"
+                     title="Testimonio de Antonio — Morenos Painting" loading="lazy"
+                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                     allowfullscreen></iframe> -->
+        <div class="t-video-soon">Video en camino</div>
+      </div>
+      <div class="t-info">
+        <div class="t-company">Morenos Painting</div>
+        <div class="t-person">Antonio — San Diego, California</div>
+        <div class="t-line"></div>
+        <p class="t-desc">En sus primeros <strong>10 días</strong> con el sistema, Antonio cerró <strong>$15,000 USD</strong> en trabajos.</p>
+        <p class="t-desc">Terminó el mes en <strong>$37,000 USD</strong>.</p>
+        <div class="t-meta">
+          <span class="t-chip">$15,000 en 10 días</span>
+          <span class="t-chip">$37,000 en el mes</span>
+        </div>
+      </div>
+    </article>
+    <!-- ▲▲▲ FIN TESTIMONIO 02 ▲▲▲ -->
 
   </div>
 </section>

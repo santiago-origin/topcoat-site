@@ -167,6 +167,20 @@
 
   .form-error { display: none; margin-top: 22px; padding: 14px 18px; border: 2px solid var(--alert); background: #fdf3f2; color: var(--alert); font-size: 14px; font-weight: 700; line-height: 1.5; }
 
+  /* CTA hacia casos de éxito — se repite en varios puntos del funnel */
+  .proof-link { display: inline-block; margin-top: 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.78); text-transform: uppercase; letter-spacing: 1.5px; border-bottom: 2px solid var(--terra); padding-bottom: 5px; transition: color 0.2s; }
+  .proof-link:hover { color: var(--white); }
+
+  .proof-bar { display: flex; align-items: center; gap: 22px; flex-wrap: wrap; max-width: 760px; margin: 34px auto 0; padding: 20px 26px; background: var(--white); border: 2px solid var(--border); border-left: 4px solid var(--terra); text-align: left; }
+  .proof-bar-text { flex: 1; min-width: 230px; font-size: 15px; color: var(--text-light); line-height: 1.6; }
+  .proof-bar-text strong { color: var(--graphite); }
+  .proof-bar .btn { flex-shrink: 0; padding: 13px 26px; font-size: 12px; }
+
+  .proof-cta { max-width: 760px; margin: 48px auto 0; padding: 40px 32px; background: var(--sand-light); border: 2px solid var(--border); border-top: 4px solid var(--terra); text-align: center; }
+  .proof-cta.on-sand { background: var(--white); }
+  .proof-cta h3 { font-family: 'Montserrat', sans-serif; font-size: 23px; font-weight: 800; color: var(--graphite); line-height: 1.25; margin-bottom: 12px; }
+  .proof-cta p { font-size: 16px; color: var(--text-light); line-height: 1.7; margin: 0 auto 24px; max-width: 520px; }
+
   /* Result: qualified (calendar) */
   #result { display: none; }
   .calendar-section { background: var(--white); }
@@ -271,6 +285,7 @@
         <div class="count-box"><div class="count-num" id="cd-sec">00</div><div class="count-label">Seg</div></div>
       </div>
       <div class="countdown-note" id="cd-note">Tu lugar se libera en <strong>5 minutos</strong> si no aplicas</div>
+      <div><a href="/testimonials" target="_blank" rel="noopener" class="proof-link">Ver casos de éxito de otros pintores &rarr;</a></div>
     </div>
   </div>
 </section>
@@ -282,6 +297,11 @@
     <div class="section-label">Paso 2 &middot; Aplicación</div>
     <h2 class="section-title">Veamos Si Calificas Para la Garantía</h2>
     <p class="section-sub">No trabajamos con todos. Contesta estas 8 preguntas rápidas &mdash; una por una, toma menos de un minuto &mdash; y te decimos de inmediato si eres candidato para las 50 citas garantizadas.</p>
+
+    <div class="proof-bar">
+      <div class="proof-bar-text"><strong>¿Prefieres ver resultados reales primero?</strong> Mira lo que consiguieron pintores como Juan en Kentucky y Antonio en San Diego en sus primeras semanas.</div>
+      <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
+    </div>
 
     <div class="form-shell locked" id="form-shell">
       <div class="form-lock" id="form-lock">
@@ -413,6 +433,12 @@
               id="iYIf52Ls0YD8nYoGuBSw_vsl"
               title="Agendar Llamada Introductoria"></iframe>
     </div>
+
+    <div class="proof-cta">
+      <h3>Mientras tanto, mira lo que ya están consiguiendo</h3>
+      <p>Compañías de pintura como la tuya que empezaron justo donde estás tú ahora. Así les fue en sus primeras semanas.</p>
+      <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
+    </div>
   </div>
 </section>
 <script src="https://api.topcoatmedia.com/js/form_embed.js" type="text/javascript"></script>
@@ -426,6 +452,12 @@
       <p>Nuestra garantía de 50 estimados en 90 días solo funciona con compañías de pintura que <strong>ya están operando en Estados Unidos y facturando arriba de $10,000 al mes</strong>. Es el punto donde el volumen de citas que generamos realmente se convierte en trabajos cerrados, y no en tiempo perdido para ti.</p>
       <p>Si te aceptáramos hoy, te llenaríamos el calendario de estimados que no podrías atender bien — y los dos perderíamos. Preferimos decírtelo de frente en vez de venderte algo que no te va a servir.</p>
       <p>Guardamos tus datos. <strong>Cuando tu operación crezca, escríbenos y retomamos la conversación</strong> — la garantía sigue en pie para cuando estés listo.</p>
+    </div>
+
+    <div class="proof-cta on-sand">
+      <h3>Mira a dónde puedes llegar</h3>
+      <p>Estos pintores también empezaron chico. Te dejamos sus historias para cuando tu operación esté lista.</p>
+      <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
     </div>
   </div>
 </section>
