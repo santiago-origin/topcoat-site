@@ -197,6 +197,15 @@
   .nq-card p strong { color: var(--graphite); }
   .nq-card p:last-child { margin-bottom: 0; }
 
+  /* Camino de excepción en la pantalla de no calificado */
+  .nq-exception { max-width: 720px; margin: 28px auto 0; text-align: center; }
+  .nq-ex-lead { font-size: 16px; color: var(--text-light); line-height: 1.7; margin-bottom: 22px; }
+  .nq-ex-lead strong { color: var(--graphite); }
+  .nq-ex-wrap { max-width: 720px; margin: 28px auto 0; }
+  .nq-declined { max-width: 720px; margin: 28px auto 0; padding: 40px 36px; background: var(--white); border: 2px solid var(--border); border-top: 4px solid var(--graphite); text-align: left; }
+  .nq-declined h3 { font-family: 'Montserrat', sans-serif; font-size: 22px; font-weight: 800; color: var(--graphite); line-height: 1.25; margin-bottom: 14px; }
+  .nq-declined p { font-size: 16px; color: var(--text-light); line-height: 1.75; }
+
   /* Footer */
   footer { background: var(--warm-black); padding: 40px 24px; }
   .footer-inner { max-width: 1170px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
@@ -454,6 +463,47 @@
       <p>Guardamos tus datos. <strong>Cuando tu operación crezca, escríbenos y retomamos la conversación</strong> — la garantía sigue en pie para cuando estés listo.</p>
     </div>
 
+    <!-- Camino de excepción: dos preguntas y, si pasa, al calendario -->
+    <div class="nq-exception" id="exception-block">
+      <p class="nq-ex-lead"><strong>¿Crees que eres la excepción?</strong> Si estás seguro de que puedes con esto, contesta dos preguntas más y lo revisamos.</p>
+      <button type="button" class="btn btn-primary" id="exception-cta">Llenar Formulario Nuevo</button>
+    </div>
+
+    <div class="nq-ex-wrap" id="exception-form" hidden>
+      <div class="form-card" style="text-align: left;">
+        <div class="form-progress"><div class="form-progress-bar" id="ex-progress"></div></div>
+        <div class="step-counter" id="ex-counter">Paso 1 de 2</div>
+
+        <div class="step active" data-radio="ex_pay">
+          <div class="q-label"><span class="q-num">Pregunta 01</span>¿Estás dispuesto a invertir en servicios de marketing para conseguir estos trabajos?</div>
+          <div class="opts two">
+            <label class="opt"><input type="radio" name="ex_pay" value="si"><span>Sí, estoy dispuesto</span></label>
+            <label class="opt"><input type="radio" name="ex_pay" value="no"><span>No</span></label>
+          </div>
+        </div>
+
+        <div class="step" data-radio="ex_volume">
+          <div class="q-label"><span class="q-num">Pregunta 02</span>¿Estás dispuesto a recibir entre 15 y 20 citas de estimados calificados cada mes?</div>
+          <div class="opts two">
+            <label class="opt"><input type="radio" name="ex_volume" value="si"><span>Sí, puedo con ese volumen</span></label>
+            <label class="opt"><input type="radio" name="ex_volume" value="no"><span>No</span></label>
+          </div>
+        </div>
+
+        <div class="form-error" id="ex-error"></div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-back" id="ex-back" hidden>&larr; Atrás</button>
+          <button type="button" class="btn btn-primary" id="ex-next">Continuar</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="nq-declined" id="exception-declined" hidden>
+      <h3>Entonces sí confirmamos que hoy no es el momento</h3>
+      <p>Nuestra garantía se sostiene en dos cosas: que haya inversión en marketing y que puedas atender el volumen de estimados que generamos. Sin alguna de las dos, te estaríamos vendiendo algo que no te va a funcionar. Guardamos tus datos y aquí estamos cuando cambien las condiciones.</p>
+    </div>
+
     <div class="proof-cta on-sand">
       <h3>Mira a dónde puedes llegar</h3>
       <p>Estos pintores también empezaron chico. Te dejamos sus historias para cuando tu operación esté lista.</p>
@@ -608,6 +658,27 @@
   function checked(name) {
     var el = form.querySelector('input[name="' + name + '"]:checked');
     return el ? el.value : '';
+  }
+
+  /* Guarda la última aplicación enviada para que el camino de excepción
+     no tenga que volver a pedir nombre, correo y teléfono. */
+  var lastPayload = null;
+
+  /* Prellena el calendario de GHL y lo muestra. Lo usan el flujo normal
+     y el de excepción. */
+  function showCalendar(data) {
+    var parts = String(data.full_name || '').trim().split(/\s+/);
+    var params = new URLSearchParams({
+      first_name: parts.shift() || '',
+      last_name: parts.join(' '),
+      email: data.email || '',
+      phone: data.phone || ''
+    });
+    document.getElementById('iYIf52Ls0YD8nYoGuBSw_vsl').src = CALENDAR_BASE + '?' + params.toString();
+
+    var result = document.getElementById('result');
+    result.style.display = 'block';
+    result.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
   /* ═══════════════ WIZARD: UN PASO POR PREGUNTA ═══════════════════════ */
@@ -773,23 +844,13 @@
     submitBtn.disabled = true;
     submitBtn.textContent = 'Enviando...';
 
+    lastPayload = payload;
+
     function showResult() {
       document.getElementById('aplicar').style.display = 'none';
 
       if (qualified) {
-        // Prellena el calendario de GHL con los datos ya capturados
-        var parts = payload.full_name.split(' ');
-        var params = new URLSearchParams({
-          first_name: parts.shift() || '',
-          last_name: parts.join(' '),
-          email: payload.email,
-          phone: payload.phone
-        });
-        document.getElementById('iYIf52Ls0YD8nYoGuBSw_vsl').src = CALENDAR_BASE + '?' + params.toString();
-
-        var result = document.getElementById('result');
-        result.style.display = 'block';
-        result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showCalendar(payload);
       } else {
         var nq = document.getElementById('not-qualified');
         nq.style.display = 'block';
@@ -805,6 +866,122 @@
       .catch(function () { /* el lead no debe quedarse atorado si el webhook falla */ })
       .then(showResult);
   });
+
+  /* ═══════════════ CAMINO DE EXCEPCIÓN ════════════════════════════════
+     Quien no califica puede pedir revisión contestando dos preguntas.
+     Si dice que sí a las dos, pasa directo al calendario; sus datos de
+     contacto se reutilizan de la aplicación que ya envió. */
+  (function () {
+    var cta = document.getElementById('exception-cta');
+    var block = document.getElementById('exception-block');
+    var wrap = document.getElementById('exception-form');
+    var declined = document.getElementById('exception-declined');
+    if (!cta || !wrap) return;
+
+    var exSteps = Array.prototype.slice.call(wrap.querySelectorAll('.step'));
+    var bar = document.getElementById('ex-progress');
+    var counter = document.getElementById('ex-counter');
+    var backBtn = document.getElementById('ex-back');
+    var nextBtn = document.getElementById('ex-next');
+    var errEl = document.getElementById('ex-error');
+    var cur = 0;
+    var sending = false;
+
+    function pickedEx(name) {
+      var el = wrap.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : '';
+    }
+
+    function render() {
+      exSteps.forEach(function (st, i) { st.classList.toggle('active', i === cur); });
+      bar.style.width = ((cur + 1) / exSteps.length * 100) + '%';
+      counter.textContent = 'Paso ' + (cur + 1) + ' de ' + exSteps.length;
+      backBtn.hidden = cur === 0;
+      nextBtn.textContent = cur === exSteps.length - 1 ? 'Enviar Respuestas' : 'Continuar';
+      errEl.style.display = 'none';
+    }
+
+    function finish() {
+      if (sending) return;
+      var pay = pickedEx('ex_pay');
+      var vol = pickedEx('ex_volume');
+      var approved = pay === 'si' && vol === 'si';
+
+      var base = lastPayload || {};
+      var body = {};
+      for (var k in base) {
+        if (Object.prototype.hasOwnProperty.call(base, k)) body[k] = base[k];
+      }
+      body.source = 'vsl_excepcion';
+      body.submitted_at = new Date().toISOString();
+      body.exception_request = true;
+      body.willing_to_pay = pay;
+      body.accepts_volume = vol;
+      body.qualified = approved;
+      body.disqualified_reason = approved
+        ? ''
+        : (pay !== 'si' ? 'no_quiere_invertir_en_marketing' : 'no_acepta_el_volumen');
+      // Id nuevo: si reusáramos el del Lead anterior, Meta lo descartaría
+      body.fb_event_id = window.tcmEventId ? window.tcmEventId() : '';
+
+      sending = true;
+      nextBtn.disabled = true;
+      nextBtn.textContent = 'Enviando...';
+
+      function after() {
+        if (approved) {
+          document.getElementById('not-qualified').style.display = 'none';
+          showCalendar(base);
+        } else {
+          wrap.hidden = true;
+          declined.hidden = false;
+          declined.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }
+
+      fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+        .catch(function () { /* igual lo dejamos avanzar */ })
+        .then(after);
+    }
+
+    function nextEx() {
+      if (!pickedEx(exSteps[cur].getAttribute('data-radio'))) {
+        errEl.textContent = 'Selecciona una opción para continuar.';
+        errEl.style.display = 'block';
+        return;
+      }
+      if (cur < exSteps.length - 1) {
+        cur++;
+        render();
+      } else {
+        finish();
+      }
+    }
+
+    cta.addEventListener('click', function () {
+      block.hidden = true;
+      wrap.hidden = false;
+      render();
+      wrap.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+
+    nextBtn.addEventListener('click', nextEx);
+    backBtn.addEventListener('click', function () {
+      if (cur > 0) { cur--; render(); }
+    });
+
+    // Elegir opción avanza solo, igual que en el formulario principal
+    exSteps.forEach(function (st) {
+      st.addEventListener('change', function () {
+        errEl.style.display = 'none';
+        setTimeout(function () { if (exSteps[cur] === st) nextEx(); }, 280);
+      });
+    });
+  })();
 })();
 </script>
 
