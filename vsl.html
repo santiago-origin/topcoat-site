@@ -665,8 +665,14 @@
   var lastPayload = null;
 
   /* Prellena el calendario de GHL y lo muestra. Lo usan el flujo normal
-     y el de excepción. */
-  function showCalendar(data) {
+     y el de excepción.
+
+     metaQualified viaja en sessionStorage hasta /thank-you: esa página
+     dispara el evento Schedule a Meta, pero solo debe hacerlo si esta
+     reserva es de alguien que de verdad cumple dueño + facturación arriba
+     de $10k/mes — no basta con que haya podido agendar (el camino de
+     excepción también llega aquí sin cumplir esa regla). */
+  function showCalendar(data, metaQualified) {
     var parts = String(data.full_name || '').trim().split(/\s+/);
     var params = new URLSearchParams({
       first_name: parts.shift() || '',
@@ -675,6 +681,10 @@
       phone: data.phone || ''
     });
     document.getElementById('iYIf52Ls0YD8nYoGuBSw_vsl').src = CALENDAR_BASE + '?' + params.toString();
+
+    try {
+      sessionStorage.setItem('tcm_meta_qualified', metaQualified ? '1' : '0');
+    } catch (e) { /* sessionStorage bloqueado: /thank-you simplemente no manda Schedule */ }
 
     var result = document.getElementById('result');
     result.style.display = 'block';
@@ -830,11 +840,13 @@
       sms_consent: true
     };
 
-    /* Meta Pixel: evento Lead. El event_id y el fbclid viajan a n8n para
-       poder reenviar el mismo evento por Conversions API sin duplicarlo. */
-    payload.fb_event_id = window.tcmTrack ? window.tcmTrack('Lead', {
+    /* Meta Pixel: evento Lead SOLO si califica — a los que no, no les
+       mandamos ninguna señal a Facebook. El event_id y el fbclid viajan a
+       n8n para poder reenviar el mismo evento por Conversions API sin
+       duplicarlo. */
+    payload.fb_event_id = (qualified && window.tcmTrack) ? window.tcmTrack('Lead', {
       content_name: 'Aplicacion VSL',
-      content_category: qualified ? 'calificado' : 'no_calificado'
+      content_category: 'calificado'
     }) : '';
     payload.fbclid = window.tcmGetFbclid ? window.tcmGetFbclid() : '';
     payload.fbc = window.tcmGetFbc ? window.tcmGetFbc() : '';
@@ -850,7 +862,7 @@
       document.getElementById('aplicar').style.display = 'none';
 
       if (qualified) {
-        showCalendar(payload);
+        showCalendar(payload, qualified);
       } else {
         var nq = document.getElementById('not-qualified');
         nq.style.display = 'block';
@@ -931,7 +943,10 @@
       function after() {
         if (approved) {
           document.getElementById('not-qualified').style.display = 'none';
-          showCalendar(base);
+          // La excepción deja agendar, pero NUNCA cuenta como calificado
+          // para Meta — eso se decide solo con los datos originales.
+          var metaQualified = base.owner_us_painting_company === 'si' && base.monthly_revenue !== '5-10k';
+          showCalendar(base, metaQualified);
         } else {
           wrap.hidden = true;
           declined.hidden = false;
