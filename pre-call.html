@@ -43,6 +43,8 @@
   .hero { background: var(--graphite); padding: 56px 24px 72px; text-align: center; }
   .hero-inner { max-width: 820px; margin: 0 auto; }
   .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 20px; }
+  .hero-confirmed { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.18); color: var(--white); font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; padding: 10px 20px; margin-bottom: 24px; }
+  .hero-confirmed .check { width: 20px; height: 20px; border-radius: 50%; background: #3E8E5A; color: var(--white); display: inline-flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 900; }
   .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 42px; font-weight: 900; color: var(--white); line-height: 1.08; margin-bottom: 20px; letter-spacing: -1px; }
   .hero h1 span { color: var(--terra); }
   .hero p { font-size: 19px; color: rgba(255,255,255,0.72); line-height: 1.65; max-width: 640px; margin: 0 auto 40px; }
@@ -111,9 +113,10 @@
 <!-- Hero + video -->
 <section class="hero">
   <div class="hero-inner">
+    <div class="hero-confirmed"><span class="check">&#10003;</span> Tu llamada ya está agendada</div>
     <div class="hero-label">Antes de Nuestra Llamada</div>
-    <h1>Mira Este Video <span>Antes de Que Hablemos</span></h1>
-    <p>Toma unos minutos y te ahorra tiempo a ti y a nosotros en la llamada. <strong>Explica exactamente cómo funciona el proceso y qué necesitamos de ti</strong> — si llegas a la llamada sin haberlo visto, vamos a tener que repetir esta parte y se acorta el tiempo para resolver tus preguntas.</p>
+    <h1>Mira Este Video <span>Antes de Tomar la Llamada</span></h1>
+    <p>Tu llamada está confirmada. Ahora solo falta una cosa: <strong>mira este video completo antes de que hablemos.</strong> Toma unos minutos y te ahorra tiempo a ti y a nosotros — explica exactamente cómo funciona el proceso y qué necesitamos de ti. Si llegas sin haberlo visto, vamos a tener que repetir esta parte y se acorta el tiempo para resolver tus preguntas.</p>
 
     <div class="video-wrap">
       <div class="video-box">
