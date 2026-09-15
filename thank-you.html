@@ -181,9 +181,8 @@
 <script>
 /* Meta Pixel: a esta página solo se llega después de agendar (el calendario
    de GHL redirige aquí), así que la carga misma ES la conversión — pero
-   solo la mandamos si /vsl marcó esta reserva como estrictamente calificada
-   (dueño + facturación arriba de $10k/mes). El camino de excepción también
-   termina aquí y NO debe darle señal a Meta. */
+   solo la mandamos si /vsl marcó esta reserva como de un dueño de compañía
+   de pintura en EE.UU. */
 (function () {
   var metaQualified = false;
   try { metaQualified = sessionStorage.getItem('tcm_meta_qualified') === '1'; } catch (e) {}
