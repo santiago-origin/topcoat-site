@@ -22,7 +22,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// Normaliza la aplicacion del VSL, arma la nota para GHL, el aviso de Discord\n// y el payload para Meta Conversions API.\nconst crypto = require('crypto');\nconst b = $input.first().json.body || {};\n\nconst REVENUE_LABEL = {\n  '5-10k': '$5,000 - $10,000 / mes',\n  '10-20k': '$10,000 - $20,000 / mes',\n  '20-40k': '$20,000 - $40,000 / mes',\n  '50k+': '$50,000+ / mes'\n};\n\nconst dash = (v) => (v === undefined || v === null || String(v).trim() === '') ? '-' : String(v).trim();\nconst yesNo = (v) => v === 'si' ? 'Si' : (v === 'no' ? 'No' : '-');\nconst sha256 = (v) => v ? crypto.createHash('sha256').update(String(v).trim().toLowerCase()).digest('hex') : undefined;\n\nconst parts = String(b.full_name || '').trim().split(/\\s+/);\nconst firstName = parts.shift() || '';\nconst lastName = parts.join(' ');\n\nconst qualified = b.qualified === true || b.qualified === 'true';\nconst revenue = REVENUE_LABEL[b.monthly_revenue] || dash(b.monthly_revenue);\nconst email = String(b.email || '').trim().toLowerCase();\nconst phone = String(b.phone || '').trim();\n\n// Meta quiere el telefono como digitos con codigo de pais, sin '+' ni ceros\n// a la izquierda. Asume EE.UU. si vienen 10 digitos.\nlet phoneDigits = phone.replace(/\\D/g, '');\nif (phoneDigits.length === 10) phoneDigits = '1' + phoneDigits;\n\nconst note = [\n  `APLICACION VSL - ${qualified ? 'CALIFICA' : 'NO CALIFICA'}`,\n  '',\n  `1. Dueno de compania de pintura en EE.UU.: ${yesNo(b.owner_us_painting_company)}`,\n  `2. Facturacion mensual: ${revenue}`,\n  `3. Licencia y seguro en regla: ${yesNo(b.licensed_insured)}`,\n  `4. Area de servicio: ${dash(b.service_area)}`,\n  '',\n  `Compania: ${dash(b.company)}`,\n  `Consentimiento SMS: ${b.sms_consent ? 'Si' : 'No'}`,\n  qualified ? null : `Motivo de descalificacion: ${dash(b.disqualified_reason)}`,\n  `Enviado: ${b.submitted_at || new Date().toISOString()}`,\n  `Pagina: ${dash(b.page)}`\n].filter(x => x !== null).join('\\n');\n\n// Aviso a Discord con TODOS los datos del formulario, para que ninguna\n// aplicacion se pierda aunque GHL falle.\nconst fields = [\n  { name: 'Nombre', value: dash(b.full_name), inline: true },\n  { name: 'Compania', value: dash(b.company), inline: true },\n  { name: 'Email', value: dash(email), inline: false },\n  { name: 'Telefono', value: dash(phone), inline: true },\n  { name: 'Consentimiento SMS', value: b.sms_consent ? 'Si' : 'No', inline: true },\n  { name: 'Area de servicio', value: dash(b.service_area), inline: false },\n  { name: '1. Dueno en EE.UU.', value: yesNo(b.owner_us_painting_company), inline: true },\n  { name: '2. Facturacion mensual', value: revenue, inline: true },\n  { name: '3. Licencia y seguro', value: yesNo(b.licensed_insured), inline: true }\n];\n\nif (!qualified) {\n  fields.push({ name: 'Motivo de descalificacion', value: dash(b.disqualified_reason), inline: false });\n}\n\nconst discord = {\n  username: 'Topcoat VSL',\n  embeds: [{\n    title: qualified ? 'Nueva aplicacion VSL - CALIFICA' : 'Nueva aplicacion VSL - NO CALIFICA',\n    color: qualified ? 3066993 : 15158332,\n    fields,\n    footer: { text: dash(b.page) },\n    timestamp: b.submitted_at || new Date().toISOString()\n  }]\n};\n\n// Payload para Meta Conversions API - evento Lead. em/ph/fn/ln van hasheados\n// en SHA-256 (lowercase, sin espacios). fbc/fbp/user_agent van en texto\n// plano - Meta los usa para machear con la sesion del navegador.\nconst eventTime = b.submitted_at ? Math.floor(new Date(b.submitted_at).getTime() / 1000) : Math.floor(Date.now() / 1000);\n\nconst metaCapi = {\n  data: [{\n    event_name: 'Lead',\n    event_time: eventTime,\n    event_id: b.fb_event_id || undefined,\n    event_source_url: b.page || undefined,\n    action_source: 'website',\n    user_data: {\n      em: email ? [sha256(email)] : undefined,\n      ph: phoneDigits ? [sha256(phoneDigits)] : undefined,\n      fn: firstName ? [sha256(firstName)] : undefined,\n      ln: lastName ? [sha256(lastName)] : undefined,\n      fbc: b.fbc || undefined,\n      fbp: b.fbp || undefined,\n      client_user_agent: b.user_agent || undefined\n    },\n    custom_data: {\n      content_name: 'Aplicacion VSL',\n      content_category: qualified ? 'calificado' : 'no_calificado'\n    }\n  }]\n};\n\nreturn [{\n  json: {\n    firstName,\n    lastName,\n    email,\n    phone,\n    companyName: b.company || '',\n    qualified,\n    tags: ['top-coat-media', 'vsl', qualified ? 'vsl-calificado' : 'vsl-no-calificado'],\n    note,\n    discord,\n    metaCapi\n  }\n}];"
+        "jsCode": "// Normaliza la aplicacion del VSL, arma la nota para GHL y el aviso de Discord.\n// El hash SHA-256 para Meta se hace despues, en nodos Crypto nativos (este\n// Code node no puede usar require('crypto'): el sandbox de n8n lo bloquea).\nconst b = $input.first().json.body || {};\n\nconst REVENUE_LABEL = {\n  '5-10k': '$5,000 - $10,000 / mes',\n  '10-20k': '$10,000 - $20,000 / mes',\n  '20-40k': '$20,000 - $40,000 / mes',\n  '50k+': '$50,000+ / mes'\n};\n\n// Rangos de facturacion que Meta recibe como QualifiedLead.\nconst REVENUE_10K_PLUS = ['10-20k', '20-40k', '50k+'];\n\nconst dash = (v) => (v === undefined || v === null || String(v).trim() === '') ? '-' : String(v).trim();\nconst yesNo = (v) => v === 'si' ? 'Si' : (v === 'no' ? 'No' : '-');\n\nconst parts = String(b.full_name || '').trim().split(/\\s+/);\nconst firstName = parts.shift() || '';\nconst lastName = parts.join(' ');\n\n// Regla unica: ser dueno de una compania de pintura en EE.UU. La facturacion\n// no descalifica: el lead llega igual a Discord, GHL y el Sales Dashboard. Se\n// calcula con la respuesta cruda y no con el flag 'qualified' que manda el\n// sitio, para que n8n decida igual aunque el sitio este desactualizado.\nconst isOwner = b.owner_us_painting_company === 'si';\nconst qualified = isOwner;\n// Para Meta: todo dueno manda Lead, pero QualifiedLead (el evento con el que\n// optimiza la campana) solo sale si factura $10k+ al mes. Los de $5k-$10k se\n// califican a mano desde el boton Meta Qualify del Sales Dashboard.\nconst metaQualified = isOwner && REVENUE_10K_PLUS.includes(b.monthly_revenue);\n\nconst revenue = REVENUE_LABEL[b.monthly_revenue] || dash(b.monthly_revenue);\nconst email = String(b.email || '').trim().toLowerCase();\nconst phone = String(b.phone || '').trim();\n\n// Meta quiere el telefono como digitos con codigo de pais, sin '+' ni ceros\n// a la izquierda. Asume EE.UU. si vienen 10 digitos.\nlet phoneDigits = phone.replace(/\\D/g, '');\nif (phoneDigits.length === 10) phoneDigits = '1' + phoneDigits;\n\nconst note = [\n  isOwner ? 'APLICACION VSL - LEAD NUEVO' : 'APLICACION VSL - NO ES DUENO EN EE.UU.',\n  '',\n  `1. Dueno de compania de pintura en EE.UU.: ${yesNo(b.owner_us_painting_company)}`,\n  `2. Facturacion mensual: ${revenue}`,\n  `3. Licencia y seguro en regla: ${yesNo(b.licensed_insured)}`,\n  `4. Area de servicio: ${dash(b.service_area)}`,\n  '',\n  `Compania: ${dash(b.company)}`,\n  `Consentimiento SMS: ${b.sms_consent ? 'Si' : 'No'}`,\n  `Enviado: ${b.submitted_at || new Date().toISOString()}`,\n  `Pagina: ${dash(b.page)}`\n].join('\\n');\n\n// Aviso a Discord con TODOS los datos del formulario. Para los que no son\n// duenos es el unico registro: ellos no entran a GHL.\nconst fields = [\n  { name: 'Nombre', value: dash(b.full_name), inline: true },\n  { name: 'Compania', value: dash(b.company), inline: true },\n  { name: 'Email', value: dash(email), inline: false },\n  { name: 'Telefono', value: dash(phone), inline: true },\n  { name: 'Consentimiento SMS', value: b.sms_consent ? 'Si' : 'No', inline: true },\n  { name: 'Area de servicio', value: dash(b.service_area), inline: false },\n  { name: '1. Dueno en EE.UU.', value: yesNo(b.owner_us_painting_company), inline: true },\n  { name: '2. Facturacion mensual', value: revenue, inline: true },\n  { name: '3. Licencia y seguro', value: yesNo(b.licensed_insured), inline: true }\n];\n\nconst discord = {\n  username: 'Topcoat VSL',\n  embeds: [{\n    title: isOwner ? '🔶 NEW VSL LEAD' : 'Llego una aplicacion VSL - NO ES DUENO EN EE.UU.',\n    color: isOwner ? 3066993 : 15158332,\n    fields,\n    footer: { text: dash(b.page) },\n    timestamp: b.submitted_at || new Date().toISOString()\n  }]\n};\n\nreturn [{\n  json: {\n    firstName,\n    lastName,\n    email,\n    phone,\n    phoneDigits,\n    companyName: b.company || '',\n    qualified,\n    metaQualified,\n    // meta-qualified le avisa al Sales Dashboard que Meta ya recibio\n    // QualifiedLead, para que el boton Meta Qualify no lo mande dos veces.\n    tags: metaQualified ? ['top-coat-media', 'vsl', 'meta-qualified'] : ['top-coat-media', 'vsl'],\n    note,\n    discord,\n    fbc: b.fbc || '',\n    fbp: b.fbp || '',\n    user_agent: b.user_agent || '',\n    fb_event_id: b.fb_event_id || '',\n    page: b.page || '',\n    submitted_at: b.submitted_at || new Date().toISOString()\n  }\n}];"
       },
       "id": "a1000000-0000-4000-8000-000000000002",
       "name": "Normalizar",
@@ -50,36 +50,8 @@
         440,
         0
       ],
-      "notes": "Va ANTES de GHL a proposito: si GHL falla, el lead ya llego a Discord con todos sus datos. La URL real del webhook esta puesta SOLO en n8n (workflow kuIDcaRoVvLiAf8W) y no se commitea: este repo es publico y cualquiera podria publicar en el canal.",
+      "notes": "Va ANTES de GHL a proposito: si GHL falla, el lead ya llego a Discord con todos sus datos.",
       "onError": "continueRegularOutput"
-    },
-    {
-      "parameters": {
-        "method": "POST",
-        "url": "https://graph.facebook.com/v21.0/1603584924469190/events",
-        "authentication": "genericCredentialType",
-        "genericAuthType": "httpHeaderAuth",
-        "sendBody": true,
-        "specifyBody": "json",
-        "jsonBody": "={{ JSON.stringify($json.metaCapi) }}",
-        "options": {}
-      },
-      "id": "a1000000-0000-4000-8000-000000000007",
-      "name": "Meta CAPI — Lead",
-      "type": "n8n-nodes-base.httpRequest",
-      "typeVersion": 4.2,
-      "position": [
-        440,
-        180
-      ],
-      "notes": "Rama paralela a Discord, no bloquea GHL/Discord si Meta falla. Envia el evento Lead con dedupe por event_id (mismo que manda el pixel del navegador). Requiere credencial Header Auth 'Meta CAPI - Topcoat' con Authorization: Bearer <token generado en Events Manager>.",
-      "onError": "continueRegularOutput",
-      "credentials": {
-        "httpHeaderAuth": {
-          "id": "PEGA_AQUI_EL_ID_DE_TU_CREDENCIAL",
-          "name": "Meta CAPI — Topcoat"
-        }
-      }
     },
     {
       "parameters": {
@@ -110,7 +82,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        660,
+        880,
         0
       ],
       "notes": "Requiere credencial Header Auth: Authorization = Bearer <PIT de la subcuenta Topcoat>. SIN neverError: si GHL falla queremos verlo en Executions, no que pase de largo.",
@@ -150,7 +122,7 @@
       "type": "n8n-nodes-base.httpRequest",
       "typeVersion": 4.2,
       "position": [
-        880,
+        1100,
         0
       ],
       "credentials": {
@@ -171,9 +143,120 @@
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1.1,
       "position": [
-        1100,
+        1320,
         0
       ]
+    },
+    {
+      "id": "a1000000-0000-4000-8000-000000000007",
+      "name": "Meta CAPI — Lead",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        440,
+        180
+      ],
+      "parameters": {
+        "method": "POST",
+        "url": "https://graph.facebook.com/v21.0/1336238271632571/events",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.metaCapi) }}",
+        "options": {}
+      },
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "BdNurZcF3BWqDzlS",
+          "name": "META Capi - Topcoat"
+        }
+      },
+      "notes": "Rama paralela a Discord, no bloquea GHL/Discord si Meta falla. Envia el evento Lead con dedupe por event_id (mismo que manda el pixel del navegador).",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "id": "a1000000-0000-4000-8000-000000000008",
+      "name": "Hash Email",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        440,
+        180
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "value": "={{ $json.email }}",
+        "dataPropertyName": "emHash",
+        "encoding": "hex"
+      }
+    },
+    {
+      "id": "a1000000-0000-4000-8000-000000000009",
+      "name": "Hash Phone",
+      "type": "n8n-nodes-base.crypto",
+      "typeVersion": 2,
+      "position": [
+        660,
+        180
+      ],
+      "parameters": {
+        "action": "hash",
+        "type": "SHA256",
+        "value": "={{ $json.phoneDigits }}",
+        "dataPropertyName": "phHash",
+        "encoding": "hex"
+      }
+    },
+    {
+      "id": "a1000000-0000-4000-8000-000000000010",
+      "name": "Armar Payload Meta",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        180
+      ],
+      "parameters": {
+        "jsCode": "const j = $input.first().json;\n\n// Cero senal a Facebook para los que no son duenos de compania de pintura\n// en EE.UU. Devolver [] hace que el nodo 'Meta CAPI - Lead' simplemente no\n// corra para este item.\nif (!j.qualified) {\n  return [];\n}\n\nconst eventTime = j.submitted_at ? Math.floor(new Date(j.submitted_at).getTime() / 1000) : Math.floor(Date.now() / 1000);\n\nconst userData = {\n  em: j.emHash ? [j.emHash] : undefined,\n  ph: j.phHash ? [j.phHash] : undefined,\n  fbc: j.fbc || undefined,\n  fbp: j.fbp || undefined,\n  client_user_agent: j.user_agent || undefined\n};\n\n// Todo dueno manda Lead (mismo event_id que el pixel del navegador).\nconst data = [\n  {\n    event_name: 'Lead',\n    event_time: eventTime,\n    event_id: j.fb_event_id || undefined,\n    event_source_url: j.page || undefined,\n    action_source: 'website',\n    user_data: userData,\n    custom_data: {\n      content_name: 'Aplicacion VSL',\n      content_category: 'calificado'\n    }\n  }\n];\n\n// QualifiedLead solo para los que facturan $10k+ (metaQualified, ver Normalizar).\nif (j.metaQualified) {\n  data.push({\n    event_name: 'QualifiedLead',\n    event_time: eventTime,\n    event_id: (j.fb_event_id || 'tcm') + '-qualified',\n    event_source_url: j.page || undefined,\n    action_source: 'website',\n    user_data: userData,\n    custom_data: {\n      content_name: 'Aplicacion VSL - Calificado'\n    }\n  });\n}\n\nreturn [{ json: { ...j, metaCapi: { data } } }];"
+      },
+      "notes": "Sin crypto: solo arma el JSON de Meta con los hashes que ya calcularon los nodos Crypto de arriba."
+    },
+    {
+      "id": "a1000000-0000-4000-8000-000000000011",
+      "name": "¿Es dueño? → GHL",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        660,
+        0
+      ],
+      "parameters": {
+        "conditions": {
+          "combinator": "and",
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 2
+          },
+          "conditions": [
+            {
+              "id": "califica-ghl",
+              "leftValue": "={{ $('Normalizar').item.json.qualified }}",
+              "rightValue": "",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "notes": "Solo los que califican (por facturacion o por el camino de excepcion aprobado) entran a GHL. Los descalificados solo quedan en Discord. La rama falsa va directo a Responder para que el sitio siempre reciba respuesta."
     }
   ],
   "connections": {
@@ -197,18 +280,7 @@
             "index": 0
           },
           {
-            "node": "Meta CAPI — Lead",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "Discord — Aviso de Lead": {
-      "main": [
-        [
-          {
-            "node": "GHL Upsert Contacto",
+            "node": "Hash Email",
             "type": "main",
             "index": 0
           }
@@ -236,9 +308,76 @@
           }
         ]
       ]
+    },
+    "Hash Email": {
+      "main": [
+        [
+          {
+            "node": "Hash Phone",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Hash Phone": {
+      "main": [
+        [
+          {
+            "node": "Armar Payload Meta",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Armar Payload Meta": {
+      "main": [
+        [
+          {
+            "node": "Meta CAPI — Lead",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Discord — Aviso de Lead": {
+      "main": [
+        [
+          {
+            "node": "¿Es dueño? → GHL",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "¿Es dueño? → GHL": {
+      "main": [
+        [
+          {
+            "node": "GHL Upsert Contacto",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Responder",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "settings": {
-    "executionOrder": "v1"
+    "executionOrder": "v1",
+    "errorWorkflow": "bUuk7NknQ0_nH_zpVd8ly",
+    "binaryMode": "separate",
+    "timeSavedMode": "fixed",
+    "callerPolicy": "workflowsFromSameOwner",
+    "availableInMCP": true
   }
 }
