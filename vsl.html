@@ -51,7 +51,7 @@
   @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
 
   /* Hero */
-  .hero { background: var(--graphite); padding: 56px 24px 72px; text-align: center; }
+  .hero { background: var(--graphite); padding: 56px 24px 72px; text-align: center; margin-top: 73px; }
   .hero-inner { max-width: 900px; margin: 0 auto; }
   .hero-label { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: var(--terra); text-transform: uppercase; letter-spacing: 3px; margin-bottom: 22px; }
   .hero h1 { font-family: 'Montserrat', sans-serif; font-size: 54px; font-weight: 900; color: var(--white); line-height: 1.04; margin-bottom: 24px; letter-spacing: -1.5px; }
@@ -230,17 +230,11 @@
   </div>
 </nav>
 
-<!-- Alert bar -->
-<div class="alert-bar">
-  <span class="pulse"></span> Solo aceptamos 5 compañías de pintura al mes — mira el video para ver si aún hay cupo
-</div>
-
 <!-- Hero + VSL -->
 <section class="hero">
   <div class="hero-inner">
     <div class="hero-label">Solo Para Dueños de Compañías de Pintura en EE.UU.</div>
     <h1>Te Conseguimos <span>Entre $15,000 y $27,000 al Mes</span> en Ingresos Potenciales en Tus Primeros 30 Días</h1>
-    <p>Sin comprar leads compartidos. Sin perseguir gente que solo busca el precio más barato. <strong>Estimados exclusivos, agendados directo en tu calendario.</strong></p>
 
     <div class="video-wrap">
       <div class="video-box" id="video-box">
@@ -260,19 +254,12 @@
 
         <!-- Urgency gate: el visitante debe dar clic para ver el video -->
         <div class="video-gate" id="video-gate" role="button" tabindex="0" aria-label="Reproducir el video">
-          <div class="gate-kicker">Mira Esto Antes de Aplicar</div>
           <div class="gate-play"></div>
           <div class="gate-cta">Dale Clic Para Ver Cómo Funciona</div>
-          <div class="gate-sub">El formulario para aplicar se desbloquea cuando inicies el video. Toma menos de 5 minutos.</div>
         </div>
       </div>
 
-      <div class="countdown" id="countdown">
-        <div class="count-box"><div class="count-num" id="cd-min">05</div><div class="count-label">Min</div></div>
-        <div class="count-box"><div class="count-num" id="cd-sec">00</div><div class="count-label">Seg</div></div>
-      </div>
-      <div class="countdown-note" id="cd-note">Tu lugar se libera en <strong>5 minutos</strong> si no aplicas</div>
-      <div><a href="/testimonials" target="_blank" rel="noopener" class="proof-link">Ver casos de éxito de otros pintores &rarr;</a></div>
+      <div style="margin-top: 24px;"><a href="/testimonials" target="_blank" rel="noopener" class="proof-link">Ver casos de éxito de otros pintores &rarr;</a></div>
     </div>
   </div>
 </section>
@@ -281,14 +268,8 @@
 <section class="qualify" id="aplicar">
   <div class="container text-center">
     <div class="divider divider-center"></div>
-    <div class="section-label">Paso 2 &middot; Aplicación</div>
     <h2 class="section-title">Aplica Para Trabajar Con Nosotros</h2>
-    <p class="section-sub">Solo trabajamos con dueños de compañías de pintura en EE.UU. Contesta estas 8 preguntas rápidas &mdash; una por una, toma menos de un minuto &mdash; y al terminar agendas tu llamada.</p>
-
-    <div class="proof-bar">
-      <div class="proof-bar-text"><strong>¿Prefieres ver resultados reales primero?</strong> Mira lo que consiguieron pintores como Juan en Kentucky y Antonio en San Diego en sus primeras semanas.</div>
-      <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
-    </div>
+    <p class="section-sub">8 preguntas rápidas. Al terminar, agendas tu llamada.</p>
 
     <div class="form-shell locked" id="form-shell">
       <div class="form-lock" id="form-lock">
@@ -296,7 +277,7 @@
           <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="1"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
         </div>
         <div class="lock-title">Formulario Bloqueado</div>
-        <div class="lock-sub">Inicia el video de arriba para desbloquear la aplicación. Necesitamos que entiendas cómo funciona antes de hablar.</div>
+        <div class="lock-sub">Inicia el video de arriba para desbloquear la aplicación.</div>
         <a href="#video-box" class="btn btn-primary" id="lock-cta">Ver el Video Ahora</a>
       </div>
 
@@ -353,7 +334,6 @@
 
           <div class="step" data-input="full_name" data-error="Escribe tu nombre completo para continuar.">
             <div class="q-label"><span class="q-num">Pregunta 05</span>¿Cómo te llamas?</div>
-            <div class="q-hint">Así sabemos con quién estamos hablando en la llamada.</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="text" id="full_name" name="full_name" placeholder="Juan Pérez" autocomplete="name">
             </div>
@@ -361,7 +341,7 @@
 
           <div class="step" data-input="company" data-optional data-error="">
             <div class="q-label"><span class="q-num">Pregunta 06</span>¿Cómo se llama tu compañía?</div>
-            <div class="q-hint">Opcional. Si aún no tienes nombre registrado, puedes saltarte esta pregunta.</div>
+            <div class="q-hint">Opcional.</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="text" id="company" name="company" placeholder="Pérez Painting LLC" autocomplete="organization">
             </div>
@@ -369,7 +349,6 @@
 
           <div class="step" data-input="email" data-error="Escribe un correo electrónico válido para continuar.">
             <div class="q-label"><span class="q-num">Pregunta 07</span>¿A qué correo te enviamos el resultado?</div>
-            <div class="q-hint">Ahí te llega la confirmación de tu llamada.</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="email" id="email" name="email" placeholder="juan@perezpainting.com" autocomplete="email">
             </div>
@@ -377,7 +356,6 @@
 
           <div class="step" data-input="phone" data-error="Escribe tu número de teléfono para continuar.">
             <div class="q-label"><span class="q-num">Pregunta 08</span>¿A qué número te podemos llamar?</div>
-            <div class="q-hint">Es el número al que llamamos para la sesión de 15 minutos.</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
             </div>
@@ -411,7 +389,7 @@
   <div class="container text-center">
     <div class="qualified-tag"><span class="dot"></span> Aplicación Recibida</div>
     <h2 class="section-title">Agenda Tu Llamada Introductoria</h2>
-    <p class="section-sub">Son 15 minutos. Te explicamos exactamente cómo te conseguimos estimados exclusivos y confirmamos si hay cupo en tu zona. Elige tu horario abajo.</p>
+    <p class="section-sub">Son 15 minutos. Elige tu horario abajo.</p>
     <div class="calendar-wrap">
       <!-- GHL Booking Widget — Llamada Introductoria (white-label api.topcoatmedia.com) -->
       <iframe class="cal"
@@ -423,7 +401,6 @@
 
     <div class="proof-cta">
       <h3>Mientras tanto, mira lo que ya están consiguiendo</h3>
-      <p>Compañías de pintura como la tuya que empezaron justo donde estás tú ahora. Así les fue en sus primeras semanas.</p>
       <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
     </div>
   </div>
@@ -478,26 +455,6 @@
   var WEBHOOK_URL = 'https://auto.theoriginagency.net/webhook/topcoat-vsl-qualify';
 
   var CALENDAR_BASE = 'https://api.topcoatmedia.com/widget/booking/iYIf52Ls0YD8nYoGuBSw';
-
-  /* ═══════════════ COUNTDOWN DE URGENCIA ═══════════════════════════════
-     Se reinicia en 5:00 en cada carga y se detiene en cero. */
-  (function countdown() {
-    var total = 5 * 60;
-    var minEl = document.getElementById('cd-min');
-    var secEl = document.getElementById('cd-sec');
-    var noteEl = document.getElementById('cd-note');
-    function tick() {
-      minEl.textContent = String(Math.floor(total / 60)).padStart(2, '0');
-      secEl.textContent = String(total % 60).padStart(2, '0');
-      if (total > 0) {
-        total--;
-        setTimeout(tick, 1000);
-      } else {
-        noteEl.innerHTML = 'Tu lugar ya se liberó &mdash; <strong>aplica ahora antes de que lo tome alguien más</strong>';
-      }
-    }
-    tick();
-  })();
 
   /* ═══════════════ VIDEO GATE + DESBLOQUEO DEL FORMULARIO ═══════════ */
   var gate = document.getElementById('video-gate');
