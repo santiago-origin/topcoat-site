@@ -10,7 +10,7 @@
 
    Eventos que dispara solo:
      PageView     todas las páginas donde se incluya este archivo
-     ViewContent  /vsl — cuando le dan play al video
+     ViewContent  /thank-you — cuando le dan play al video del VSL
      Lead         /vsl — cuando envían la aplicación (parámetro: calificado)
      Schedule     /thank-you — cuando ya agendaron la llamada
    ═══════════════════════════════════════════════════════════════════════ */

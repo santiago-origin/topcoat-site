@@ -45,11 +45,6 @@
   /* .btn declara display:inline-block y le gana al [hidden] del navegador */
   .btn[hidden] { display: none; }
 
-  /* Alert bar */
-  .alert-bar { background: var(--alert); color: var(--white); text-align: center; padding: 13px 24px; font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-top: 73px; line-height: 1.4; }
-  .alert-bar .pulse { display: inline-block; width: 9px; height: 9px; border-radius: 50%; background: var(--white); margin-right: 8px; vertical-align: middle; animation: pulse 1.2s infinite; }
-  @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
-
   /* Hero */
   .hero { background: var(--graphite); padding: 56px 24px 72px; text-align: center; margin-top: 73px; }
   .hero-inner { max-width: 900px; margin: 0 auto; }
@@ -58,38 +53,6 @@
   .hero h1 span { color: var(--terra); }
   .hero p { font-size: 20px; color: rgba(255,255,255,0.72); line-height: 1.65; max-width: 660px; margin: 0 auto 34px; }
   .hero p strong { color: var(--white); }
-
-  /* Video */
-  .video-wrap { max-width: 820px; margin: 0 auto; }
-  .video-box { position: relative; width: 100%; aspect-ratio: 16 / 9; background: var(--warm-black); border: 2px solid var(--terra); overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,0.45); }
-  .video-box iframe, .video-box video { position: absolute; inset: 0; width: 100%; height: 100%; border: none; }
-  .video-ph { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; }
-  .video-ph-text { font-family: 'Montserrat', sans-serif; font-size: 13px; font-weight: 700; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 2px; text-align: center; padding: 0 24px; }
-
-  /* Vista previa borrosa del video detrás del gate.
-     scale(1.1) evita que el blur deje los bordes transparentes. */
-  .video-poster { position: absolute; inset: 0; z-index: 1; background-size: cover; background-position: center; filter: blur(11px) saturate(1.2); transform: scale(1.1); opacity: 0; transition: opacity 0.5s ease; }
-  .video-poster.ready { opacity: 1; }
-
-  /* Urgency gate over the video — translúcido para que se vea el video atrás */
-  .video-gate { position: absolute; inset: 0; z-index: 5; background: linear-gradient(180deg, rgba(26,26,46,0.42) 0%, rgba(26,26,46,0.68) 100%); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 20px; padding: 24px; text-align: center; cursor: pointer; transition: opacity 0.25s; }
-  /* Sin thumbnail (YOUTUBE_ID vacío) el gate queda sólido como antes */
-  .video-box:not(.has-poster) .video-gate { background: var(--warm-black); }
-  .gate-kicker { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: #E8834F; text-transform: uppercase; letter-spacing: 2.5px; text-shadow: 0 2px 10px rgba(0,0,0,0.85); }
-  .gate-play { width: 84px; height: 84px; border-radius: 50%; background: var(--terra); display: flex; align-items: center; justify-content: center; transition: transform 0.2s, background 0.2s; animation: throb 2s ease-in-out infinite; }
-  .gate-play::after { content: ''; border-style: solid; border-width: 15px 0 15px 26px; border-color: transparent transparent transparent var(--white); margin-left: 7px; }
-  .video-gate:hover .gate-play { background: var(--terra-dark); transform: scale(1.06); }
-  @keyframes throb { 0%, 100% { box-shadow: 0 0 0 0 rgba(168,81,46,0.55); } 50% { box-shadow: 0 0 0 22px rgba(168,81,46,0); } }
-  .gate-cta { font-family: 'Montserrat', sans-serif; font-size: 19px; font-weight: 800; color: var(--white); text-transform: uppercase; letter-spacing: 1.5px; line-height: 1.3; text-shadow: 0 2px 14px rgba(0,0,0,0.9); }
-  .gate-sub { font-size: 14px; color: rgba(255,255,255,0.82); max-width: 420px; line-height: 1.6; text-shadow: 0 2px 10px rgba(0,0,0,0.9); }
-
-  /* Countdown */
-  .countdown { display: inline-flex; gap: 12px; margin: 30px 0 10px; }
-  .count-box { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); padding: 13px 20px; min-width: 76px; }
-  .count-num { font-family: 'Montserrat', sans-serif; font-size: 32px; font-weight: 900; color: var(--white); line-height: 1; }
-  .count-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 1.5px; margin-top: 8px; }
-  .countdown-note { font-family: 'Montserrat', sans-serif; font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 1.5px; }
-  .countdown-note strong { color: var(--terra); }
 
   /* Section */
   section { padding: 80px 24px; }
@@ -106,13 +69,6 @@
   .qualify { background: var(--sand-light); }
   .form-shell { position: relative; max-width: 760px; margin: 48px auto 0; }
   .form-card { background: var(--white); border: 2px solid var(--border); padding: 48px 44px; }
-  .form-shell.locked .form-card { filter: blur(3px); pointer-events: none; user-select: none; }
-  .form-lock { display: none; position: absolute; inset: 0; z-index: 4; background: rgba(250,246,241,0.82); flex-direction: column; align-items: center; justify-content: center; gap: 16px; text-align: center; padding: 32px; }
-  .form-shell.locked .form-lock { display: flex; }
-  .lock-icon { width: 52px; height: 52px; border: 3px solid var(--terra); display: flex; align-items: center; justify-content: center; }
-  .lock-icon svg { width: 26px; height: 26px; stroke: var(--terra); stroke-width: 2.2; fill: none; }
-  .lock-title { font-family: 'Montserrat', sans-serif; font-size: 20px; font-weight: 800; color: var(--graphite); text-transform: uppercase; letter-spacing: 1px; }
-  .lock-sub { font-size: 15px; color: var(--text-light); max-width: 380px; line-height: 1.6; }
 
   /* ── Wizard: una pregunta por paso ─────────────────────────────── */
   .form-card { display: flex; flex-direction: column; }
@@ -203,11 +159,6 @@
     .hero { padding: 40px 24px 54px; }
     .hero h1 { font-size: 32px; letter-spacing: -0.8px; }
     .hero p { font-size: 17px; }
-    .gate-play { width: 66px; height: 66px; }
-    .gate-play::after { border-width: 12px 0 12px 20px; }
-    .gate-cta { font-size: 15px; }
-    .gate-sub { font-size: 13px; }
-    .countdown { gap: 8px; }
     .count-box { min-width: 64px; padding: 11px 14px; }
     .count-num { font-size: 26px; }
     .section-title { font-size: 27px; }
@@ -236,31 +187,9 @@
     <div class="hero-label">Solo Para Dueños de Compañías de Pintura en EE.UU.</div>
     <h1>Te Conseguimos <span>Entre $15,000 y $27,000 al Mes</span> en Ingresos Potenciales en Tus Primeros 30 Días</h1>
 
-    <div class="video-wrap">
-      <div class="video-box" id="video-box">
-        <!-- ═══════════════════════════════════════════════════════════════
-             VIDEO DEL VSL — cuando esté grabado, pega el ID de YouTube en
-             la constante YOUTUBE_ID dentro del <script> al final del archivo.
-             Ejemplo: var YOUTUBE_ID = 'dQw4w9WgXcQ';
-             Mientras esté vacía se muestra el placeholder de abajo.
-             ═══════════════════════════════════════════════════════════════ -->
-        <!-- Vista previa borrosa: se llena con el thumbnail real del video
-             para que se note que ahí hay un video, sin revelarlo todavía. -->
-        <div class="video-poster" id="video-poster"></div>
-
-        <div class="video-ph" id="video-ph">
-          <div class="video-ph-text">Espacio del video &mdash; pega aquí el ID de YouTube</div>
-        </div>
-
-        <!-- Urgency gate: el visitante debe dar clic para ver el video -->
-        <div class="video-gate" id="video-gate" role="button" tabindex="0" aria-label="Reproducir el video">
-          <div class="gate-play"></div>
-          <div class="gate-cta">Dale Clic Para Ver Cómo Funciona</div>
-        </div>
-      </div>
-
-      <div style="margin-top: 24px;"><a href="/testimonials" target="_blank" rel="noopener" class="proof-link">Ver casos de éxito de otros pintores &rarr;</a></div>
-    </div>
+    <!-- El video del VSL ya no va aquí: se ve en /thank-you, después de agendar. -->
+    <a href="#aplicar" class="btn btn-primary">Ver Si Califico</a>
+    <div><a href="/testimonials" target="_blank" rel="noopener" class="proof-link">Ver casos de éxito de otros pintores &rarr;</a></div>
   </div>
 </section>
 
@@ -271,15 +200,7 @@
     <h2 class="section-title">Aplica Para Trabajar Con Nosotros</h2>
     <p class="section-sub">8 preguntas rápidas. Al terminar, agendas tu llamada.</p>
 
-    <div class="form-shell locked" id="form-shell">
-      <div class="form-lock" id="form-lock">
-        <div class="lock-icon">
-          <svg viewBox="0 0 24 24"><rect x="4" y="11" width="16" height="10" rx="1"></rect><path d="M8 11V7a4 4 0 0 1 8 0v4"></path></svg>
-        </div>
-        <div class="lock-title">Formulario Bloqueado</div>
-        <div class="lock-sub">Inicia el video de arriba para desbloquear la aplicación.</div>
-        <a href="#video-box" class="btn btn-primary" id="lock-cta">Ver el Video Ahora</a>
-      </div>
+    <div class="form-shell" id="form-shell">
 
       <!-- ═══ Wizard: cada pregunta es un paso ═══════════════════════════
            Para agregar/quitar un paso basta con agregar o borrar un
@@ -445,100 +366,12 @@
   'use strict';
 
   /* ═══════════════ CONFIGURACIÓN ═══════════════════════════════════════
-     YOUTUBE_ID         ID del video no listado de YouTube. Vacío = placeholder.
-     UNLOCK_DELAY_SECS  Segundos de video antes de desbloquear el formulario.
-                        0 = se desbloquea apenas dan clic en el video.
      WEBHOOK_URL        Webhook de n8n que recibe la aplicación.
+     El video del VSL vive en /thank-you (YOUTUBE_ID en ese archivo).
      ═══════════════════════════════════════════════════════════════════ */
-  var YOUTUBE_ID = 'R42CrBBTSuY';
-  var UNLOCK_DELAY_SECS = 0;
   var WEBHOOK_URL = 'https://auto.theoriginagency.net/webhook/topcoat-vsl-qualify';
 
   var CALENDAR_BASE = 'https://api.topcoatmedia.com/widget/booking/iYIf52Ls0YD8nYoGuBSw';
-
-  /* ═══════════════ VIDEO GATE + DESBLOQUEO DEL FORMULARIO ═══════════ */
-  var gate = document.getElementById('video-gate');
-  var shell = document.getElementById('form-shell');
-  var started = false;
-
-  /* Vista previa borrosa: carga el thumbnail de YouTube detrás del gate.
-     maxresdefault no existe en todos los videos, así que si falla se cae
-     a hqdefault, que YouTube genera siempre. */
-  (function loadPoster() {
-    if (!YOUTUBE_ID) return;
-    var posterEl = document.getElementById('video-poster');
-    var box = document.getElementById('video-box');
-    var ph = document.getElementById('video-ph');
-
-    function apply(url) {
-      posterEl.style.backgroundImage = 'url("' + url + '")';
-      posterEl.classList.add('ready');
-      box.classList.add('has-poster');
-      if (ph) ph.remove();
-    }
-
-    var hi = new Image();
-    hi.onload = function () {
-      // YouTube devuelve un placeholder gris de 120x90 cuando no hay maxres
-      if (hi.naturalWidth > 320) apply(hi.src);
-      else apply('https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg');
-    };
-    hi.onerror = function () {
-      apply('https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg');
-    };
-    hi.src = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/maxresdefault.jpg';
-  })();
-
-  function unlockForm() {
-    shell.classList.remove('locked');
-  }
-
-  function startVideo() {
-    if (started) return;
-    started = true;
-
-    if (YOUTUBE_ID) {
-      var ph = document.getElementById('video-ph');
-      if (ph) ph.remove();
-      // El poster tiene z-index 1: hay que quitarlo o taparía al iframe
-      var posterEl = document.getElementById('video-poster');
-      if (posterEl) posterEl.remove();
-      var frame = document.createElement('iframe');
-      frame.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID +
-                  '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-      frame.title = 'Video Topcoat Media';
-      frame.allow = 'autoplay; encrypted-media; fullscreen';
-      frame.setAttribute('allowfullscreen', '');
-      document.getElementById('video-box').appendChild(frame);
-    }
-
-    gate.style.opacity = '0';
-    setTimeout(function () { gate.remove(); }, 250);
-
-    // Meta Pixel: dieron play al VSL
-    if (window.tcmTrack) {
-      window.tcmTrack('ViewContent', {
-        content_name: 'VSL Topcoat',
-        content_category: 'vsl_video'
-      });
-    }
-
-    if (UNLOCK_DELAY_SECS > 0) {
-      setTimeout(unlockForm, UNLOCK_DELAY_SECS * 1000);
-    } else {
-      unlockForm();
-    }
-  }
-
-  gate.addEventListener('click', startVideo);
-  gate.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startVideo(); }
-  });
-
-  // El CTA del candado también inicia el video, además de hacer scroll
-  document.getElementById('lock-cta').addEventListener('click', function () {
-    setTimeout(startVideo, 400);
-  });
 
   /* ═══════════════ FORMULARIO DE APLICACIÓN ═══════════════════════════
      ÚNICA REGLA: tiene que ser dueño de una compañía de pintura en EE.UU.
