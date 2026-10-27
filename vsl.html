@@ -141,7 +141,7 @@
   iframe.cal { width: 100%; min-height: 720px; border: none; overflow: hidden; display: block; }
 
   /* Result: not qualified */
-  #not-qualified { display: none; background: var(--sand-light); }
+  #not-qualified, #not-qualified-revenue { display: none; background: var(--sand-light); }
   .nq-card { max-width: 720px; margin: 0 auto; background: var(--white); border: 2px solid var(--border); border-top: 4px solid var(--graphite); padding: 56px 48px; text-align: left; }
   .nq-card h2 { font-family: 'Montserrat', sans-serif; font-size: 30px; font-weight: 800; color: var(--graphite); line-height: 1.15; margin-bottom: 20px; letter-spacing: -0.5px; }
   .nq-card p { font-size: 17px; color: var(--text-light); line-height: 1.75; margin-bottom: 18px; }
@@ -230,10 +230,14 @@
           <div class="step" data-radio="revenue" data-error="Selecciona tu rango de facturación para continuar.">
             <div class="q-label"><span class="q-num">Pregunta 02</span>¿Cuál es tu facturación mensual?</div>
             <div class="opts">
-              <label class="opt"><input type="radio" name="revenue" value="5-10k"><span>$5,000 &ndash; $10,000 al mes</span></label>
+              <!-- lt10k cierra el formulario ahí mismo (ver next()). Los demás
+                   valores los entiende el workflow del VSL en n8n: si se cambian
+                   aquí, hay que cambiarlos en el nodo Normalizar. -->
+              <label class="opt"><input type="radio" name="revenue" value="lt10k"><span>Menos de $10,000 al mes</span></label>
               <label class="opt"><input type="radio" name="revenue" value="10-20k"><span>$10,000 &ndash; $20,000 al mes</span></label>
-              <label class="opt"><input type="radio" name="revenue" value="20-40k"><span>$20,000 &ndash; $40,000 al mes</span></label>
-              <label class="opt"><input type="radio" name="revenue" value="50k+"><span>$50,000 al mes o más</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="20-30k"><span>$20,000 &ndash; $30,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="30-40k"><span>$30,000 &ndash; $40,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="40k+"><span>$40,000 al mes o más</span></label>
             </div>
           </div>
 
@@ -342,6 +346,25 @@
     <div class="proof-cta on-sand">
       <h3>Mira a dónde puedes llegar</h3>
       <p>Estos pintores también empezaron desde cero. Te dejamos sus historias para cuando tengas tu propia compañía.</p>
+      <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
+    </div>
+  </div>
+</section>
+
+<!-- Result: NOT QUALIFIED por facturación (menos de $10,000 al mes).
+     Se muestra en la pregunta 02, antes de pedir datos de contacto, así que
+     no se manda nada a n8n, GHL ni Meta. -->
+<section id="not-qualified-revenue">
+  <div class="container">
+    <div class="nq-card">
+      <div class="divider"></div>
+      <h2>Gracias por tu interés — por ahora trabajamos con compañías que facturan $10,000 o más al mes</h2>
+      <p>Nuestro sistema está hecho para <strong>compañías de pintura que ya facturan más de $10,000 al mes</strong>. Es el punto donde los estimados que te llevamos se convierten en crecimiento de verdad.</p>
+      <p><strong>Cuando llegues a ese nivel, vuelve a aplicar</strong> y con gusto hablamos.</p>
+    </div>
+
+    <div class="proof-cta on-sand">
+      <h3>Mira a dónde puedes llegar</h3>
       <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary">Ver Casos de Éxito</a>
     </div>
   </div>
@@ -470,9 +493,21 @@
     renderStep(focus);
   }
 
+  /* Menos de $10,000 al mes: el formulario termina en la pregunta 02. Todavía
+     no hay nombre, correo ni teléfono, así que no se manda nada. */
+  function closeForRevenue() {
+    document.getElementById('aplicar').style.display = 'none';
+    var nq = document.getElementById('not-qualified-revenue');
+    nq.style.display = 'block';
+    nq.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
   function next() {
     var msg = validateStep(current);
     if (msg) return fail(msg);
+    if (steps[current].getAttribute('data-radio') === 'revenue' && checked('revenue') === 'lt10k') {
+      return closeForRevenue();
+    }
     if (current < steps.length - 1) {
       goTo(current + 1, true);
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
