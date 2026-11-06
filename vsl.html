@@ -230,14 +230,14 @@
           <div class="step" data-radio="revenue" data-error="Selecciona tu rango de facturación para continuar.">
             <div class="q-label"><span class="q-num">Pregunta 02</span>¿Cuál es tu facturación mensual?</div>
             <div class="opts">
-              <!-- lt10k cierra el formulario ahí mismo (ver next()). Los demás
+              <!-- lt8k cierra el formulario ahí mismo (ver next()). Los demás
                    valores los entiende el workflow del VSL en n8n: si se cambian
                    aquí, hay que cambiarlos en el nodo Normalizar. -->
-              <label class="opt"><input type="radio" name="revenue" value="lt10k"><span>Menos de $10,000 al mes</span></label>
-              <label class="opt"><input type="radio" name="revenue" value="10-20k"><span>$10,000 &ndash; $20,000 al mes</span></label>
-              <label class="opt"><input type="radio" name="revenue" value="20-30k"><span>$20,000 &ndash; $30,000 al mes</span></label>
-              <label class="opt"><input type="radio" name="revenue" value="30-40k"><span>$30,000 &ndash; $40,000 al mes</span></label>
-              <label class="opt"><input type="radio" name="revenue" value="40k+"><span>$40,000 al mes o más</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="lt8k"><span>Menos de $8,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="8-15k"><span>$8,000 &ndash; $15,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="15-25k"><span>$15,000 &ndash; $25,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="25-40k"><span>$25,000 &ndash; $40,000 al mes</span></label>
+              <label class="opt"><input type="radio" name="revenue" value="40-60k"><span>$40,000 &ndash; $60,000 al mes</span></label>
             </div>
           </div>
 
@@ -351,15 +351,15 @@
   </div>
 </section>
 
-<!-- Result: NOT QUALIFIED por facturación (menos de $10,000 al mes).
+<!-- Result: NOT QUALIFIED por facturación (menos de $8,000 al mes).
      Se muestra en la pregunta 02, antes de pedir datos de contacto, así que
      no se manda nada a n8n, GHL ni Meta. -->
 <section id="not-qualified-revenue">
   <div class="container">
     <div class="nq-card">
       <div class="divider"></div>
-      <h2>Gracias por tu interés — por ahora trabajamos con compañías que facturan $10,000 o más al mes</h2>
-      <p>Nuestro sistema está hecho para <strong>compañías de pintura que ya facturan más de $10,000 al mes</strong>. Es el punto donde los estimados que te llevamos se convierten en crecimiento de verdad.</p>
+      <h2>Gracias por tu interés — por ahora trabajamos con compañías que facturan $8,000 o más al mes</h2>
+      <p>Nuestro sistema está hecho para <strong>compañías de pintura que ya facturan $8,000 o más al mes</strong>. Es el punto donde los estimados que te llevamos se convierten en crecimiento de verdad.</p>
       <p><strong>Cuando llegues a ese nivel, vuelve a aplicar</strong> y con gusto hablamos.</p>
     </div>
 
@@ -493,7 +493,7 @@
     renderStep(focus);
   }
 
-  /* Menos de $10,000 al mes: el formulario termina en la pregunta 02. Todavía
+  /* Menos de $8,000 al mes: el formulario termina en la pregunta 02. Todavía
      no hay nombre, correo ni teléfono, así que no se manda nada. */
   function closeForRevenue() {
     document.getElementById('aplicar').style.display = 'none';
@@ -505,7 +505,7 @@
   function next() {
     var msg = validateStep(current);
     if (msg) return fail(msg);
-    if (steps[current].getAttribute('data-radio') === 'revenue' && checked('revenue') === 'lt10k') {
+    if (steps[current].getAttribute('data-radio') === 'revenue' && checked('revenue') === 'lt8k') {
       return closeForRevenue();
     }
     if (current < steps.length - 1) {
