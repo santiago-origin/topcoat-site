@@ -256,7 +256,7 @@
   <div class="container text-center">
     <div class="divider divider-center"></div>
     <h2 class="section-title">Aplica Para Trabajar Con Nosotros</h2>
-    <p class="section-sub">8 preguntas rápidas. Al terminar, agendas tu llamada.</p>
+    <p class="section-sub">9 preguntas rápidas. Al terminar, agendas tu llamada.</p>
 
     <div class="form-shell locked" id="form-shell">
       <div class="form-lock" id="form-lock">
@@ -281,7 +281,7 @@
       <form class="form-card" id="qualify-form" novalidate style="text-align: left;">
 
         <div class="form-progress"><div class="form-progress-bar" id="progress-bar"></div></div>
-        <div class="step-counter" id="step-counter">Paso 1 de 8</div>
+        <div class="step-counter" id="step-counter">Paso 1 de 9</div>
 
         <div class="steps-area">
 
@@ -307,8 +307,21 @@
             </div>
           </div>
 
+          <div class="step" data-radio="job_source" data-error="Selecciona una opción para continuar.">
+            <div class="q-label"><span class="q-num">Pregunta 03</span>¿Cómo consigues la mayoría de tus trabajos?</div>
+            <div class="q-hint">No hay respuesta incorrecta.</div>
+            <div class="opts">
+              <!-- Los valores los entiende el workflow del VSL en n8n (nodo Normalizar):
+                   'sub' entra a GHL con el tag subcontractor, pero Meta no recibe
+                   QualifiedLead por él. Si se cambian aquí, hay que cambiarlos allá. -->
+              <label class="opt"><input type="radio" name="job_source" value="direct"><span>Le vendo directo a dueños de casa o de negocios</span></label>
+              <label class="opt"><input type="radio" name="job_source" value="sub"><span>Trabajo como subcontratista para otros contratistas, GCs o builders</span></label>
+              <label class="opt"><input type="radio" name="job_source" value="mix"><span>Mitad y mitad</span></label>
+            </div>
+          </div>
+
           <div class="step" data-radio="licensed" data-error="Selecciona una opción para continuar.">
-            <div class="q-label"><span class="q-num">Pregunta 03</span>¿Cuentas con licencia, seguro y todo en regla?</div>
+            <div class="q-label"><span class="q-num">Pregunta 04</span>¿Cuentas con licencia, seguro y todo en regla?</div>
             <div class="opts two">
               <label class="opt"><input type="radio" name="licensed" value="si"><span>Sí, todo en regla</span></label>
               <label class="opt"><input type="radio" name="licensed" value="no"><span>Todavía no</span></label>
@@ -316,7 +329,7 @@
           </div>
 
           <div class="step" data-input="service_area" data-error="Escribe tu área de servicio para continuar.">
-            <div class="q-label"><span class="q-num">Pregunta 04</span>¿Cuál es tu área de servicio?</div>
+            <div class="q-label"><span class="q-num">Pregunta 05</span>¿Cuál es tu área de servicio?</div>
             <div class="q-hint">Escribe tu ciudad principal y hasta qué distancia viajas para dar estimados.</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="text" id="service_area" name="service_area" placeholder="Eg: Louisville, KY - 35 millas a la redonda">
@@ -324,28 +337,28 @@
           </div>
 
           <div class="step" data-input="full_name" data-error="Escribe tu nombre completo para continuar.">
-            <div class="q-label"><span class="q-num">Pregunta 05</span>¿Cómo te llamas?</div>
+            <div class="q-label"><span class="q-num">Pregunta 06</span>¿Cómo te llamas?</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="text" id="full_name" name="full_name" placeholder="Juan Pérez" autocomplete="name">
             </div>
           </div>
 
           <div class="step" data-input="company" data-error="Escribe el nombre de tu compañía para continuar.">
-            <div class="q-label"><span class="q-num">Pregunta 06</span>¿Cómo se llama tu compañía?</div>
+            <div class="q-label"><span class="q-num">Pregunta 07</span>¿Cómo se llama tu compañía?</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="text" id="company" name="company" placeholder="Pérez Painting LLC" autocomplete="organization">
             </div>
           </div>
 
           <div class="step" data-input="email" data-error="Escribe un correo electrónico válido para continuar.">
-            <div class="q-label"><span class="q-num">Pregunta 07</span>¿A qué correo te enviamos el resultado?</div>
+            <div class="q-label"><span class="q-num">Pregunta 08</span>¿A qué correo te enviamos el resultado?</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="email" id="email" name="email" placeholder="juan@perezpainting.com" autocomplete="email">
             </div>
           </div>
 
           <div class="step" data-input="phone" data-error="Escribe tu número de teléfono para continuar.">
-            <div class="q-label"><span class="q-num">Pregunta 08</span>¿A qué número te podemos llamar?</div>
+            <div class="q-label"><span class="q-num">Pregunta 09</span>¿A qué número te podemos llamar?</div>
             <div class="field" style="margin-bottom: 0;">
               <input type="tel" id="phone" name="phone" placeholder="(555) 123-4567" autocomplete="tel">
             </div>
@@ -589,7 +602,7 @@
 
      metaQualified viaja en sessionStorage hasta /thank-you: esa página
      dispara el evento Schedule a Meta solo si esta reserva es de un dueño
-     de compañía de pintura en EE.UU. */
+     de compañía de pintura en EE.UU. que no trabaja de subcontratista. */
   function showCalendar(data, metaQualified) {
     var parts = String(data.full_name || '').trim().split(/\s+/);
     var params = new URLSearchParams({
@@ -780,6 +793,7 @@
       disqualified_reason: qualified ? '' : 'no_es_dueno_us',
       owner_us_painting_company: owner,
       monthly_revenue: revenue,
+      job_source: checked('job_source'),
       licensed_insured: checked('licensed'),
       service_area: area.value.trim(),
       full_name: name.value.trim(),
@@ -809,7 +823,8 @@
       document.getElementById('aplicar').style.display = 'none';
 
       if (qualified) {
-        showCalendar(payload, qualified);
+        // El subcontratista también agenda, pero sin Schedule a Meta
+        showCalendar(payload, payload.job_source !== 'sub');
       } else {
         var nq = document.getElementById('not-qualified');
         nq.style.display = 'block';
