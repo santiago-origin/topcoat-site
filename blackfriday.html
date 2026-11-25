@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- /blackfriday: copia del VSL (vsl.html) con la oferta de Black Friday y un formulario corto
+<!-- /blackfriday: copia del VSL (vsl.html) sin el video, con la oferta de Black Friday y un formulario corto
      (dueño, facturación, zona de trabajo, nombre, correo y teléfono). Manda al mismo webhook de n8n
      con source "blackfriday" y muestra el mismo calendario de llamada introductoria. -->
 <html lang="es" style="scroll-behavior: smooth;">
@@ -193,18 +193,6 @@
 <section class="hero">
   <p class="kicker">Oferta Black Friday &mdash; Solo Para Contratistas de Pintura</p>
   <h1>Acceso Total a Nuestro Sistema: <u>15 Estimados en 30 Días</u> con 50% de Descuento</h1>
-
-  <div class="video-box" id="video-box">
-    <!-- Vista previa borrosa: se llena con el thumbnail real del video
-         para que se note que ahí hay un video, sin revelarlo todavía. -->
-    <div class="video-poster" id="video-poster"></div>
-
-    <!-- Hay que dar clic aquí para ver el video y desbloquear el formulario -->
-    <div class="video-gate" id="video-gate" role="button" tabindex="0" aria-label="Reproducir el video">
-      <div class="gate-play"></div>
-      <div class="gate-cta">Dale Clic Para Ver Cómo Funciona</div>
-    </div>
-  </div>
 </section>
 
 <!-- Qualification form -->
@@ -212,13 +200,7 @@
   <h2 class="title">Por Favor, Contesta las Preguntas Aquí</h2>
   <p class="sub">6 preguntas rápidas. Al terminar, agendas tu llamada introductoria.</p>
 
-  <div class="form-shell locked" id="form-shell">
-    <div class="form-lock" id="form-lock">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-      <div class="lock-title">Dale play al video de arriba para desbloquear la aplicación</div>
-      <a href="#video-box" class="btn btn-primary btn-pill" id="lock-cta">Ver el Video</a>
-    </div>
-
+  <div class="form-shell" id="form-shell">
     <!-- ═══ Wizard: cada pregunta es un paso ═══════════════════════════
          Para agregar/quitar un paso basta con agregar o borrar un
          <div class="step">. El contador, la barra de progreso y la
@@ -389,92 +371,11 @@
   'use strict';
 
   /* ═══════════════ CONFIGURACIÓN ═══════════════════════════════════════
-     YOUTUBE_ID         ID del video del VSL en YouTube (también en /thank-you).
-     UNLOCK_DELAY_SECS  Segundos desde que dan play hasta desbloquear el
-                        formulario. 0 = se desbloquea apenas dan clic.
      WEBHOOK_URL        Webhook de n8n que recibe la aplicación.
      ═══════════════════════════════════════════════════════════════════ */
-  var YOUTUBE_ID = 'R42CrBBTSuY';
-  var UNLOCK_DELAY_SECS = 0;
   var WEBHOOK_URL = 'https://auto.theoriginagency.net/webhook/topcoat-vsl-qualify';
 
   var CALENDAR_BASE = 'https://api.topcoatmedia.com/widget/booking/iYIf52Ls0YD8nYoGuBSw';
-
-  /* ═══════════════ VIDEO GATE + DESBLOQUEO DEL FORMULARIO ═══════════ */
-  var gate = document.getElementById('video-gate');
-  var shell = document.getElementById('form-shell');
-  var started = false;
-
-  /* Vista previa borrosa: carga el thumbnail de YouTube detrás del gate.
-     maxresdefault no existe en todos los videos, así que si falla se cae
-     a hqdefault, que YouTube genera siempre. */
-  (function loadPoster() {
-    var posterEl = document.getElementById('video-poster');
-    var box = document.getElementById('video-box');
-
-    function apply(url) {
-      posterEl.style.backgroundImage = 'url("' + url + '")';
-      posterEl.classList.add('ready');
-      box.classList.add('has-poster');
-    }
-
-    var hi = new Image();
-    hi.onload = function () {
-      // YouTube devuelve un placeholder gris de 120x90 cuando no hay maxres
-      if (hi.naturalWidth > 320) apply(hi.src);
-      else apply('https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg');
-    };
-    hi.onerror = function () {
-      apply('https://i.ytimg.com/vi/' + YOUTUBE_ID + '/hqdefault.jpg');
-    };
-    hi.src = 'https://i.ytimg.com/vi/' + YOUTUBE_ID + '/maxresdefault.jpg';
-  })();
-
-  function unlockForm() {
-    shell.classList.remove('locked');
-  }
-
-  function startVideo() {
-    if (started) return;
-    started = true;
-
-    // El poster tiene z-index 1: hay que quitarlo o taparía al iframe
-    document.getElementById('video-poster').remove();
-    var frame = document.createElement('iframe');
-    frame.src = 'https://www.youtube-nocookie.com/embed/' + YOUTUBE_ID +
-                '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
-    frame.title = 'Video Topcoat Media';
-    frame.allow = 'autoplay; encrypted-media; fullscreen';
-    frame.setAttribute('allowfullscreen', '');
-    document.getElementById('video-box').appendChild(frame);
-
-    gate.style.opacity = '0';
-    setTimeout(function () { gate.remove(); }, 250);
-
-    // Meta Pixel: dieron play al VSL
-    if (window.tcmTrack) {
-      window.tcmTrack('ViewContent', {
-        content_name: 'VSL Topcoat - Black Friday',
-        content_category: 'vsl_video'
-      });
-    }
-
-    if (UNLOCK_DELAY_SECS > 0) {
-      setTimeout(unlockForm, UNLOCK_DELAY_SECS * 1000);
-    } else {
-      unlockForm();
-    }
-  }
-
-  gate.addEventListener('click', startVideo);
-  gate.addEventListener('keydown', function (e) {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); startVideo(); }
-  });
-
-  // El CTA del candado también inicia el video, además de hacer scroll
-  document.getElementById('lock-cta').addEventListener('click', function () {
-    setTimeout(startVideo, 400);
-  });
 
   /* ═══════════════ FORMULARIO DE APLICACIÓN ═══════════════════════════
      ÚNICA REGLA: tiene que ser dueño de una compañía de pintura en EE.UU.
