@@ -144,7 +144,7 @@
   iframe.cal { width: 100%; min-height: 720px; border: none; overflow: hidden; display: block; }
 
   /* No califica */
-  #not-qualified, #not-qualified-revenue { display: none; padding-top: 48px; padding-bottom: 72px; text-align: center; }
+  #not-qualified { display: none; padding-top: 48px; padding-bottom: 72px; text-align: center; }
   .nq p { max-width: 640px; margin: 16px auto 0; font-size: 18px; color: var(--text); line-height: 1.6; }
   .nq p strong { color: var(--ink); }
   .nq .btn { margin-top: 28px; }
@@ -245,14 +245,14 @@
         <div class="step" data-radio="revenue" data-error="Selecciona tu rango de facturación para continuar.">
           <div class="q-label">¿Cuál es tu facturación mensual?</div>
           <div class="opts">
-            <!-- lt8k cierra el formulario ahí mismo (ver next()). Los demás
-                 valores los entiende el workflow del VSL en n8n: si se cambian
-                 aquí, hay que cambiarlos en el nodo Normalizar. -->
-            <label class="opt"><input type="radio" name="revenue" value="lt8k"><span>Menos de $8,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="8-15k"><span>$8,000 &ndash; $15,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="15-25k"><span>$15,000 &ndash; $25,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="25-40k"><span>$25,000 &ndash; $40,000 al mes</span></label>
-            <label class="opt"><input type="radio" name="revenue" value="40-60k"><span>$40,000 &ndash; $60,000 al mes</span></label>
+            <!-- Los valores los entiende el workflow del VSL en n8n (nodo Normalizar):
+                 5-10k entra a GHL pero a Meta no se le manda nada (ni Lead ni
+                 QualifiedLead); 10-20k, 20-40k y 50k+ mandan QualifiedLead.
+                 Si se cambian aquí, hay que cambiarlos allá. -->
+            <label class="opt"><input type="radio" name="revenue" value="5-10k"><span>$5,000 &ndash; $10,000 al mes</span></label>
+            <label class="opt"><input type="radio" name="revenue" value="10-20k"><span>$10,000 &ndash; $20,000 al mes</span></label>
+            <label class="opt"><input type="radio" name="revenue" value="20-40k"><span>$20,000 &ndash; $40,000 al mes</span></label>
+            <label class="opt"><input type="radio" name="revenue" value="50k+"><span>$50,000 al mes o más</span></label>
           </div>
         </div>
 
@@ -391,16 +391,6 @@
   <p>Nuestro sistema funciona únicamente con <strong>dueños de compañías de pintura que ya están operando en Estados Unidos</strong>. Somos nosotros quienes les llevamos estimados directo a su calendario, así que necesitamos hablar con quien toma las decisiones del negocio.</p>
   <p>Si trabajas para una compañía de pintura, compártele esta página al dueño para que aplique directamente.</p>
   <p><strong>Cuando tengas tu propia compañía registrada en EE.UU., vuelve a aplicar</strong> y con gusto hablamos.</p>
-  <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary btn-pill">Ver Casos de Éxito</a>
-</section>
-
-<!-- Result: NOT QUALIFIED por facturación (menos de $8,000 al mes).
-     Se muestra en la pregunta 02, antes de pedir datos de contacto, así que
-     no se manda nada a n8n, GHL ni Meta. -->
-<section id="not-qualified-revenue" class="nq">
-  <h2 class="title">Gracias por tu interés. Por ahora trabajamos con compañías que facturan $8,000 o más al mes.</h2>
-  <p>Nuestro sistema está hecho para <strong>compañías de pintura que ya facturan $8,000 o más al mes</strong>. Es el punto donde los estimados que te llevamos se convierten en crecimiento de verdad.</p>
-  <p><strong>Cuando llegues a ese nivel, vuelve a aplicar</strong> y con gusto hablamos.</p>
   <a href="/testimonials" target="_blank" rel="noopener" class="btn btn-primary btn-pill">Ver Casos de Éxito</a>
 </section>
 
@@ -617,21 +607,9 @@
     renderStep(focus);
   }
 
-  /* Menos de $8,000 al mes: el formulario termina en la pregunta 02. Todavía
-     no hay nombre, correo ni teléfono, así que no se manda nada. */
-  function closeForRevenue() {
-    document.getElementById('aplicar').style.display = 'none';
-    var nq = document.getElementById('not-qualified-revenue');
-    nq.style.display = 'block';
-    nq.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
   function next() {
     var msg = validateStep(current);
     if (msg) return fail(msg);
-    if (steps[current].getAttribute('data-radio') === 'revenue' && checked('revenue') === 'lt8k') {
-      return closeForRevenue();
-    }
     if (current < steps.length - 1) {
       goTo(current + 1, true);
       form.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -700,6 +678,8 @@
     var owner = checked('owner');
     var revenue = checked('revenue');
     var qualified = owner === 'si';
+    // $5k-$10k entra a GHL como cualquier dueño, pero a Meta no se le manda nada.
+    var metaSignal = qualified && revenue !== '5-10k';
 
     var payload = {
       source: 'vsl',
@@ -719,11 +699,11 @@
       sms_consent: true
     };
 
-    /* Meta Pixel: evento Lead SOLO si es dueño en EE.UU. — a los que no, no les
-       mandamos ninguna señal a Facebook. El event_id y el fbclid viajan a
+    /* Meta Pixel: evento Lead SOLO si es dueño en EE.UU. y factura $10k+ — a los
+       demás no les mandamos ninguna señal a Facebook. El event_id y el fbclid viajan a
        n8n para poder reenviar el mismo evento por Conversions API sin
        duplicarlo. */
-    payload.fb_event_id = (qualified && window.tcmTrack) ? window.tcmTrack('Lead', {
+    payload.fb_event_id = (metaSignal && window.tcmTrack) ? window.tcmTrack('Lead', {
       content_name: 'Aplicacion VSL',
       content_category: 'calificado'
     }) : '';
@@ -739,8 +719,8 @@
       document.getElementById('aplicar').style.display = 'none';
 
       if (qualified) {
-        // El subcontratista también agenda, pero sin Schedule a Meta
-        showCalendar(payload, payload.job_source !== 'sub');
+        // El subcontratista y $5k-$10k también agendan, pero sin Schedule a Meta
+        showCalendar(payload, metaSignal && payload.job_source !== 'sub');
       } else {
         var nq = document.getElementById('not-qualified');
         nq.style.display = 'block';
